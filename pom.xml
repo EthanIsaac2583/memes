@@ -6,8 +6,12 @@
   <groupId>kz.ruanjian</groupId>
   <artifactId>memed</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
   <name>memed</name>
   <description>memed</description>
+  <modules>
+    <module>memed-core</module>
+  </modules>
 
   <properties>
     <java.version>1.8</java.version>
