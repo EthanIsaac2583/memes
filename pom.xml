@@ -6,7 +6,6 @@
   <groupId>kz.ruanjian</groupId>
   <artifactId>memed</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
   <name>memed</name>
   <description>memed</description>
 
