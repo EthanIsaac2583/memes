@@ -5,6 +5,7 @@ import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TaskService {
@@ -20,7 +21,11 @@ public class TaskService {
       .orElseThrow(() -> new NotFoundException("Task not found"));
   }
 
+  @Transactional
   public void save(TaskDto taskDto) {
+    Task task = mapToTask(taskDto);
+
+    taskRepository.save(task);
   }
 
   private Task mapToTask(TaskDto taskDto) {
