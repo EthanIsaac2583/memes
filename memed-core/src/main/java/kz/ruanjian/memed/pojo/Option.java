@@ -1,4 +1,4 @@
-package kz.ruanjian.memed.pojo.blank;
+package kz.ruanjian.memed.pojo;
 
 import java.util.Objects;
 

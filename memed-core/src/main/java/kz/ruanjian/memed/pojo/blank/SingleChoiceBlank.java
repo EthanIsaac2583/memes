@@ -1,5 +1,7 @@
 package kz.ruanjian.memed.pojo.blank;
 
+import kz.ruanjian.memed.pojo.Option;
+
 import java.util.Objects;
 import java.util.Set;
 

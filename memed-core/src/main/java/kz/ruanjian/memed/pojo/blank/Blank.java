@@ -1,5 +1,7 @@
 package kz.ruanjian.memed.pojo.blank;
 
+import kz.ruanjian.memed.pojo.BlankType;
+
 import java.util.Objects;
 
 public class Blank {

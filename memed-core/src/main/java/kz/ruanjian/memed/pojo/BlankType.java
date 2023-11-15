@@ -1,4 +1,4 @@
-package kz.ruanjian.memed.pojo.blank;
+package kz.ruanjian.memed.pojo;
 
 public enum BlankType {
 

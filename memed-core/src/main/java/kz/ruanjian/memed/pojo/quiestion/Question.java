@@ -1,5 +1,7 @@
 package kz.ruanjian.memed.pojo.quiestion;
 
+import kz.ruanjian.memed.pojo.QuestionType;
+
 import java.util.Objects;
 
 public class Question {
