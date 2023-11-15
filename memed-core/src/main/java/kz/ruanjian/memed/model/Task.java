@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class Task {
   @Convert(converter = BlankConverter.class)
   private Blank blank;
 
+  @JsonIgnore
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
 
