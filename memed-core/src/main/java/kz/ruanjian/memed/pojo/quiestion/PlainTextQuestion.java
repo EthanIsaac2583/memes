@@ -1,9 +1,12 @@
 package kz.ruanjian.memed.pojo.quiestion;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class PlainTextQuestion extends Question {
 
+  @NotEmpty
   private String question;
 
   public PlainTextQuestion() {

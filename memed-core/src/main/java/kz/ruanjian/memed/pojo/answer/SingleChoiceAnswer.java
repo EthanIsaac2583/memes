@@ -1,9 +1,12 @@
 package kz.ruanjian.memed.pojo.answer;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class SingleChoiceAnswer extends Answer {
 
+  @NotEmpty
   private String key;
 
   public SingleChoiceAnswer() {

@@ -1,10 +1,15 @@
 package kz.ruanjian.memed.pojo;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class Option {
 
+  @NotEmpty
   private String key;
+
+  @NotEmpty
   private String value;
 
   public Option() {

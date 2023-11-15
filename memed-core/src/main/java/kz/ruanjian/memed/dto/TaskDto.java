@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
@@ -16,10 +17,13 @@ public class TaskDto {
 
   private String description;
 
+  @Valid
   private Question question;
 
+  @Valid
   private Blank blank;
 
+  @Valid
   private Answer answer;
 
   public TaskDto() {
