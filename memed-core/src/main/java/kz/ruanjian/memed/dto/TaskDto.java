@@ -1,10 +1,12 @@
 package kz.ruanjian.memed.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.deserializer.QuestionDeserializer;
 import kz.ruanjian.memed.pojo.quiestion.Question;
 
 import java.util.Objects;
@@ -20,6 +22,7 @@ public class TaskDto {
 
   @Valid
   @NotNull
+  @JsonDeserialize(using = QuestionDeserializer.class)
   private Question question;
 
   @Valid
