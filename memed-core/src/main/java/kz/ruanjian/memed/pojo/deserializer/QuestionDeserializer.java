@@ -1,6 +1,5 @@
 package kz.ruanjian.memed.pojo.deserializer;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -22,7 +21,7 @@ public class QuestionDeserializer extends JsonDeserializer<Question> {
   }
 
   @Override
-  public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+  public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
     String stringedQuestion = jsonParser.getCodec().readTree(jsonParser).toString();
     Question question = pojoConverter.convert(stringedQuestion, Question.class);
 
@@ -31,7 +30,7 @@ public class QuestionDeserializer extends JsonDeserializer<Question> {
     }
 
     if (QuestionType.PLAIN_TEXT.equals(question.getType())) {
-      return pojoConverter.convert(jsonParser, PlainTextQuestion.class);
+      return pojoConverter.convert(stringedQuestion, PlainTextQuestion.class);
     }
 
     throw new PojoDeserializeException(String.format("There is no question deserializer for %s type", question.getType()));
