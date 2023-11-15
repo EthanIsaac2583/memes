@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.service;
 
+import kz.ruanjian.memed.dto.TaskDto;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -19,6 +20,19 @@ public class TaskService {
       .orElseThrow(() -> new NotFoundException("Task not found"));
   }
 
-  public void save() {
+  public void save(TaskDto taskDto) {
+  }
+
+  private Task mapToTask(TaskDto taskDto) {
+    Task task = new Task();
+
+    task.setId(taskDto.getId());
+    task.setName(taskDto.getName());
+    task.setDescription(taskDto.getDescription());
+    task.setQuestion(taskDto.getQuestion());
+    task.setBlank(taskDto.getBlank());
+    task.setAnswer(taskDto.getAnswer());
+
+    return task;
   }
 }
