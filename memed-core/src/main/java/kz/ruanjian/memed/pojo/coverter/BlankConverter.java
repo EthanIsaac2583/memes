@@ -17,6 +17,10 @@ public class BlankConverter implements AttributeConverter<Blank, String> {
 
   @Override
   public String convertToDatabaseColumn(Blank blank) {
+    if (blank == null) {
+      return null;
+    }
+
     return pojoConverter.stringify(blank);
   }
 
@@ -24,8 +28,12 @@ public class BlankConverter implements AttributeConverter<Blank, String> {
   public Blank convertToEntityAttribute(String s) {
     Blank blank = pojoConverter.convert(s, Blank.class);
 
+    if (blank == null) {
+      return null;
+    }
+
     if (BlankType.SINGLE_CHOICE.equals(blank.getType())) {
-      return pojoConverter.convert(blank, SingleChoiceBlank.class);
+      return pojoConverter.convert(s, SingleChoiceBlank.class);
     }
 
     throw new PojoConvertException(String.format("There is no blank converter for %s type", blank.getType()));
