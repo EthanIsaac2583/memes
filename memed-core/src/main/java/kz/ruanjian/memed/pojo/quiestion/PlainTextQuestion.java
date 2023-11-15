@@ -33,4 +33,12 @@ public class PlainTextQuestion extends Question {
   public int hashCode() {
     return Objects.hash(super.hashCode(), question);
   }
+
+  @Override
+  public String toString() {
+    return "PlainTextQuestion{" +
+      "question='" + question + '\'' +
+      ", type=" + type +
+      '}';
+  }
 }

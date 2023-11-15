@@ -1,12 +1,14 @@
 package kz.ruanjian.memed.pojo.quiestion;
 
+import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.QuestionType;
 
 import java.util.Objects;
 
 public class Question {
 
-  private QuestionType type;
+  @NotNull
+  protected QuestionType type;
 
   public Question() {
   }
@@ -30,5 +32,12 @@ public class Question {
   @Override
   public int hashCode() {
     return Objects.hash(type);
+  }
+
+  @Override
+  public String toString() {
+    return "Question{" +
+      "type=" + type +
+      '}';
   }
 }

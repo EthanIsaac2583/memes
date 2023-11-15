@@ -1,11 +1,13 @@
 package kz.ruanjian.memed.pojo.answer;
 
+import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.BlankType;
 
 import java.util.Objects;
 
 public class Answer {
 
+  @NotNull
   protected BlankType type;
 
   public Answer() {
