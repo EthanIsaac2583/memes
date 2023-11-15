@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.deserializer.BlankDeserializer;
 import kz.ruanjian.memed.pojo.deserializer.QuestionDeserializer;
 import kz.ruanjian.memed.pojo.quiestion.Question;
 
@@ -27,6 +28,7 @@ public class TaskDto {
 
   @Valid
   @NotNull
+  @JsonDeserialize(using = BlankDeserializer.class)
   private Blank blank;
 
   @Valid

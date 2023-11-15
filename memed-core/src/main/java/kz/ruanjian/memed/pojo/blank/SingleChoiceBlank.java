@@ -2,6 +2,7 @@ package kz.ruanjian.memed.pojo.blank;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.Option;
 
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 public class SingleChoiceBlank extends Blank {
 
+  @NotNull
   @NotEmpty
   @Valid
   private Set<Option> options;
