@@ -28,6 +28,6 @@ public class QuestionConverter implements AttributeConverter<Question, String> {
       return pojoConverter.convert(s, PlainTextQuestion.class);
     }
 
-    throw new PojoConvertException(String.format("There is no pojo converter for %s type", question.getType()));
+    throw new PojoConvertException(String.format("There is no question converter for %s type", question.getType()));
   }
 }
