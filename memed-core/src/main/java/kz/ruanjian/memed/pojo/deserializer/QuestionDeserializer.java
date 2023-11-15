@@ -23,7 +23,8 @@ public class QuestionDeserializer extends JsonDeserializer<Question> {
 
   @Override
   public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-    Question question = pojoConverter.convert(jsonParser, Question.class);
+    String stringedQuestion = jsonParser.getCodec().readTree(jsonParser).toString();
+    Question question = pojoConverter.convert(stringedQuestion, Question.class);
 
     if (question == null) {
       return null;

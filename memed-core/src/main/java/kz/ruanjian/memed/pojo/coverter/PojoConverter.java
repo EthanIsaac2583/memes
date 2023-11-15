@@ -37,4 +37,16 @@ public class PojoConverter {
       throw new PojoConvertException(e);
     }
   }
+
+  public  <T> T convert(String value, Class<T> valueType) {
+    if (value == null) {
+      return null;
+    }
+
+    try {
+      return objectMapper.readValue(value, valueType);
+    } catch (JsonProcessingException e) {
+      throw new PojoConvertException(e);
+    }
+  }
 }
