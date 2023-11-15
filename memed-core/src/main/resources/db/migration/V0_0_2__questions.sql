@@ -1,6 +1,7 @@
-create table questions
+create table tasks
 (
-  id      bigserial primary key,
-  body    varchar not null,
-  variant varchar not null
+  id             bigserial primary key,
+  question       varchar not null,
+  variants       varchar not null,
+  correct_answer varchar not null
 );
