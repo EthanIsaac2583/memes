@@ -17,12 +17,20 @@ public class QuestionConverter implements AttributeConverter<Question, String> {
 
   @Override
   public String convertToDatabaseColumn(Question question) {
+    if (question == null) {
+      return null;
+    }
+
     return pojoConverter.stringify(question);
   }
 
   @Override
   public Question convertToEntityAttribute(String s) {
     Question question = pojoConverter.convert(s, Question.class);
+
+    if (question == null) {
+      return null;
+    }
 
     if (QuestionType.PLAIN_TEXT.equals(question.getType())) {
       return pojoConverter.convert(s, PlainTextQuestion.class);

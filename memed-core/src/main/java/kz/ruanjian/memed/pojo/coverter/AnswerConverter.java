@@ -17,12 +17,20 @@ public class AnswerConverter implements AttributeConverter<Answer, String> {
 
   @Override
   public String convertToDatabaseColumn(Answer answer) {
+    if (answer == null) {
+      return null;
+    }
+
     return pojoConverter.stringify(answer);
   }
 
   @Override
   public Answer convertToEntityAttribute(String s) {
     Answer answer = pojoConverter.convert(s, Answer.class);
+
+    if (answer == null) {
+      return null;
+    }
 
     if (BlankType.SINGLE_CHOICE.equals(answer.getType())) {
       return pojoConverter.convert(s, SingleChoiceAnswer.class);
