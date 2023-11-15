@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class SingleChoiceBlank extends Blank {
 
-  @NotNull
   @NotEmpty
   @Valid
   private Set<Option> options;
