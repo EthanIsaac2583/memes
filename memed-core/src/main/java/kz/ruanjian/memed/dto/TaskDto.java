@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.quiestion.Question;
@@ -10,6 +11,7 @@ public class TaskDto {
 
   private Long id;
 
+  @NotEmpty
   private String name;
 
   private String description;
