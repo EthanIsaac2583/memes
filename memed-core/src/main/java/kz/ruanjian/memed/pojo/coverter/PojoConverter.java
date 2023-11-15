@@ -14,6 +14,10 @@ public class PojoConverter {
   }
 
   public String stringify(Object value) {
+    if (value == null) {
+      return null;
+    }
+
     try {
       return objectMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
@@ -23,6 +27,10 @@ public class PojoConverter {
 
 
   public  <T> T convert(Object value, Class<T> valueType) {
+    if (value == null) {
+      return null;
+    }
+
     try {
       return objectMapper.readValue(stringify(value), valueType);
     } catch (JsonProcessingException e) {
