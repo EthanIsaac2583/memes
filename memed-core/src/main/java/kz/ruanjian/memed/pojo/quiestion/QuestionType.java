@@ -1,4 +1,4 @@
-package kz.ruanjian.memed.pojo;
+package kz.ruanjian.memed.pojo.quiestion;
 
 public enum QuestionType {
 
