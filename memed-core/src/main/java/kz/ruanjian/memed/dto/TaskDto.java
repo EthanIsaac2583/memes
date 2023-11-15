@@ -2,6 +2,7 @@ package kz.ruanjian.memed.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.quiestion.Question;
@@ -18,12 +19,15 @@ public class TaskDto {
   private String description;
 
   @Valid
+  @NotNull
   private Question question;
 
   @Valid
+  @NotNull
   private Blank blank;
 
   @Valid
+  @NotNull
   private Answer answer;
 
   public TaskDto() {
