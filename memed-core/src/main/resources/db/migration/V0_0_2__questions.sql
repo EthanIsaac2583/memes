@@ -7,3 +7,9 @@ create table tasks
   blank       varchar      not null,
   answer      varchar      not null
 );
+
+create table quiz
+(
+  id bigserial primary key,
+  user_id bigint references leads (id)
+)
