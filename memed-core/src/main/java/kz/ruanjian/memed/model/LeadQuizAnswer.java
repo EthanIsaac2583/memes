@@ -29,7 +29,7 @@ public class LeadQuizAnswer {
   @JoinColumn(name = "lead_quiz_id", updatable = false)
   private LeadQuiz quiz;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "task_id", updatable = false)
   private Task task;
 
