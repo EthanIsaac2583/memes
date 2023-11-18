@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class LeadQuizAnswer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "lead_quiz_id", updatable = false)
   private LeadQuiz quiz;
