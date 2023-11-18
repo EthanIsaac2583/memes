@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class QuizTemplate {
 
   private String name;
 
+  @JsonIgnore
   @ManyToMany
   @JoinTable(name = "quiz_templates_tasks",
     joinColumns = @JoinColumn(name = "quiz_template_id", referencedColumnName = "id"),
