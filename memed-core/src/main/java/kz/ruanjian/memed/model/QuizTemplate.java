@@ -23,9 +23,9 @@ public class QuizTemplate {
   private String name;
 
   @ManyToMany
-  @JoinTable(name = "quiz_templates_questions",
+  @JoinTable(name = "quiz_templates_tasks",
     joinColumns = @JoinColumn(name = "quiz_template_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
+    inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
   private Set<Task> tasks;
 
   public QuizTemplate() {
