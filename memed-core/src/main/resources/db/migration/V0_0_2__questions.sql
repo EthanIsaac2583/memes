@@ -24,7 +24,7 @@ create table quiz_templates_tasks
 create table lead_quizzes
 (
   id               bigserial primary key,
-  lead_id          bigint not null references leads (id),
+  lead_id          bigint references leads (id),
   quiz_template_id bigint not null references quiz_templates (id)
 );
 
