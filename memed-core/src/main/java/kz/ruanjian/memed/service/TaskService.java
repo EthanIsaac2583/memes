@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TaskService {
 
+  private static final String NOT_FOUND_EXCEPTION = "Task not found";
+
   private final TaskRepository taskRepository;
   private final TaskMapper taskMapper;
 
@@ -21,7 +23,7 @@ public class TaskService {
 
   public Task findById(Long id) {
     return taskRepository.findById(id)
-      .orElseThrow(() -> new NotFoundException("Task not found"));
+      .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
   }
 
   @Transactional
