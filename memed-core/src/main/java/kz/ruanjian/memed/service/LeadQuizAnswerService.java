@@ -2,6 +2,7 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.LeadQuizAnswerGradeDto;
 import kz.ruanjian.memed.dto.LeadQuizAnswerProvideDto;
+import kz.ruanjian.memed.leadquizanswerchecker.LeadQuizAnswerCheckerContext;
 import kz.ruanjian.memed.mapper.LeadQuizAnswerMapper;
 import kz.ruanjian.memed.model.LeadQuizAnswer;
 import kz.ruanjian.memed.respository.LeadQuizAnswerRepository;
@@ -16,11 +17,14 @@ public class LeadQuizAnswerService {
 
   private final LeadQuizAnswerRepository leadQuizAnswerRepository;
   private final LeadQuizAnswerMapper leadQuizAnswerMapper;
+  private final LeadQuizAnswerCheckerContext leadQuizAnswerCheckerContext;
 
   public LeadQuizAnswerService(LeadQuizAnswerRepository leadQuizAnswerRepository,
-                               LeadQuizAnswerMapper leadQuizAnswerMapper) {
+                               LeadQuizAnswerMapper leadQuizAnswerMapper,
+                               LeadQuizAnswerCheckerContext leadQuizAnswerCheckerContext) {
     this.leadQuizAnswerRepository = leadQuizAnswerRepository;
     this.leadQuizAnswerMapper = leadQuizAnswerMapper;
+    this.leadQuizAnswerCheckerContext = leadQuizAnswerCheckerContext;
   }
 
   public LeadQuizAnswer findById(Long id) {
@@ -32,6 +36,9 @@ public class LeadQuizAnswerService {
   public LeadQuizAnswer provide(LeadQuizAnswerProvideDto provideDto) {
     LeadQuizAnswer answer = findById(provideDto.getId());
     leadQuizAnswerMapper.applyAnswer(answer, provideDto);
+
+    int autoGrade = leadQuizAnswerCheckerContext.check(answer);
+    answer.setGrade(autoGrade);
 
     leadQuizAnswerRepository.save(answer);
 
