@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.TaskDto;
+import kz.ruanjian.memed.mapper.TaskMapper;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -11,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
   private final TaskRepository taskRepository;
+  private final TaskMapper taskMapper;
 
-  public TaskService(TaskRepository taskRepository) {
+  public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
     this.taskRepository = taskRepository;
+    this.taskMapper = taskMapper;
   }
 
   public Task findById(Long id) {
@@ -29,15 +32,6 @@ public class TaskService {
   }
 
   private Task mapToTask(TaskDto taskDto) {
-    Task task = new Task();
-
-    task.setId(taskDto.getId());
-    task.setName(taskDto.getName());
-    task.setDescription(taskDto.getDescription());
-    task.setQuestion(taskDto.getQuestion());
-    task.setBlank(taskDto.getBlank());
-    task.setAnswer(taskDto.getAnswer());
-
-    return task;
+    return taskMapper.toTask(taskDto);
   }
 }

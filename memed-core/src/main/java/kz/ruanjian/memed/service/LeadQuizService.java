@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LeadQuizService {
 
   private static final String LEAD_QUIZ_NOT_FOUND_EXCEPTION = "Lead quiz not found";
-  private static final String QUIZ_TEMPLATE_NOT_FOUND_EXCEPTION = "Lead quiz not found";
+  private static final String QUIZ_TEMPLATE_NOT_FOUND_EXCEPTION = "Quiz template not found";
 
   private final LeadQuizRepository leadQuizRepository;
   private final QuizTemplateRepository quizTemplateRepository;
