@@ -11,3 +11,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+memed:
+  grade-min: 0
+  grade-max: 100
