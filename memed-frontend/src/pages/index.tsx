@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from "../App";
+import {RootPage} from "./root";
+import {AboutPage} from "./about";
 
 export const router = createBrowserRouter([
-  { path: '/', element: <App /> }
+  { path: '/', element: <RootPage /> },
+  { path: '/about', element: <AboutPage /> }
 ]);
