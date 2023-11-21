@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 export const BaseLayout: FC<PropsWithChildren> = (props) => {
   return (
     <>
-      <Navbar fixed="top" expand="sm" bg="dark" data-bs-theme="dark">
+      <Navbar expand="sm" bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="/">
             <img src={Logo} alt="logo" />
@@ -20,7 +20,7 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <main>{props.children}</main>
+      <main className="my-3">{props.children}</main>
     </>
   );
 };
