@@ -29,7 +29,7 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
 
         </nav>
       </header>
-      {props.children}
+      <main>{props.children}</main>
     </>
   );
 };
