@@ -7,6 +7,8 @@ import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.QuizTemplateRepository;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,10 @@ public class QuizTemplateService {
   public QuizTemplate findById(Long id) {
     return quizTemplateRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
+  }
+
+  public Page<QuizTemplate> findAll(Pageable pageable) {
+    return quizTemplateRepository.findAll(pageable);
   }
 
   @Transactional

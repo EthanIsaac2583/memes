@@ -7,7 +7,7 @@ export const RootPage = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/v1/quiz-templates/1'
+      url: 'http://localhost:8080/api/v1/quiz-templates'
     }).then((response) => {
       console.log('--------> response', response.data);
     })
