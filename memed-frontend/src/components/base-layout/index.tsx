@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 export const BaseLayout: FC<PropsWithChildren> = (props) => {
   return (
     <>
-      <Navbar expand="sm" bg="dark" data-bs-theme="dark">
+      <Navbar fixed="top" expand="sm" bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="/">
             <img src={Logo} alt="logo" />
