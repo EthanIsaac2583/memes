@@ -1,34 +1,25 @@
-import {Link} from "react-router-dom";
-import Logo from "../../assets/logo.svg";
 import {FC, PropsWithChildren} from "react";
+import Logo from "../../assets/logo.svg";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export const BaseLayout: FC<PropsWithChildren> = (props) => {
   return (
     <>
-      <header className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <nav className="container-xxl" aria-label="Main navigation">
-
-          <Link className="navbar-brand" to="/" aria-label="Boosted">
+      <Navbar expand="sm" bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="/">
             <img src={Logo} alt="logo" />
-          </Link>
-
-          <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="navbar-collapse collapse" id="bdNavbar">
-            <ul className="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
-              <li className="nav-item col-6 col-md-auto">
-                <Link className="nav-link" to="/">Home</Link>
-              </li>
-              <li className="nav-item col-6 col-md-auto">
-                <Link className="nav-link" to="/about">About</Link>
-              </li>
-            </ul>
-          </div>
-
-        </nav>
-      </header>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/about">About</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <main>{props.children}</main>
     </>
   );
