@@ -6,6 +6,7 @@ import kz.ruanjian.memed.model.QuizTemplate;
 import kz.ruanjian.memed.service.QuizTemplateService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/quiz-templates")
+//@CrossOrigin
 public class QuizTemplateController {
 
   private final QuizTemplateService quizTemplateService;
