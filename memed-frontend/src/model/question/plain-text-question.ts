@@ -1,4 +1,4 @@
-import {EQuestionType} from "./question-type";
+import {EQuestionType} from "../question-type";
 
 export type TPlainTextQuestion = {
   type: EQuestionType;
