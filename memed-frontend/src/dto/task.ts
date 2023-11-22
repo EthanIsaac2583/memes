@@ -1,10 +1,10 @@
-import {TPlainTextQuestion} from "../model/question/plain-text-question";
-import {TSingleChoiceBlank} from "../model/blank/single-choice-blank";
+import {TQuestion} from "../model/question";
+import {TBlank} from "../model/blank";
 
 export type TTaskDto = {
   id?: number;
   name: string;
-  question: TPlainTextQuestion;
-  blank: TSingleChoiceBlank;
+  question: TQuestion;
+  blank: TBlank;
   answer: string;
 }
