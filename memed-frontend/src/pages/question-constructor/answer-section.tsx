@@ -3,9 +3,17 @@ import Col from "react-bootstrap/Col";
 import {Form} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import {useFormContext} from "react-hook-form";
+import {EBlankType} from "../../model/blank-type";
+import {useEffect} from "react";
 
 export const AnswerSection = () => {
-  const { watch, register } = useFormContext();
+  const { watch, register, setValue } = useFormContext();
+
+  const blankType = watch('blank.type') as EBlankType;
+
+  useEffect(() => {
+    setValue('answer.type', blankType);
+  }, [blankType, setValue]);
 
   return (
     <FormSection>
@@ -16,7 +24,6 @@ export const AnswerSection = () => {
         <Col md={4} xs={12}>
           <Form.Control
             {...register('answer.type')}
-            value={watch('blank.type')}
             readOnly
             type="text"
             placeholder="Type"
