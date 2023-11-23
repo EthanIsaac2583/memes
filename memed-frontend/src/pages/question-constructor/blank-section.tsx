@@ -23,7 +23,6 @@ export const BlankSection = () => {
       <Row>
         <Col md={4} xs={12}>
           <Form.Select {...register('blank.type')}>
-            <option>Choose blank</option>
             <option value={EBlankType.SINGLE_CHOICE.toString()}>{EBlankType.SINGLE_CHOICE}</option>
           </Form.Select>
         </Col>
