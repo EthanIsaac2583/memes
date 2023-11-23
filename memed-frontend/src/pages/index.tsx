@@ -6,5 +6,5 @@ import {TaskConstructor} from "./task-constructor";
 export const router = createBrowserRouter([
   { path: '/', element: <RootPage /> },
   { path: '/about', element: <AboutPage /> },
-  { path: '/question-constructor', element: <TaskConstructor /> }
+  { path: '/task-constructor', element: <TaskConstructor /> }
 ]);

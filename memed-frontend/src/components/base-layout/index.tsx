@@ -14,8 +14,11 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav>
               <Nav.Link href="/about">About</Nav.Link>
+            </Nav>
+            <Nav>
+              <Nav.Link href="/task-constructor">Task Constructor</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
