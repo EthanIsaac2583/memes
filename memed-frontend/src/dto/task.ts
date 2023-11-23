@@ -8,4 +8,4 @@ export type TTaskDto = {
   question: TQuestion;
   blank: TBlank;
   answer: TAnswer;
-}
+};
