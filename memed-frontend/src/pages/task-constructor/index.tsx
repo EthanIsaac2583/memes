@@ -9,6 +9,7 @@ import {TTaskDto} from "../../dto/task";
 import {SubmitHandler, useForm, FormProvider} from "react-hook-form";
 import {BlankSection} from "./blank-section";
 import {AnswerSection} from "./answer-section";
+import {QuestionSection} from "./question-section";
 
 export const TaskConstructor = () => {
   const methods = useForm<TTaskDto>();
@@ -33,7 +34,7 @@ export const TaskConstructor = () => {
       <FormProvider {...methods}>
         <Form onSubmit={methods.handleSubmit(submit)}>
           <Container>
-
+            <QuestionSection />
           </Container>
           <Container className="mt-4">
             <BlankSection />
