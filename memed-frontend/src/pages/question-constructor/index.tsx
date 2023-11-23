@@ -2,7 +2,7 @@ import {BaseLayout} from "../../components/base-layout";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import {Form} from "react-bootstrap";
+import {CloseButton, Form} from "react-bootstrap";
 import {EBlankType} from "../../model/blank-type";
 import Button from "react-bootstrap/Button";
 import axios, {AxiosError} from "axios";
@@ -11,7 +11,7 @@ import {SubmitHandler, useFieldArray, useForm} from "react-hook-form";
 
 export const QuestionConstructor = () => {
   const { handleSubmit, register, control } = useForm<TTaskDto>();
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'blank.options',
     control
   })
@@ -43,17 +43,20 @@ export const QuestionConstructor = () => {
           </Row>
           {fields.map((field, i) => {
             return (
-              <Row key={field.id}>
+              <Row key={field.id} className='mt-3'>
                 <Col xs={4} md={4}>
                   <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
                 </Col>
-                <Col xs={8} md={8}>
-                  <Form.Control placeholder="key" {...register(`blank.options.${i}.value`)} />
+                <Col xs={6} md={6}>
+                  <Form.Control placeholder="value" {...register(`blank.options.${i}.value`)} />
+                </Col>
+                <Col xs={2} md={2} className='d-flex justify-content-center align-items-center'>
+                  <CloseButton type="button" onClick={() => remove(i)} />
                 </Col>
               </Row>
             )
           })}
-          <Row>
+          <Row className='mt-3'>
             <Col>
               <Button
                 type="button"
@@ -63,7 +66,7 @@ export const QuestionConstructor = () => {
               </Button>
             </Col>
           </Row>
-          <Row>
+          <Row className='mt-5'>
             <Col><Button type="submit">Submit</Button></Col>
           </Row>
         </Container>
