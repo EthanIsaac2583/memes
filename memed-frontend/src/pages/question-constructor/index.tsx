@@ -7,10 +7,14 @@ import {EBlankType} from "../../model/blank-type";
 import Button from "react-bootstrap/Button";
 import axios, {AxiosError} from "axios";
 import {TTaskDto} from "../../dto/task";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useFieldArray, useForm} from "react-hook-form";
 
 export const QuestionConstructor = () => {
-  const { handleSubmit, register } = useForm<TTaskDto>();
+  const { handleSubmit, register, control } = useForm<TTaskDto>();
+  const { fields, append } = useFieldArray({
+    name: 'blank.options',
+    control
+  })
 
   const submit: SubmitHandler<TTaskDto> = (data) => {
     axios<TTaskDto, unknown>({
@@ -37,9 +41,26 @@ export const QuestionConstructor = () => {
                 </Form.Select>
             </Col>
           </Row>
+          {fields.map((field, i) => {
+            return (
+              <Row key={field.id}>
+                <Col xs={4} md={4}>
+                  <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
+                </Col>
+                <Col xs={8} md={8}>
+                  <Form.Control placeholder="key" {...register(`blank.options.${i}.value`)} />
+                </Col>
+              </Row>
+            )
+          })}
           <Row>
             <Col>
-
+              <Button
+                type="button"
+                onClick={() => append({ key: '', value: '' })}
+              >
+                Add option
+              </Button>
             </Col>
           </Row>
           <Row>
