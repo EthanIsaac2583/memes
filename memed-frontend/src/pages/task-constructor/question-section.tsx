@@ -14,13 +14,16 @@ export const QuestionSection = () => {
         <Col><h3>Question</h3></Col>
       </Row>
       <Row>
+        <Col md={4} xs={12}>
+          <Form.Select {...register('question.type')}>
+            <option value={EQuestionType.PLAIN_TEXT}>{EQuestionType.PLAIN_TEXT}</option>
+            <option value={EQuestionType.YOUTUBE_VIDEO}>{EQuestionType.YOUTUBE_VIDEO}</option>
+          </Form.Select>
+        </Col>
+      </Row>
+      <Row className="mt-3">
         <Col>
-          <Col md={4} xs={12}>
-            <Form.Select {...register('question.type')}>
-              <option value={EQuestionType.PLAIN_TEXT}>{EQuestionType.PLAIN_TEXT}</option>
-              <option value={EQuestionType.YOUTUBE_VIDEO}>{EQuestionType.YOUTUBE_VIDEO}</option>
-            </Form.Select>
-          </Col>
+          <Form.Control {...register('question.body')} as="textarea" rows={3} />
         </Col>
       </Row>
     </FormSection>
