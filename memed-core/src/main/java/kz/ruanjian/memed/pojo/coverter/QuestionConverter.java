@@ -4,6 +4,7 @@ import jakarta.persistence.AttributeConverter;
 import kz.ruanjian.memed.pojo.QuestionType;
 import kz.ruanjian.memed.pojo.quiestion.PlainTextQuestion;
 import kz.ruanjian.memed.pojo.quiestion.Question;
+import kz.ruanjian.memed.pojo.quiestion.YouTubeVideoQuestion;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,6 +35,10 @@ public class QuestionConverter implements AttributeConverter<Question, String> {
 
     if (QuestionType.PLAIN_TEXT.equals(question.getType())) {
       return pojoConverter.convert(s, PlainTextQuestion.class);
+    }
+
+    if (QuestionType.YOUTUBE_VIDEO.equals(question.getType())) {
+      return pojoConverter.convert(s, YouTubeVideoQuestion.class);
     }
 
     throw new PojoConvertException(String.format("There is no question converter for %s type", question.getType()));
