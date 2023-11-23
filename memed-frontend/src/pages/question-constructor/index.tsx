@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import axios, {AxiosError} from "axios";
 import {TTaskDto} from "../../dto/task";
 import {SubmitHandler, useFieldArray, useForm} from "react-hook-form";
+import {FormSection} from "../../components/form-section";
 
 export const QuestionConstructor = () => {
   const { handleSubmit, register, control } = useForm<TTaskDto>();
@@ -34,40 +35,49 @@ export const QuestionConstructor = () => {
     <BaseLayout>
       <Form onSubmit={handleSubmit(submit)}>
         <Container>
-          <Row>
-            <Col md={4} xs={12}>
+          <FormSection>
+            <Row>
+              <Col md={4} xs={12}>
                 <Form.Select {...register('blank.type')}>
                   <option value={EBlankType.SINGLE_CHOICE.toString()}>{EBlankType.SINGLE_CHOICE}</option>
                 </Form.Select>
+              </Col>
+            </Row>
+            {fields.map((field, i) => {
+              return (
+                <Row key={field.id} className='mt-3'>
+                  <Col xs={4} md={4}>
+                    <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
+                  </Col>
+                  <Col xs={6} md={6}>
+                    <Form.Control placeholder="value" {...register(`blank.options.${i}.value`)} />
+                  </Col>
+                  <Col xs={2} md={2} className='d-flex justify-content-center align-items-center'>
+                    <CloseButton type="button" onClick={() => remove(i)} />
+                  </Col>
+                </Row>
+              )
+            })}
+            <Row className='mt-3'>
+              <Col>
+                <Button
+                  variant="outline-dark"
+                  type="button"
+                  onClick={() => append({ key: '', value: '' })}
+                >
+                  Add option
+                </Button>
+              </Col>
+            </Row>
+          </FormSection>
+        </Container>
+        <Container>
+          <Row className='justify-content-md-center mt-5'>
+            <Col xs={12} md={4}>
+              <div className="d-grid">
+                <Button type="submit" size="lg">Submit</Button>
+              </div>
             </Col>
-          </Row>
-          {fields.map((field, i) => {
-            return (
-              <Row key={field.id} className='mt-3'>
-                <Col xs={4} md={4}>
-                  <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
-                </Col>
-                <Col xs={6} md={6}>
-                  <Form.Control placeholder="value" {...register(`blank.options.${i}.value`)} />
-                </Col>
-                <Col xs={2} md={2} className='d-flex justify-content-center align-items-center'>
-                  <CloseButton type="button" onClick={() => remove(i)} />
-                </Col>
-              </Row>
-            )
-          })}
-          <Row className='mt-3'>
-            <Col>
-              <Button
-                type="button"
-                onClick={() => append({ key: '', value: '' })}
-              >
-                Add option
-              </Button>
-            </Col>
-          </Row>
-          <Row className='mt-5'>
-            <Col><Button type="submit">Submit</Button></Col>
           </Row>
         </Container>
       </Form>
