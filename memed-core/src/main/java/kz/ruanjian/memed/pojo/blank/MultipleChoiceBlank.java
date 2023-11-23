@@ -7,13 +7,13 @@ import kz.ruanjian.memed.pojo.Option;
 import java.util.Objects;
 import java.util.Set;
 
-public class SingleChoiceBlank extends Blank {
+public class MultipleChoiceBlank extends Blank {
 
   @NotEmpty
   @Valid
   private Set<Option> options;
 
-  public SingleChoiceBlank() {
+  public MultipleChoiceBlank() {
   }
 
   public Set<Option> getOptions() {
@@ -29,7 +29,7 @@ public class SingleChoiceBlank extends Blank {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
-    SingleChoiceBlank that = (SingleChoiceBlank) o;
+    MultipleChoiceBlank that = (MultipleChoiceBlank) o;
     return Objects.equals(options, that.options);
   }
 
@@ -40,7 +40,7 @@ public class SingleChoiceBlank extends Blank {
 
   @Override
   public String toString() {
-    return "SingleChoiceBlank{" +
+    return "MultipleChoiceBlank{" +
       "options=" + options +
       ", type=" + type +
       '}';
