@@ -37,6 +37,11 @@ export const QuestionConstructor = () => {
         <Container>
           <FormSection>
             <Row>
+              <Col>
+                <h3>Blank</h3>
+              </Col>
+            </Row>
+            <Row>
               <Col md={4} xs={12}>
                 <Form.Select {...register('blank.type')}>
                   <option value={EBlankType.SINGLE_CHOICE.toString()}>{EBlankType.SINGLE_CHOICE}</option>
@@ -46,10 +51,10 @@ export const QuestionConstructor = () => {
             {fields.map((field, i) => {
               return (
                 <Row key={field.id} className='mt-3'>
-                  <Col xs={4} md={4}>
+                  <Col xs={3} md={3}>
                     <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
                   </Col>
-                  <Col xs={6} md={6}>
+                  <Col xs={7} md={7}>
                     <Form.Control placeholder="value" {...register(`blank.options.${i}.value`)} />
                   </Col>
                   <Col xs={2} md={2} className='d-flex justify-content-center align-items-center'>
