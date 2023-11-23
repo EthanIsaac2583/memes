@@ -1,9 +1,11 @@
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 export const TaskById = () => {
   const { id } = useParams();
+
+  const [task, setTask] = useState<unknown>(null);
 
   useEffect(() => {
     axios({
@@ -12,10 +14,16 @@ export const TaskById = () => {
     })
       .then(response => {
         console.log('-------> response', response);
+        setTask(response.data);
       })
   }, []);
 
+  if (!task) {
+    return null;
+  }
+
+  // @ts-ignore
   return (
-    <div>task by id</div>
+    <div dangerouslySetInnerHTML={{ __html: task?.question?.markup }}></div>
   );
 };
