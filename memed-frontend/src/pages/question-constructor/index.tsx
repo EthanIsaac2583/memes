@@ -8,6 +8,7 @@ import axios, {AxiosError} from "axios";
 import {TTaskDto} from "../../dto/task";
 import {SubmitHandler, useForm, FormProvider} from "react-hook-form";
 import {BlankSection} from "./blank-section";
+import {AnswerSection} from "./answer-section";
 
 export const QuestionConstructor = () => {
   const methods = useForm<TTaskDto>();
@@ -30,8 +31,13 @@ export const QuestionConstructor = () => {
     <BaseLayout>
       <FormProvider {...methods}>
         <Form onSubmit={methods.handleSubmit(submit)}>
-          <BlankSection />
           <Container>
+            <BlankSection />
+          </Container>
+          <Container className="mt-4">
+            <AnswerSection />
+          </Container>
+          <Container className="mt-4">
             <Row className='justify-content-md-center mt-5'>
               <Col xs={12} md={4}>
                 <div className="d-grid">
