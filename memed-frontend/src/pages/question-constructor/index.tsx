@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import {Form} from "react-bootstrap";
 import {EBlankType} from "../../model/blank-type";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import axios, {AxiosError, AxiosPromise} from "axios";
 import {TTaskDto} from "../../dto/task";
 
 export const QuestionConstructor = () => {
@@ -16,7 +16,7 @@ export const QuestionConstructor = () => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    axios<TTaskDto>({
+    axios<TTaskDto, unknown>({
       method: 'POST',
       url: 'http://192.168.100.5:8080/api/v1/tasks',
       data: {
@@ -28,8 +28,8 @@ export const QuestionConstructor = () => {
       .then((response) => {
         console.log('-------> response', response);
       })
-      .catch((error) => {
-        console.log('--------> error', error);
+      .catch((error: AxiosError) => {
+        console.log('--------> error', error.response?.data);
       })
   };
 
