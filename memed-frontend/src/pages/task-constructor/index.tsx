@@ -10,7 +10,7 @@ import {SubmitHandler, useForm, FormProvider} from "react-hook-form";
 import {BlankSection} from "./blank-section";
 import {AnswerSection} from "./answer-section";
 
-export const QuestionConstructor = () => {
+export const TaskConstructor = () => {
   const methods = useForm<TTaskDto>();
 
   const submit: SubmitHandler<TTaskDto> = (data) => {
@@ -33,6 +33,9 @@ export const QuestionConstructor = () => {
       <FormProvider {...methods}>
         <Form onSubmit={methods.handleSubmit(submit)}>
           <Container>
+
+          </Container>
+          <Container className="mt-4">
             <BlankSection />
           </Container>
           <Container className="mt-4">
