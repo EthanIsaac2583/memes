@@ -7,10 +7,6 @@ import {useFormContext} from "react-hook-form";
 export const AnswerSection = () => {
   const { watch, register } = useFormContext();
 
-  const type = watch('blank.type');
-
-  console.log('-------> type', type);
-
   return (
     <FormSection>
       <Row>
@@ -20,8 +16,8 @@ export const AnswerSection = () => {
         <Col md={4} xs={12}>
           <Form.Control
             {...register('answer.type')}
-            value={type}
-            disabled
+            value={watch('blank.type')}
+            readOnly
             type="text"
             placeholder="Type"
           />
