@@ -1,10 +1,37 @@
 import {FormSection} from "../../components/form-section";
-import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import {Form} from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import {useFormContext} from "react-hook-form";
 
 export const AnswerSection = () => {
+  const { watch, register } = useFormContext();
+
+  const type = watch('blank.type');
+
+  console.log('-------> type', type);
+
   return (
     <FormSection>
-      <h3>Answer</h3>
+      <Row>
+        <Col><h3>Answer</h3></Col>
+      </Row>
+      <Row>
+        <Col md={4} xs={12}>
+          <Form.Control
+            {...register('answer.type')}
+            value={type}
+            disabled
+            type="text"
+            placeholder="Type"
+          />
+        </Col>
+      </Row>
+      <Row className='mt-3'>
+        <Col md={4} xs={12}>
+          <Form.Control {...register('answer.key')} type="text" placeholder="Correct key" />
+        </Col>
+      </Row>
     </FormSection>
   );
 };

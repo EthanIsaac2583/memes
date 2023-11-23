@@ -14,6 +14,7 @@ export const QuestionConstructor = () => {
   const methods = useForm<TTaskDto>();
 
   const submit: SubmitHandler<TTaskDto> = (data) => {
+    console.log('--------_> data', data);
     axios<TTaskDto, unknown>({
       method: 'POST',
       url: 'http://192.168.100.5:8080/api/v1/tasks',

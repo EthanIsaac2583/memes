@@ -30,13 +30,13 @@ export const BlankSection = () => {
       {fields.map((field, i) => {
         return (
           <Row key={field.id} className='mt-3'>
-            <Col xs={3} md={3}>
+            <Col xs={3} md={4}>
               <Form.Control placeholder="key" {...register(`blank.options.${i}.key`)} />
             </Col>
             <Col xs={7} md={7}>
               <Form.Control placeholder="value" {...register(`blank.options.${i}.value`)} />
             </Col>
-            <Col xs={2} md={2} className='d-flex justify-content-center align-items-center'>
+            <Col xs={2} md={1} className='d-flex justify-content-center align-items-center'>
               <CloseButton type="button" onClick={() => remove(i)} />
             </Col>
           </Row>
