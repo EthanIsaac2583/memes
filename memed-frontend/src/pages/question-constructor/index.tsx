@@ -6,24 +6,19 @@ import Row from "react-bootstrap/Row";
 import {Form} from "react-bootstrap";
 import {EBlankType} from "../../model/blank-type";
 import Button from "react-bootstrap/Button";
-import axios, {AxiosError, AxiosPromise} from "axios";
+import axios, {AxiosError} from "axios";
 import {TTaskDto} from "../../dto/task";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 export const QuestionConstructor = () => {
+  const { handleSubmit } = useForm();
   const [blankType, setBlankType] = useState<EBlankType | null>(null);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-
+  const submit: SubmitHandler<TTaskDto> = (data) => {
     axios<TTaskDto, unknown>({
       method: 'POST',
       url: 'http://192.168.100.5:8080/api/v1/tasks',
-      data: {
-        blank: {
-          type: blankType
-        }
-      }
+      data
     })
       .then((response) => {
         console.log('-------> response', response);
@@ -39,7 +34,7 @@ export const QuestionConstructor = () => {
 
   return (
     <BaseLayout>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(submit)}>
         <Container>
           <Row>
             <Col md={4} xs={12}>
