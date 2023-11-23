@@ -1,4 +1,3 @@
-import {ChangeEventHandler, FormEventHandler, useState} from "react";
 import {BaseLayout} from "../../components/base-layout";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -11,8 +10,7 @@ import {TTaskDto} from "../../dto/task";
 import {SubmitHandler, useForm} from "react-hook-form";
 
 export const QuestionConstructor = () => {
-  const { handleSubmit } = useForm();
-  const [blankType, setBlankType] = useState<EBlankType | null>(null);
+  const { handleSubmit, register } = useForm<TTaskDto>();
 
   const submit: SubmitHandler<TTaskDto> = (data) => {
     axios<TTaskDto, unknown>({
@@ -25,11 +23,7 @@ export const QuestionConstructor = () => {
       })
       .catch((error: AxiosError) => {
         console.log('--------> error', error.response?.data);
-      })
-  };
-
-  const handleSelectBlankType: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setBlankType(e.target.value as EBlankType);
+      });
   };
 
   return (
@@ -38,11 +32,17 @@ export const QuestionConstructor = () => {
         <Container>
           <Row>
             <Col md={4} xs={12}>
-                <Form.Select name="type" value={blankType?.toString()} onChange={handleSelectBlankType}>
-                  <option>Open this select menu</option>
+                <Form.Select {...register('blank.type')}>
                   <option value={EBlankType.SINGLE_CHOICE.toString()}>{EBlankType.SINGLE_CHOICE}</option>
                 </Form.Select>
             </Col>
+          </Row>
+          <Row>
+            <Col>
+
+            </Col>
+          </Row>
+          <Row>
             <Col><Button type="submit">Submit</Button></Col>
           </Row>
         </Container>
