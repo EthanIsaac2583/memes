@@ -1,4 +1,4 @@
-import {EBlankType} from "../blank-type";
+import {EBlankType} from "./blank-type";
 
 type TSingleChoiceAnswer = {
   type: EBlankType.SINGLE_CHOICE;

@@ -1,5 +1,5 @@
-import {EBlankType} from "../blank-type";
-import {TOption} from "../option";
+import {EBlankType} from "./blank-type";
+import {TOption} from "./option";
 
 type TSingleChoiceBlank = {
 

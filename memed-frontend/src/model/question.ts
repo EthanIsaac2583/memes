@@ -1,4 +1,4 @@
-import {EQuestionType} from "../question-type";
+import {EQuestionType} from "./question-type";
 
 type TPlainTextQuestion = {
   type: EQuestionType.PLAIN_TEXT;
