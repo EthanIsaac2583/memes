@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.blank.MultipleChoiceBlank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.coverter.PojoConverter;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class BlankDeserializer extends JsonDeserializer<Blank> {
 
     if (BlankType.SINGLE_CHOICE.equals(blank.getType())) {
       return pojoConverter.convert(stringedBlank, SingleChoiceBlank.class);
+    }
+
+    if (BlankType.MULTIPLE_CHOICE.equals(blank.getType())) {
+      return pojoConverter.convert(stringedBlank, MultipleChoiceBlank.class);
     }
 
     throw new PojoDeserializeException(String.format("There is no blank deserializer for %s type", blank.getType()));
