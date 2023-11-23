@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.answer.Answer;
+import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.coverter.PojoConverter;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class AnswerDeserializer extends JsonDeserializer<Answer> {
 
     if (BlankType.SINGLE_CHOICE.equals(answer.getType())) {
       return pojoConverter.convert(stringedAnswer, SingleChoiceAnswer.class);
+    }
+
+    if (BlankType.MULTIPLE_CHOICE.equals(answer.getType())) {
+      return pojoConverter.convert(stringedAnswer, MultipleChoiceAnswer.class);
     }
 
     throw new PojoDeserializeException(String.format("There is no answer deserializer for %s type", answer.getType()));
