@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {ProcessTask} from "../../components/process-task";
 import {TTask} from "../../model/task";
+import {BaseLayout} from "../../components/base-layout";
 
 export const TaskById = () => {
   const { id } = useParams();
@@ -23,10 +24,9 @@ export const TaskById = () => {
     return null;
   }
 
-  // // @ts-ignore
-  // return (
-  //   <div dangerouslySetInnerHTML={{ __html: task.question?.markup }}></div>
-  // );
-
-  return <ProcessTask task={task} />
+  return (
+    <BaseLayout>
+      <ProcessTask task={task} />
+    </BaseLayout>
+  );
 };
