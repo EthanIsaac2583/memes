@@ -1,6 +1,6 @@
 import {EQuestionType} from "./question-type";
 
-type TPlainTextQuestion = {
+export type TPlainTextQuestion = {
   type: EQuestionType.PLAIN_TEXT;
   body: string;
 }
