@@ -8,5 +8,5 @@ export const router = createBrowserRouter([
   { path: '/', element: <RootPage /> },
   { path: '/about', element: <AboutPage /> },
   { path: '/task-constructor', element: <TaskConstructor /> },
-  { path: '/task/:id', element: <TaskById /> }
+  { path: '/tasks/:id', element: <TaskById /> }
 ]);
