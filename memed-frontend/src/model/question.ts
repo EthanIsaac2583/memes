@@ -5,4 +5,9 @@ export type TPlainTextQuestion = {
   body: string;
 }
 
-export type TQuestion = TPlainTextQuestion;
+export type TYoutubeQuestion = {
+  type: EQuestionType.YOUTUBE_VIDEO,
+  markup: string;
+}
+
+export type TQuestion = TPlainTextQuestion | TYoutubeQuestion;

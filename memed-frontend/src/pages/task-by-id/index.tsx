@@ -20,7 +20,7 @@ export const TaskById = () => {
   }, []);
 
   if (task === null) {
-    return <div>Loading...</div>
+    return null;
   }
 
   // // @ts-ignore
