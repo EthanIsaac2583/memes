@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {RenderBlank} from "../render-blank";
 import {FormProvider, useForm} from "react-hook-form";
+import Button from "react-bootstrap/Button";
 
 interface IProps {
   task: TTask;
@@ -16,8 +17,8 @@ export const ProcessTask: FC<IProps> = (props) => {
 
   const methods = useForm();
 
-  const onSubmit = () => {
-    console.log('-----> on submit');
+  const onSubmit = (data: unknown) => {
+    console.log('-----> on submit', data);
   };
 
   return (
@@ -29,7 +30,16 @@ export const ProcessTask: FC<IProps> = (props) => {
           </Col>
           <Col md={6}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
-              <RenderBlank blank={task.blank} />
+              <Row>
+                <Col>
+                  <RenderBlank blank={task.blank} />
+                </Col>
+              </Row>
+              <Row className="mt-5">
+                <Col>
+                  <Button type="submit">Submit</Button>
+                </Col>
+              </Row>
             </form>
           </Col>
         </Row>
