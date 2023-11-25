@@ -17,11 +17,11 @@ export const SingleChoiceBlank: FC<IProps> = (props) => {
       {blank.options.map(option => {
         return (
           <Form.Check
-            {...register('key')}
-            key={option.key}
-            value={option.value}
-            label={option.value}
+            {...register('key', { required: true })}
             type="radio"
+            key={option.key}
+            label={option.value}
+            value={option.key}
           />
         )
       })}

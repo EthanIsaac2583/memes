@@ -35,7 +35,7 @@ export const ProcessTask: FC<IProps> = (props) => {
                   <RenderBlank blank={task.blank} />
                 </Col>
               </Row>
-              <Row className="mt-5">
+              <Row className="mt-3">
                 <Col>
                   <Button type="submit">Submit</Button>
                 </Col>
