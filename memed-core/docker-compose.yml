@@ -17,3 +17,16 @@ services:
       retries: 5
     ports:
       - "5432:5432"
+  app:
+    container_name: app
+    image: memed-core:latest
+    environment:
+      DB_URL: jdbc:postgresql://app-postgres:5432/memes
+      DB_USERNAME: admin
+      DB_PASSWORD: admin
+    depends_on:
+      app-postgres:
+        condition: service_healthy
+    restart: always
+    ports:
+      - "8080:8080"
