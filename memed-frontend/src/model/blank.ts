@@ -1,8 +1,7 @@
 import {EBlankType} from "./blank-type";
 import {TOption} from "./option";
 
-type TSingleChoiceBlank = {
-
+export type TSingleChoiceBlank = {
   type: EBlankType.SINGLE_CHOICE;
   options: Array<TOption>;
 }

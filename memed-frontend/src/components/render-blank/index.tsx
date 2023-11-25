@@ -1,6 +1,7 @@
-import {TBlank} from "../../model/blank";
+import {TBlank, TSingleChoiceBlank} from "../../model/blank";
 import {FC, useMemo} from "react";
 import {EBlankType} from "../../model/blank-type";
+import {SingleChoiceBlank} from "./single-choice-blank";
 
 interface IProps {
   blank: TBlank;
@@ -15,7 +16,7 @@ export const RenderBlank: FC<IProps> = (props) => {
 
   if (blankType === EBlankType.SINGLE_CHOICE) {
     return (
-      <div>Single choice blank</div>
+      <SingleChoiceBlank blank={blank as TSingleChoiceBlank} />
     );
   }
 
