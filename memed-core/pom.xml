@@ -7,7 +7,7 @@
   <parent>
     <groupId>kz.ruanjian</groupId>
     <artifactId>memed</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>latest</version>
   </parent>
 
   <artifactId>memed-core</artifactId>
