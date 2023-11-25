@@ -19,7 +19,7 @@ services:
       - "5432:5432"
   app:
     container_name: app
-    image: memed-core:latest
+    image: yerasylaitkazy/memed-core:latest
     environment:
       DB_URL: jdbc:postgresql://app-postgres:5432/memes
       DB_USERNAME: admin
