@@ -4,6 +4,7 @@ import {RenderQuestion} from "../render-question";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {RenderBlank} from "../render-blank";
 
 interface IProps {
   task: TTask;
@@ -19,7 +20,7 @@ export const ProcessTask: FC<IProps> = (props) => {
           <RenderQuestion question={task.question} />
         </Col>
         <Col md={6}>
-          <div>here will be blank</div>
+          <RenderBlank blank={task.blank} />
         </Col>
       </Row>
     </Container>
