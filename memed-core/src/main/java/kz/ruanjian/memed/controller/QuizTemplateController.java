@@ -2,7 +2,7 @@ package kz.ruanjian.memed.controller;
 
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.QuizTemplateDto;
-import kz.ruanjian.memed.model.QuizTemplate;
+import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.service.QuizTemplateService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +24,12 @@ public class QuizTemplateController {
   }
 
   @GetMapping("/{id}")
-  public QuizTemplate findById(@PathVariable Long id) {
+  public Template findById(@PathVariable Long id) {
     return quizTemplateService.findById(id);
   }
 
   @GetMapping
-  public Page<QuizTemplate> findAll(Pageable pageable) {
+  public Page<Template> findAll(Pageable pageable) {
     return quizTemplateService.findAll(pageable);
   }
 

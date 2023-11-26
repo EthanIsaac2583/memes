@@ -26,7 +26,7 @@ public class LeadQuiz {
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "quiz_template_id")
-  private QuizTemplate template;
+  private Template template;
 
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private Set<LeadQuizAnswer> answers;
@@ -42,11 +42,11 @@ public class LeadQuiz {
     this.id = id;
   }
 
-  public QuizTemplate getTemplate() {
+  public Template getTemplate() {
     return template;
   }
 
-  public void setTemplate(QuizTemplate template) {
+  public void setTemplate(Template template) {
     this.template = template;
   }
 

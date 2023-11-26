@@ -2,7 +2,7 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.generator.LeadQuizGenerator;
 import kz.ruanjian.memed.model.LeadQuiz;
-import kz.ruanjian.memed.model.QuizTemplate;
+import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.LeadQuizRepository;
 import kz.ruanjian.memed.respository.QuizTemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -34,7 +34,7 @@ public class LeadQuizService {
 
   @Transactional
   public LeadQuiz generateByQuizTemplateId(Long id) {
-    QuizTemplate template = findQuizTemplateById(id);
+    Template template = findQuizTemplateById(id);
     LeadQuiz leadQuiz = leadQuizGenerator.generate(template);
 
     leadQuizRepository.save(leadQuiz);
@@ -42,7 +42,7 @@ public class LeadQuizService {
     return leadQuiz;
   }
 
-  private QuizTemplate findQuizTemplateById(Long id) {
+  private Template findQuizTemplateById(Long id) {
     return quizTemplateRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(QUIZ_TEMPLATE_NOT_FOUND_EXCEPTION));
   }

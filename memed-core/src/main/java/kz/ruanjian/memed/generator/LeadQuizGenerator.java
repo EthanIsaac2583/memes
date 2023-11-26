@@ -2,7 +2,7 @@ package kz.ruanjian.memed.generator;
 
 import kz.ruanjian.memed.model.LeadQuiz;
 import kz.ruanjian.memed.model.LeadQuizAnswer;
-import kz.ruanjian.memed.model.QuizTemplate;
+import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Task;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 @Component
 public class LeadQuizGenerator {
 
-  public LeadQuiz generate(QuizTemplate quizTemplate) {
+  public LeadQuiz generate(Template template) {
     LeadQuiz leadQuiz = new LeadQuiz();
 
-    leadQuiz.setTemplate(quizTemplate);
-    leadQuiz.setAnswers(generateAnswers(quizTemplate.getTasks(), leadQuiz));
+    leadQuiz.setTemplate(template);
+    leadQuiz.setAnswers(generateAnswers(template.getTasks(), leadQuiz));
 
     return leadQuiz;
   }

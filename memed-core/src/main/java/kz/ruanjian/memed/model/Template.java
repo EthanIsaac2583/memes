@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "quiz_templates")
-public class QuizTemplate {
+public class Template {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class QuizTemplate {
     inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
   private Set<Task> tasks;
 
-  public QuizTemplate() {
+  public Template() {
   }
 
   public Long getId() {
@@ -61,7 +61,7 @@ public class QuizTemplate {
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
-    QuizTemplate that = (QuizTemplate) o;
+    Template that = (Template) o;
     return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(tasks, that.tasks);
   }
 

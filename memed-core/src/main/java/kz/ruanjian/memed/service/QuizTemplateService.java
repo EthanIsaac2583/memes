@@ -2,7 +2,7 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.QuizTemplateDto;
 import kz.ruanjian.memed.mapper.QuizTemplateMapper;
-import kz.ruanjian.memed.model.QuizTemplate;
+import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.QuizTemplateRepository;
 import kz.ruanjian.memed.respository.TaskRepository;
@@ -32,29 +32,29 @@ public class QuizTemplateService {
     this.quizTemplateMapper = quizTemplateMapper;
   }
 
-  public QuizTemplate findById(Long id) {
+  public Template findById(Long id) {
     return quizTemplateRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
   }
 
-  public Page<QuizTemplate> findAll(Pageable pageable) {
+  public Page<Template> findAll(Pageable pageable) {
     return quizTemplateRepository.findAll(pageable);
   }
 
   @Transactional
-  public QuizTemplate save(QuizTemplateDto quizTemplateDto) {
-    QuizTemplate quizTemplate = mapToQuizTemplate(quizTemplateDto);
+  public Template save(QuizTemplateDto quizTemplateDto) {
+    Template template = mapToQuizTemplate(quizTemplateDto);
 
-    quizTemplateRepository.save(quizTemplate);
+    quizTemplateRepository.save(template);
 
-    return quizTemplate;
+    return template;
   }
 
-  private QuizTemplate mapToQuizTemplate(QuizTemplateDto quizTemplateDto) {
-    QuizTemplate quizTemplate = quizTemplateMapper.toQuizTemplate(quizTemplateDto);
-    quizTemplate.setTasks(findTasksById(quizTemplateDto.getTaskIds()));
+  private Template mapToQuizTemplate(QuizTemplateDto quizTemplateDto) {
+    Template template = quizTemplateMapper.toQuizTemplate(quizTemplateDto);
+    template.setTasks(findTasksById(quizTemplateDto.getTaskIds()));
 
-    return quizTemplate;
+    return template;
   }
 
   private Set<Task> findTasksById(Set<Long> ids) {
