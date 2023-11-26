@@ -55,11 +55,11 @@ public class Task {
     this.name = name;
   }
 
-  public Body getQuestion() {
+  public Body getBody() {
     return body;
   }
 
-  public void setQuestion(Body body) {
+  public void setBody(Body body) {
     this.body = body;
   }
 
