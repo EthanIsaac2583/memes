@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +36,9 @@ public class Task {
   @JsonIgnore
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
+
+  @Column(name = "is_deleted")
+  private boolean isDeleted;
 
   public Task() {
   }
@@ -79,17 +83,25 @@ public class Task {
     this.answer = answer;
   }
 
+  public boolean isDeleted() {
+    return isDeleted;
+  }
+
+  public void setDeleted(boolean deleted) {
+    isDeleted = deleted;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Task task = (Task) o;
-    return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(body, task.body) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
+    return isDeleted==task.isDeleted && Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(body, task.body) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, body, blank, answer);
+    return Objects.hash(id, name, body, blank, answer, isDeleted);
   }
 
   @Override
@@ -100,6 +112,7 @@ public class Task {
       ", body=" + body +
       ", blank=" + blank +
       ", answer=" + answer +
+      ", isDeleted=" + isDeleted +
       '}';
   }
 }
