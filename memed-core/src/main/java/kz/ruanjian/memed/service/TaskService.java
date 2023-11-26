@@ -5,6 +5,8 @@ import kz.ruanjian.memed.mapper.TaskMapper;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +28,20 @@ public class TaskService {
       .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
   }
 
+  public Page<Task> findAll(Pageable pageable) {
+    return taskRepository.findAll(pageable);
+  }
+
   @Transactional
   public void save(TaskDto taskDto) {
     Task task = mapToTask(taskDto);
 
     taskRepository.save(task);
+  }
+
+  @Transactional
+  public void deleteById(Long id) {
+    taskRepository.deleteById(id);
   }
 
   private Task mapToTask(TaskDto taskDto) {
