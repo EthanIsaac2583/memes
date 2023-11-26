@@ -7,17 +7,17 @@ import java.util.Objects;
 public class PlainTextBody extends Body {
 
   @NotEmpty
-  private String body;
+  private String text;
 
   public PlainTextBody() {
   }
 
-  public String getBody() {
-    return body;
+  public String getText() {
+    return text;
   }
 
-  public void setBody(String body) {
-    this.body = body;
+  public void setText(String text) {
+    this.text = text;
   }
 
   @Override
@@ -26,18 +26,18 @@ public class PlainTextBody extends Body {
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
     PlainTextBody that = (PlainTextBody) o;
-    return Objects.equals(body, that.body);
+    return Objects.equals(text, that.text);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), body);
+    return Objects.hash(super.hashCode(), text);
   }
 
   @Override
   public String toString() {
-    return "PlainTextQuestion{" +
-      "body='" + body + '\'' +
+    return "PlainTextBody{" +
+      "text='" + text + '\'' +
       ", type=" + type +
       '}';
   }

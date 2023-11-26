@@ -87,6 +87,7 @@ public class Task {
     this.answer = answer;
   }
 
+  @JsonIgnore
   public boolean isDeleted() {
     return isDeleted;
   }
