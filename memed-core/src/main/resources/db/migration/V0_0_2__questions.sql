@@ -16,9 +16,9 @@ create table templates
 
 create table templates_tasks
 (
-  task_id          bigint not null references tasks (id),
-  quiz_template_id bigint not null references templates (id),
-  unique (task_id, quiz_template_id)
+  task_id     bigint not null references tasks (id),
+  template_id bigint not null references templates (id),
+  unique (task_id, template_id)
 );
 
 create table quizzes

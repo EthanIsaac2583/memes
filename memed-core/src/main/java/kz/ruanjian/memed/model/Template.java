@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "quiz_templates")
+@Table(name = "templates")
 public class Template {
 
   @Id
@@ -25,8 +25,8 @@ public class Template {
 
   @JsonIgnore
   @ManyToMany
-  @JoinTable(name = "quiz_templates_tasks",
-    joinColumns = @JoinColumn(name = "quiz_template_id", referencedColumnName = "id"),
+  @JoinTable(name = "templates_tasks",
+    joinColumns = @JoinColumn(name = "template_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
   private Set<Task> tasks;
 
