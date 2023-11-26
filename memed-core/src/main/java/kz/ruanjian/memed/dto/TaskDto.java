@@ -9,7 +9,7 @@ import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.deserializer.AnswerDeserializer;
 import kz.ruanjian.memed.pojo.deserializer.BlankDeserializer;
 import kz.ruanjian.memed.pojo.deserializer.QuestionDeserializer;
-import kz.ruanjian.memed.pojo.quiestion.Question;
+import kz.ruanjian.memed.pojo.body.Body;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class TaskDto {
   @Valid
   @NotNull
   @JsonDeserialize(using = QuestionDeserializer.class)
-  private Question question;
+  private Body body;
 
   @Valid
   @NotNull
@@ -64,12 +64,12 @@ public class TaskDto {
     this.description = description;
   }
 
-  public Question getQuestion() {
-    return question;
+  public Body getQuestion() {
+    return body;
   }
 
-  public void setQuestion(Question question) {
-    this.question = question;
+  public void setQuestion(Body body) {
+    this.body = body;
   }
 
   public Blank getBlank() {
@@ -93,12 +93,12 @@ public class TaskDto {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     TaskDto taskDto = (TaskDto) o;
-    return Objects.equals(id, taskDto.id) && Objects.equals(name, taskDto.name) && Objects.equals(description, taskDto.description) && Objects.equals(question, taskDto.question) && Objects.equals(blank, taskDto.blank) && Objects.equals(answer, taskDto.answer);
+    return Objects.equals(id, taskDto.id) && Objects.equals(name, taskDto.name) && Objects.equals(description, taskDto.description) && Objects.equals(body, taskDto.body) && Objects.equals(blank, taskDto.blank) && Objects.equals(answer, taskDto.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, question, blank, answer);
+    return Objects.hash(id, name, description, body, blank, answer);
   }
 
   @Override
@@ -107,7 +107,7 @@ public class TaskDto {
       "id=" + id +
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
-      ", question=" + question +
+      ", question=" + body +
       ", blank=" + blank +
       ", answer=" + answer +
       '}';

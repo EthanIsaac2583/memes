@@ -1,15 +1,15 @@
-package kz.ruanjian.memed.pojo.quiestion;
+package kz.ruanjian.memed.pojo.body;
 
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
-public class YouTubeVideoQuestion extends Question {
+public class YouTubeVideoBody extends Body {
 
   @NotEmpty
   private String markup;
 
-  public YouTubeVideoQuestion() {
+  public YouTubeVideoBody() {
   }
 
   public String getMarkup() {
@@ -25,7 +25,7 @@ public class YouTubeVideoQuestion extends Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
-    YouTubeVideoQuestion that = (YouTubeVideoQuestion) o;
+    YouTubeVideoBody that = (YouTubeVideoBody) o;
     return Objects.equals(markup, that.markup);
   }
 

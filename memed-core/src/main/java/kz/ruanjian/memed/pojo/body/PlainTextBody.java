@@ -1,15 +1,15 @@
-package kz.ruanjian.memed.pojo.quiestion;
+package kz.ruanjian.memed.pojo.body;
 
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
-public class PlainTextQuestion extends Question {
+public class PlainTextBody extends Body {
 
   @NotEmpty
   private String body;
 
-  public PlainTextQuestion() {
+  public PlainTextBody() {
   }
 
   public String getBody() {
@@ -25,7 +25,7 @@ public class PlainTextQuestion extends Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
-    PlainTextQuestion that = (PlainTextQuestion) o;
+    PlainTextBody that = (PlainTextBody) o;
     return Objects.equals(body, that.body);
   }
 

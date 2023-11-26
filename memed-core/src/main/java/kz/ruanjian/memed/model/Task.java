@@ -12,7 +12,7 @@ import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.coverter.AnswerConverter;
 import kz.ruanjian.memed.pojo.coverter.BlankConverter;
 import kz.ruanjian.memed.pojo.coverter.QuestionConverter;
-import kz.ruanjian.memed.pojo.quiestion.Question;
+import kz.ruanjian.memed.pojo.body.Body;
 
 import java.util.Objects;
 
@@ -29,7 +29,7 @@ public class Task {
   private String description;
 
   @Convert(converter = QuestionConverter.class)
-  private Question question;
+  private Body body;
 
   @Convert(converter = BlankConverter.class)
   private Blank blank;
@@ -65,12 +65,12 @@ public class Task {
     this.description = description;
   }
 
-  public Question getQuestion() {
-    return question;
+  public Body getQuestion() {
+    return body;
   }
 
-  public void setQuestion(Question question) {
-    this.question = question;
+  public void setQuestion(Body body) {
+    this.body = body;
   }
 
   public Blank getBlank() {
@@ -94,12 +94,12 @@ public class Task {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Task task = (Task) o;
-    return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(question, task.question) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
+    return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(body, task.body) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, question, blank, answer);
+    return Objects.hash(id, name, description, body, blank, answer);
   }
 
   @Override
@@ -108,7 +108,7 @@ public class Task {
       "id=" + id +
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
-      ", question=" + question +
+      ", question=" + body +
       ", blank=" + blank +
       ", answer=" + answer +
       '}';

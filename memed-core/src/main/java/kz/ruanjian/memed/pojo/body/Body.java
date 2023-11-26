@@ -1,16 +1,16 @@
-package kz.ruanjian.memed.pojo.quiestion;
+package kz.ruanjian.memed.pojo.body;
 
 import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.QuestionType;
 
 import java.util.Objects;
 
-public class Question {
+public class Body {
 
   @NotNull
   protected QuestionType type;
 
-  public Question() {
+  public Body() {
   }
 
   public QuestionType getType() {
@@ -25,8 +25,8 @@ public class Question {
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
-    Question question = (Question) o;
-    return type==question.type;
+    Body body = (Body) o;
+    return type==body.type;
   }
 
   @Override
