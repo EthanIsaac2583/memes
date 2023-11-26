@@ -1,10 +1,11 @@
 create table tasks
 (
-  id     bigserial primary key,
-  name   varchar(256)  not null,
-  body   varchar(6000) not null,
-  blank  varchar(6000) not null,
-  answer varchar(3000) not null
+  id         bigserial primary key,
+  name       varchar(256)  not null,
+  body       varchar(6000) not null,
+  blank      varchar(6000) not null,
+  answer     varchar(3000) not null,
+  is_deleted boolean       not null
 );
 
 create table templates
