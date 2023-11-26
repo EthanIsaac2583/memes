@@ -23,6 +23,8 @@ public class Template {
 
   private String name;
 
+  private String description;
+
   @JsonIgnore
   @ManyToMany
   @JoinTable(name = "templates_tasks",
@@ -49,6 +51,14 @@ public class Template {
     this.name = name;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public Set<Task> getTasks() {
     return tasks;
   }
@@ -61,21 +71,21 @@ public class Template {
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
-    Template that = (Template) o;
-    return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(tasks, that.tasks);
+    Template template = (Template) o;
+    return Objects.equals(id, template.id) && Objects.equals(name, template.name) && Objects.equals(description, template.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, tasks);
+    return Objects.hash(id, name, description);
   }
 
   @Override
   public String toString() {
-    return "QuizTemplate{" +
+    return "Template{" +
       "id=" + id +
       ", name='" + name + '\'' +
-      ", tasks=" + tasks +
+      ", description='" + description + '\'' +
       '}';
   }
 }
