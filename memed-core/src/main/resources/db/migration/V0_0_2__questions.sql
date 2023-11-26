@@ -3,38 +3,38 @@ create table tasks
   id          bigserial primary key,
   name        varchar(256)  not null,
   description varchar(512)  null,
-  question    varchar(6000) not null,
+  body        varchar(6000) not null,
   blank       varchar(6000) not null,
-  answer      varchar(6000) not null
+  answer      varchar(3000) not null
 );
 
-create table quiz_templates
+create table templates
 (
   id   bigserial primary key,
   name varchar(256) not null
 );
 
-create table quiz_templates_tasks
+create table templates_tasks
 (
   task_id          bigint not null references tasks (id),
-  quiz_template_id bigint not null references quiz_templates (id),
+  quiz_template_id bigint not null references templates (id),
   unique (task_id, quiz_template_id)
 );
 
-create table lead_quizzes
+create table quizzes
 (
   id               bigserial primary key,
   lead_id          bigint references leads (id),
-  quiz_template_id bigint not null references quiz_templates (id)
+  quiz_template_id bigint not null references templates (id)
 );
 
-create table lead_quiz_answers
+create table questions
 (
   id                   bigserial primary key,
-  lead_quiz_id         bigint  not null references lead_quizzes (id),
+  quiz_id              bigint  not null references quizzes (id),
   task_id              bigint  not null references tasks (id),
   is_remote_assessable boolean not null,
   is_assessed          boolean not null,
   grade                int,
-  answer               varchar(6000)
+  answer               varchar(3000)
 );
