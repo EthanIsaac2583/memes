@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "lead_quizzes")
+@Table(name = "quizzes")
 public class Quiz {
 
   @Id
@@ -25,7 +25,7 @@ public class Quiz {
 
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "quiz_template_id")
+  @JoinColumn(name = "template_id")
   private Template template;
 
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
