@@ -14,11 +14,15 @@ import kz.ruanjian.memed.pojo.coverter.AnswerConverter;
 import kz.ruanjian.memed.pojo.coverter.BlankConverter;
 import kz.ruanjian.memed.pojo.coverter.BodyConverter;
 import kz.ruanjian.memed.pojo.body.Body;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "tasks")
+@SQLDelete(sql = "UPDATE tasks SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 public class Task {
 
   @Id
