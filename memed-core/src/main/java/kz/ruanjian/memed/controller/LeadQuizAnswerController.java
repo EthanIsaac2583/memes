@@ -3,7 +3,7 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.LeadQuizAnswerGradeDto;
 import kz.ruanjian.memed.dto.LeadQuizAnswerProvideDto;
-import kz.ruanjian.memed.model.LeadQuizAnswer;
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.service.LeadQuizAnswerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +23,7 @@ public class LeadQuizAnswerController {
   }
 
   @GetMapping("/{id}")
-  public LeadQuizAnswer findById(@PathVariable Long id) {
+  public Question findById(@PathVariable Long id) {
     return leadQuizAnswerService.findById(id);
   }
 

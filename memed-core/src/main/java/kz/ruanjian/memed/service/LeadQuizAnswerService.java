@@ -4,7 +4,7 @@ import kz.ruanjian.memed.dto.LeadQuizAnswerGradeDto;
 import kz.ruanjian.memed.dto.LeadQuizAnswerProvideDto;
 import kz.ruanjian.memed.leadquizanswerchecker.LeadQuizAnswerCheckerContext;
 import kz.ruanjian.memed.mapper.LeadQuizAnswerMapper;
-import kz.ruanjian.memed.model.LeadQuizAnswer;
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.LeadQuizAnswerRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -27,14 +27,14 @@ public class LeadQuizAnswerService {
     this.leadQuizAnswerCheckerContext = leadQuizAnswerCheckerContext;
   }
 
-  public LeadQuizAnswer findById(Long id) {
+  public Question findById(Long id) {
     return leadQuizAnswerRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
   }
 
   @Transactional
-  public LeadQuizAnswer provide(LeadQuizAnswerProvideDto provideDto) {
-    LeadQuizAnswer answer = findById(provideDto.getId());
+  public Question provide(LeadQuizAnswerProvideDto provideDto) {
+    Question answer = findById(provideDto.getId());
     leadQuizAnswerMapper.applyAnswer(answer, provideDto);
 
     int autoGrade = leadQuizAnswerCheckerContext.check(answer);
@@ -46,8 +46,8 @@ public class LeadQuizAnswerService {
   }
 
   @Transactional
-  public LeadQuizAnswer grade(LeadQuizAnswerGradeDto gradeDto) {
-    LeadQuizAnswer answer = findById(gradeDto.getId());
+  public Question grade(LeadQuizAnswerGradeDto gradeDto) {
+    Question answer = findById(gradeDto.getId());
     leadQuizAnswerMapper.applyGrade(answer, gradeDto);
 
     leadQuizAnswerRepository.save(answer);

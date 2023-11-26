@@ -29,7 +29,7 @@ public class Quiz {
   private Template template;
 
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-  private Set<LeadQuizAnswer> answers;
+  private Set<Question> answers;
 
   public Quiz() {
   }
@@ -50,11 +50,11 @@ public class Quiz {
     this.template = template;
   }
 
-  public Set<LeadQuizAnswer> getAnswers() {
+  public Set<Question> getAnswers() {
     return answers;
   }
 
-  public void setAnswers(Set<LeadQuizAnswer> answers) {
+  public void setAnswers(Set<Question> answers) {
     this.answers = answers;
   }
 

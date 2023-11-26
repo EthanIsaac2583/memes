@@ -1,8 +1,8 @@
 package kz.ruanjian.memed.leadquizanswerchecker;
 
-import kz.ruanjian.memed.model.LeadQuizAnswer;
+import kz.ruanjian.memed.model.Question;
 
 public interface LeadQuizAnswerChecker {
 
-  int check(LeadQuizAnswer answer);
+  int check(Question answer);
 }

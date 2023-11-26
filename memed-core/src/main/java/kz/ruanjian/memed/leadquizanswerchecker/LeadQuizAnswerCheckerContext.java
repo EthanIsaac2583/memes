@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.leadquizanswerchecker;
 
-import kz.ruanjian.memed.model.LeadQuizAnswer;
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.pojo.BlankType;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class LeadQuizAnswerCheckerContext implements LeadQuizAnswerChecker {
   }
 
   @Override
-  public int check(LeadQuizAnswer answer) {
+  public int check(Question answer) {
     if (BlankType.SINGLE_CHOICE.equals(answer.getAnswer().getType())) {
       return singleChoiceBlankChecker.check(answer);
     }

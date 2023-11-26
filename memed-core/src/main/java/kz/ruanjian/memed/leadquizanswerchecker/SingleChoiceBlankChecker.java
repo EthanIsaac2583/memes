@@ -1,7 +1,7 @@
 package kz.ruanjian.memed.leadquizanswerchecker;
 
 import kz.ruanjian.memed.config.MemedProperties;
-import kz.ruanjian.memed.model.LeadQuizAnswer;
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class SingleChoiceBlankChecker implements LeadQuizAnswerChecker {
   }
 
   @Override
-  public int check(LeadQuizAnswer answer) {
+  public int check(Question answer) {
     if (isCorrect(answer)) {
       return memedProperties.getGradeMax();
     }
@@ -23,7 +23,7 @@ public class SingleChoiceBlankChecker implements LeadQuizAnswerChecker {
     return memedProperties.getGradeMin();
   }
 
-  private boolean isCorrect(LeadQuizAnswer answer) {
+  private boolean isCorrect(Question answer) {
     Answer correctAnswer = answer.getTask().getAnswer();
     Answer userAnswer = answer.getAnswer();
 

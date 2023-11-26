@@ -1,7 +1,7 @@
 package kz.ruanjian.memed.generator;
 
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Quiz;
-import kz.ruanjian.memed.model.LeadQuizAnswer;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Task;
 import org.springframework.stereotype.Component;
@@ -21,14 +21,14 @@ public class LeadQuizGenerator {
     return quiz;
   }
 
-  private Set<LeadQuizAnswer> generateAnswers(Set<Task> tasks, Quiz quiz) {
+  private Set<Question> generateAnswers(Set<Task> tasks, Quiz quiz) {
     return tasks.stream()
       .map(task -> generateAnswer(task, quiz))
       .collect(Collectors.toSet());
   }
 
-  private LeadQuizAnswer generateAnswer(Task task, Quiz quiz) {
-    LeadQuizAnswer answer = new LeadQuizAnswer();
+  private Question generateAnswer(Task task, Quiz quiz) {
+    Question answer = new Question();
 
     answer.setQuiz(quiz);
     answer.setTask(task);
