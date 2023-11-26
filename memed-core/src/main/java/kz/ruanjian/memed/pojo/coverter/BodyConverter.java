@@ -4,7 +4,7 @@ import jakarta.persistence.AttributeConverter;
 import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.Body;
-import kz.ruanjian.memed.pojo.body.YouTubeVideoBody;
+import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,7 +38,7 @@ public class BodyConverter implements AttributeConverter<Body, String> {
     }
 
     if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
-      return pojoConverter.convert(s, YouTubeVideoBody.class);
+      return pojoConverter.convert(s, YoutubeVideoBody.class);
     }
 
     throw new PojoConvertException(String.format("There is no question converter for %s type", body.getType()));

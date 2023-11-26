@@ -4,12 +4,12 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
-public class YouTubeVideoBody extends Body {
+public class YoutubeVideoBody extends Body {
 
   @NotEmpty
   private String markup;
 
-  public YouTubeVideoBody() {
+  public YoutubeVideoBody() {
   }
 
   public String getMarkup() {
@@ -25,7 +25,7 @@ public class YouTubeVideoBody extends Body {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
-    YouTubeVideoBody that = (YouTubeVideoBody) o;
+    YoutubeVideoBody that = (YoutubeVideoBody) o;
     return Objects.equals(markup, that.markup);
   }
 

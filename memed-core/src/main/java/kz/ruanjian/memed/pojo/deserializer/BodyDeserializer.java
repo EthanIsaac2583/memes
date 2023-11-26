@@ -7,17 +7,17 @@ import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.coverter.PojoConverter;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.Body;
-import kz.ruanjian.memed.pojo.body.YouTubeVideoBody;
+import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
-public class QuestionDeserializer extends JsonDeserializer<Body> {
+public class BodyDeserializer extends JsonDeserializer<Body> {
 
   private final PojoConverter pojoConverter;
 
-  public QuestionDeserializer(PojoConverter pojoConverter) {
+  public BodyDeserializer(PojoConverter pojoConverter) {
     this.pojoConverter = pojoConverter;
   }
 
@@ -35,7 +35,7 @@ public class QuestionDeserializer extends JsonDeserializer<Body> {
     }
 
     if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
-      return pojoConverter.convert(stringedQuestion, YouTubeVideoBody.class);
+      return pojoConverter.convert(stringedQuestion, YoutubeVideoBody.class);
     }
 
     throw new PojoDeserializeException(String.format("There is no question deserializer for %s type", body.getType()));

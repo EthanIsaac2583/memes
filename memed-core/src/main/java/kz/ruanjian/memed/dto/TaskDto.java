@@ -8,7 +8,7 @@ import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.deserializer.AnswerDeserializer;
 import kz.ruanjian.memed.pojo.deserializer.BlankDeserializer;
-import kz.ruanjian.memed.pojo.deserializer.QuestionDeserializer;
+import kz.ruanjian.memed.pojo.deserializer.BodyDeserializer;
 import kz.ruanjian.memed.pojo.body.Body;
 
 import java.util.Objects;
@@ -24,7 +24,7 @@ public class TaskDto {
 
   @Valid
   @NotNull
-  @JsonDeserialize(using = QuestionDeserializer.class)
+  @JsonDeserialize(using = BodyDeserializer.class)
   private Body body;
 
   @Valid
