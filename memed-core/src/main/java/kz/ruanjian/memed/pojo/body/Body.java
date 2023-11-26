@@ -1,23 +1,23 @@
 package kz.ruanjian.memed.pojo.body;
 
 import jakarta.validation.constraints.NotNull;
-import kz.ruanjian.memed.pojo.QuestionType;
+import kz.ruanjian.memed.pojo.BodyType;
 
 import java.util.Objects;
 
 public class Body {
 
   @NotNull
-  protected QuestionType type;
+  protected BodyType type;
 
   public Body() {
   }
 
-  public QuestionType getType() {
+  public BodyType getType() {
     return type;
   }
 
-  public void setType(QuestionType type) {
+  public void setType(BodyType type) {
     this.type = type;
   }
 

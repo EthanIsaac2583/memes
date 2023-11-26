@@ -11,7 +11,7 @@ import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.coverter.AnswerConverter;
 import kz.ruanjian.memed.pojo.coverter.BlankConverter;
-import kz.ruanjian.memed.pojo.coverter.QuestionConverter;
+import kz.ruanjian.memed.pojo.coverter.BodyConverter;
 import kz.ruanjian.memed.pojo.body.Body;
 
 import java.util.Objects;
@@ -28,7 +28,7 @@ public class Task {
 
   private String description;
 
-  @Convert(converter = QuestionConverter.class)
+  @Convert(converter = BodyConverter.class)
   private Body body;
 
   @Convert(converter = BlankConverter.class)

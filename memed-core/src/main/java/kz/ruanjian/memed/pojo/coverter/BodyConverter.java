@@ -1,18 +1,18 @@
 package kz.ruanjian.memed.pojo.coverter;
 
 import jakarta.persistence.AttributeConverter;
-import kz.ruanjian.memed.pojo.QuestionType;
+import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.Body;
 import kz.ruanjian.memed.pojo.body.YouTubeVideoBody;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuestionConverter implements AttributeConverter<Body, String> {
+public class BodyConverter implements AttributeConverter<Body, String> {
 
   private final PojoConverter pojoConverter;
 
-  public QuestionConverter(PojoConverter pojoConverter) {
+  public BodyConverter(PojoConverter pojoConverter) {
     this.pojoConverter = pojoConverter;
   }
 
@@ -33,11 +33,11 @@ public class QuestionConverter implements AttributeConverter<Body, String> {
       return null;
     }
 
-    if (QuestionType.PLAIN_TEXT.equals(body.getType())) {
+    if (BodyType.PLAIN_TEXT.equals(body.getType())) {
       return pojoConverter.convert(s, PlainTextBody.class);
     }
 
-    if (QuestionType.YOUTUBE_VIDEO.equals(body.getType())) {
+    if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
       return pojoConverter.convert(s, YouTubeVideoBody.class);
     }
 
