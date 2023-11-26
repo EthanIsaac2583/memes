@@ -1,17 +1,17 @@
 create table tasks
 (
-  id          bigserial primary key,
-  name        varchar(256)  not null,
-  description varchar(512)  null,
-  body        varchar(6000) not null,
-  blank       varchar(6000) not null,
-  answer      varchar(3000) not null
+  id     bigserial primary key,
+  name   varchar(256)  not null,
+  body   varchar(6000) not null,
+  blank  varchar(6000) not null,
+  answer varchar(3000) not null
 );
 
 create table templates
 (
-  id   bigserial primary key,
-  name varchar(256) not null
+  id          bigserial primary key,
+  name        varchar(256) not null,
+  description varchar(512)
 );
 
 create table templates_tasks
@@ -30,11 +30,10 @@ create table quizzes
 
 create table questions
 (
-  id                   bigserial primary key,
-  quiz_id              bigint  not null references quizzes (id),
-  task_id              bigint  not null references tasks (id),
-  is_remote_assessable boolean not null,
-  is_assessed          boolean not null,
-  grade                int,
-  answer               varchar(3000)
+  id          bigserial primary key,
+  quiz_id     bigint  not null references quizzes (id),
+  task_id     bigint  not null references tasks (id),
+  is_assessed boolean not null,
+  answer      varchar(3000),
+  grade       int
 );
