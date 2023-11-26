@@ -1,7 +1,5 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.QuizTemplateDto;
-import kz.ruanjian.memed.mapper.QuizTemplateMapper;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.QuizTemplateRepository;

@@ -26,8 +26,6 @@ public class Task {
 
   private String name;
 
-  private String description;
-
   @Convert(converter = BodyConverter.class)
   private Body body;
 
@@ -55,14 +53,6 @@ public class Task {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public Body getQuestion() {
@@ -94,12 +84,12 @@ public class Task {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Task task = (Task) o;
-    return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(body, task.body) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
+    return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(body, task.body) && Objects.equals(blank, task.blank) && Objects.equals(answer, task.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, body, blank, answer);
+    return Objects.hash(id, name, body, blank, answer);
   }
 
   @Override
@@ -107,8 +97,7 @@ public class Task {
     return "Task{" +
       "id=" + id +
       ", name='" + name + '\'' +
-      ", description='" + description + '\'' +
-      ", question=" + body +
+      ", body=" + body +
       ", blank=" + blank +
       ", answer=" + answer +
       '}';

@@ -20,8 +20,6 @@ public class TaskDto {
   @NotEmpty
   private String name;
 
-  private String description;
-
   @Valid
   @NotNull
   @JsonDeserialize(using = BodyDeserializer.class)
@@ -56,19 +54,11 @@ public class TaskDto {
     this.name = name;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public Body getQuestion() {
+  public Body getBody() {
     return body;
   }
 
-  public void setQuestion(Body body) {
+  public void setBody(Body body) {
     this.body = body;
   }
 
@@ -93,12 +83,12 @@ public class TaskDto {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     TaskDto taskDto = (TaskDto) o;
-    return Objects.equals(id, taskDto.id) && Objects.equals(name, taskDto.name) && Objects.equals(description, taskDto.description) && Objects.equals(body, taskDto.body) && Objects.equals(blank, taskDto.blank) && Objects.equals(answer, taskDto.answer);
+    return Objects.equals(id, taskDto.id) && Objects.equals(name, taskDto.name) && Objects.equals(body, taskDto.body) && Objects.equals(blank, taskDto.blank) && Objects.equals(answer, taskDto.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, body, blank, answer);
+    return Objects.hash(id, name, body, blank, answer);
   }
 
   @Override
@@ -106,8 +96,7 @@ public class TaskDto {
     return "TaskDto{" +
       "id=" + id +
       ", name='" + name + '\'' +
-      ", description='" + description + '\'' +
-      ", question=" + body +
+      ", body=" + body +
       ", blank=" + blank +
       ", answer=" + answer +
       '}';

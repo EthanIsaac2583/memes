@@ -1,9 +1,6 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.LeadQuizAnswerGradeDto;
-import kz.ruanjian.memed.dto.LeadQuizAnswerProvideDto;
 import kz.ruanjian.memed.leadquizanswerchecker.LeadQuizAnswerCheckerContext;
-import kz.ruanjian.memed.mapper.LeadQuizAnswerMapper;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.LeadQuizAnswerRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -33,7 +30,7 @@ public class LeadQuizAnswerService {
   }
 
   @Transactional
-  public Question provide(LeadQuizAnswerProvideDto provideDto) {
+  public Question provide(QuestionProvideDto provideDto) {
     Question answer = findById(provideDto.getId());
     leadQuizAnswerMapper.applyAnswer(answer, provideDto);
 
@@ -46,7 +43,7 @@ public class LeadQuizAnswerService {
   }
 
   @Transactional
-  public Question grade(LeadQuizAnswerGradeDto gradeDto) {
+  public Question grade(QuestionGradeDto gradeDto) {
     Question answer = findById(gradeDto.getId());
     leadQuizAnswerMapper.applyGrade(answer, gradeDto);
 
