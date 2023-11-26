@@ -27,7 +27,7 @@ public class LeadQuizAnswer {
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "lead_quiz_id", updatable = false)
-  private LeadQuiz quiz;
+  private Quiz quiz;
 
   @ManyToOne
   @JoinColumn(name = "task_id", updatable = false)
@@ -55,11 +55,11 @@ public class LeadQuizAnswer {
     this.id = id;
   }
 
-  public LeadQuiz getQuiz() {
+  public Quiz getQuiz() {
     return quiz;
   }
 
-  public void setQuiz(LeadQuiz quiz) {
+  public void setQuiz(Quiz quiz) {
     this.quiz = quiz;
   }
 

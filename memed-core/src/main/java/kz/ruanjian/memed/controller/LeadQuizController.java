@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.controller;
 
-import kz.ruanjian.memed.model.LeadQuiz;
+import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.service.LeadQuizService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ public class LeadQuizController {
   }
 
   @GetMapping("/lead-quizzes/{id}")
-  public LeadQuiz findById(@PathVariable Long id) {
+  public Quiz findById(@PathVariable Long id) {
     return leadQuizService.findById(id);
   }
 

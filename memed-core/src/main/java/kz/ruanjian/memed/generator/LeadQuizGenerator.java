@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.generator;
 
-import kz.ruanjian.memed.model.LeadQuiz;
+import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.LeadQuizAnswer;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Task;
@@ -12,25 +12,25 @@ import java.util.stream.Collectors;
 @Component
 public class LeadQuizGenerator {
 
-  public LeadQuiz generate(Template template) {
-    LeadQuiz leadQuiz = new LeadQuiz();
+  public Quiz generate(Template template) {
+    Quiz quiz = new Quiz();
 
-    leadQuiz.setTemplate(template);
-    leadQuiz.setAnswers(generateAnswers(template.getTasks(), leadQuiz));
+    quiz.setTemplate(template);
+    quiz.setAnswers(generateAnswers(template.getTasks(), quiz));
 
-    return leadQuiz;
+    return quiz;
   }
 
-  private Set<LeadQuizAnswer> generateAnswers(Set<Task> tasks, LeadQuiz leadQuiz) {
+  private Set<LeadQuizAnswer> generateAnswers(Set<Task> tasks, Quiz quiz) {
     return tasks.stream()
-      .map(task -> generateAnswer(task, leadQuiz))
+      .map(task -> generateAnswer(task, quiz))
       .collect(Collectors.toSet());
   }
 
-  private LeadQuizAnswer generateAnswer(Task task, LeadQuiz leadQuiz) {
+  private LeadQuizAnswer generateAnswer(Task task, Quiz quiz) {
     LeadQuizAnswer answer = new LeadQuizAnswer();
 
-    answer.setQuiz(leadQuiz);
+    answer.setQuiz(quiz);
     answer.setTask(task);
 
     return answer;

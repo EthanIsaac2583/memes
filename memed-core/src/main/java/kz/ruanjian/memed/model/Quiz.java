@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "lead_quizzes")
-public class LeadQuiz {
+public class Quiz {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class LeadQuiz {
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private Set<LeadQuizAnswer> answers;
 
-  public LeadQuiz() {
+  public Quiz() {
   }
 
   public Long getId() {
@@ -62,8 +62,8 @@ public class LeadQuiz {
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
-    LeadQuiz leadQuiz = (LeadQuiz) o;
-    return Objects.equals(id, leadQuiz.id);
+    Quiz quiz = (Quiz) o;
+    return Objects.equals(id, quiz.id);
   }
 
   @Override
