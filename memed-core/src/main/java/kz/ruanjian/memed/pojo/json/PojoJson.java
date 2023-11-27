@@ -3,8 +3,10 @@ package kz.ruanjian.memed.pojo.json;
 import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.answer.Answer;
+import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.blank.MultipleChoiceBlank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.Body;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
@@ -36,6 +38,10 @@ public class PojoJson {
       return jsonUtil.parse(stringedAnswer, SingleChoiceAnswer.class);
     }
 
+    if (BlankType.MULTIPLE_CHOICE.equals(answer.getType())) {
+      return jsonUtil.parse(stringedAnswer, MultipleChoiceAnswer.class);
+    }
+
     throw new PojoProcessException("Can not process answer");
   }
 
@@ -48,6 +54,10 @@ public class PojoJson {
 
     if (BlankType.SINGLE_CHOICE.equals(blank.getType())) {
       return jsonUtil.parse(stringedBlank, SingleChoiceBlank.class);
+    }
+
+    if (BlankType.MULTIPLE_CHOICE.equals(blank.getType())) {
+      return jsonUtil.parse(stringedBlank, MultipleChoiceBlank.class);
     }
 
     throw new PojoProcessException("Can not process blank");
