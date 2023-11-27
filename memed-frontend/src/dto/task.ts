@@ -1,11 +1,11 @@
-import {TQuestion} from "../model/question";
+import {Body} from "../model/body";
 import {TBlank} from "../model/blank";
 import {TAnswer} from "../model/answer";
 
 export type TTaskDto = {
   id?: number;
   name: string;
-  question: TQuestion;
+  question: Body;
   blank: TBlank;
   answer: TAnswer;
 };

@@ -5,7 +5,7 @@ interface IProps {
   question: PlainTextBody;
 }
 
-export const PlainTextQuestion: FC<IProps> = (props) => {
+export const PlainTextBodyRenderer: FC<IProps> = (props) => {
   const { question } = props;
 
     return <div>{question.body}</div>;

@@ -1,13 +1,13 @@
-import {EQuestionType} from "./question-type";
+import {BodyType} from "./body-type";
 
-export type TPlainTextQuestion = {
-  type: EQuestionType.PLAIN_TEXT;
+export type PlainTextBody = {
+  type: BodyType.PLAIN_TEXT;
   body: string;
 }
 
-export type TYoutubeQuestion = {
-  type: EQuestionType.YOUTUBE_VIDEO,
+export type YoutubeVideoBody = {
+  type: BodyType.YOUTUBE_VIDEO,
   markup: string;
 }
 
-export type TQuestion = TPlainTextQuestion | TYoutubeQuestion;
+export type Body = PlainTextBody | YoutubeVideoBody;

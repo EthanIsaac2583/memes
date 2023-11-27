@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import {FormSection} from "../../components/form-section";
 import {useFormContext} from "react-hook-form";
 import {Form} from "react-bootstrap";
-import {EQuestionType} from "../../model/question-type";
+import {BodyType} from "../../model/body-type";
 
 export const QuestionSection = () => {
   const { register } = useFormContext();
@@ -16,8 +16,8 @@ export const QuestionSection = () => {
       <Row>
         <Col md={4} xs={12}>
           <Form.Select {...register('question.type')}>
-            <option value={EQuestionType.PLAIN_TEXT}>{EQuestionType.PLAIN_TEXT}</option>
-            <option value={EQuestionType.YOUTUBE_VIDEO}>{EQuestionType.YOUTUBE_VIDEO}</option>
+            <option value={BodyType.PLAIN_TEXT}>{BodyType.PLAIN_TEXT}</option>
+            <option value={BodyType.YOUTUBE_VIDEO}>{BodyType.YOUTUBE_VIDEO}</option>
           </Form.Select>
         </Col>
       </Row>

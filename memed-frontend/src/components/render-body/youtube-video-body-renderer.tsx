@@ -1,12 +1,12 @@
 import {YoutubeVideoBody} from "../../model/body";
 import {FC} from "react";
-import './youtube-video-body.scss';
+import './youtube-video-body-renderer.scss';
 
 interface IProps {
   question: YoutubeVideoBody;
 }
 
-export const YoutubeVideoBody: FC<IProps> = (props) => {
+export const YoutubeVideoBodyRenderer: FC<IProps> = (props) => {
   const { question } = props;
 
   return (

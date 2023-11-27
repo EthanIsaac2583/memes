@@ -1,11 +1,11 @@
-import {TPlainTextQuestion, TQuestion, TYoutubeQuestion} from "../../model/question";
+import {PlainTextBody, Body, YoutubeVideoBody} from "../../model/body";
 import {FC, useMemo} from "react";
-import {EQuestionType} from "../../model/question-type";
-import {PlainTextQuestion} from "./plain-text-question";
-import {YoutubeVideoQuestion} from "./youtube-video-question";
+import {BodyType} from "../../model/body-type";
+import {PlainTextBodyRenderer} from "./plain-text-body-renderer";
+import {YoutubeVideoBodyRenderer} from "./youtube-video-body-renderer";
 
 interface IProps {
-  question: TQuestion;
+  question: Body;
 }
 
 export const RenderQuestion: FC<IProps> = (props) => {
@@ -15,12 +15,12 @@ export const RenderQuestion: FC<IProps> = (props) => {
     return question.type;
   }, [question]);
 
-  if (questionType === EQuestionType.PLAIN_TEXT) {
-    return <PlainTextQuestion question={question as TPlainTextQuestion} />
+  if (questionType === BodyType.PLAIN_TEXT) {
+    return <PlainTextBodyRenderer question={question as PlainTextBody} />
   }
 
-  if (questionType === EQuestionType.YOUTUBE_VIDEO) {
-    return <YoutubeVideoQuestion question={question as TYoutubeQuestion} />
+  if (questionType === BodyType.YOUTUBE_VIDEO) {
+    return <YoutubeVideoBodyRenderer question={question as YoutubeVideoBody} />
   }
 
   return <div>Unknown question type</div>
