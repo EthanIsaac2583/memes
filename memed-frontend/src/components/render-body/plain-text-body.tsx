@@ -1,8 +1,8 @@
-import {TPlainTextQuestion} from "../../model/question";
+import {PlainTextBody} from "../../model/body";
 import {FC} from "react";
 
 interface IProps {
-  question: TPlainTextQuestion;
+  question: PlainTextBody;
 }
 
 export const PlainTextQuestion: FC<IProps> = (props) => {

@@ -1,12 +1,12 @@
-import {TYoutubeQuestion} from "../../model/question";
+import {YoutubeVideoBody} from "../../model/body";
 import {FC} from "react";
-import './youtube-video-question.scss';
+import './youtube-video-body.scss';
 
 interface IProps {
-  question: TYoutubeQuestion;
+  question: YoutubeVideoBody;
 }
 
-export const YoutubeVideoQuestion: FC<IProps> = (props) => {
+export const YoutubeVideoBody: FC<IProps> = (props) => {
   const { question } = props;
 
   return (
