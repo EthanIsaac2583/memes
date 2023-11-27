@@ -4,5 +4,7 @@ public enum BodyType {
 
   PLAIN_TEXT,
 
+  IMAGE,
+
   YOUTUBE_VIDEO
 }

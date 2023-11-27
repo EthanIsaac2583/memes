@@ -9,6 +9,7 @@ import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.MultipleChoiceBlank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.Body;
+import kz.ruanjian.memed.pojo.body.ImageBody;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 import kz.ruanjian.memed.util.json.JsonUtil;
@@ -72,6 +73,10 @@ public class PojoJson {
 
     if (BodyType.PLAIN_TEXT.equals(body.getType())) {
       return jsonUtil.parse(stringedBody, PlainTextBody.class);
+    }
+
+    if (BodyType.IMAGE.equals(body.getType())) {
+      return jsonUtil.parse(stringedBody, ImageBody.class);
     }
 
     if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
