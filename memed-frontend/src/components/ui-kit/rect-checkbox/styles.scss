@@ -1,0 +1,27 @@
+.rect-checkbox--root {
+  position: relative;
+  display: flex;
+  padding: 8px 12px;
+  border: 1px solid blue;
+  background: lightblue;
+  border-radius: 8px;
+  height: 48px;
+  cursor: pointer;
+}
+
+.rect-checkbox--root:has(input:checked) {
+  border: 1px solid red;
+  background: pink;
+}
+
+.rect-checkbox--input {
+  left: 0;
+  top: 0;
+  opacity: 0;
+  background: transparent;
+}
+
+.rect-checkbox--text {
+  height: 24px;
+  line-height: 24px;
+}
