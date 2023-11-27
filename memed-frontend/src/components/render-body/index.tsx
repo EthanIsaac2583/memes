@@ -25,7 +25,7 @@ export const RenderBody: FC<IProps> = (props) => {
   }
 
   if (bodyType === BodyType.YOUTUBE_VIDEO) {
-    return <YoutubeVideoBodyRenderer question={body as YoutubeVideoBody} />
+    return <YoutubeVideoBodyRenderer body={body as YoutubeVideoBody} />
   }
 
   return <div>Unknown question type</div>

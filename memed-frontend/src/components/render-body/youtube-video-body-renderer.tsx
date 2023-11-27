@@ -3,16 +3,19 @@ import {FC} from "react";
 import './youtube-video-body-renderer.scss';
 
 interface IProps {
-  question: YoutubeVideoBody;
+  body: YoutubeVideoBody;
 }
 
 export const YoutubeVideoBodyRenderer: FC<IProps> = (props) => {
-  const { question } = props;
+  const { body } = props;
 
   return (
-    <div
-      className='youtube-video-container'
-      dangerouslySetInnerHTML={{ __html: question.markup }}
-    />
+    <div>
+      <p className="h3">{body.text}</p>
+      <div
+          className='youtube-video-container'
+          dangerouslySetInnerHTML={{ __html: body.markup }}
+      />
+    </div>
   );
 };

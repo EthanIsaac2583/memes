@@ -13,6 +13,7 @@ export type ImageBody = {
 
 export type YoutubeVideoBody = {
   type: BodyType.YOUTUBE_VIDEO,
+  text: string;
   markup: string;
 }
 
