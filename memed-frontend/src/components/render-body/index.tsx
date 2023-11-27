@@ -1,8 +1,9 @@
-import {PlainTextBody, Body, YoutubeVideoBody} from "../../model/body";
+import {PlainTextBody, Body, YoutubeVideoBody, ImageBody} from "../../model/body";
 import {FC, useMemo} from "react";
 import {BodyType} from "../../model/body-type";
 import {PlainTextBodyRenderer} from "./plain-text-body-renderer";
 import {YoutubeVideoBodyRenderer} from "./youtube-video-body-renderer";
+import {ImageBodyRenderer} from "./image-body-renderer";
 
 interface IProps {
   body: Body;
@@ -20,7 +21,7 @@ export const RenderBody: FC<IProps> = (props) => {
   }
 
   if (bodyType === BodyType.IMAGE) {
-    return <div>image</div>;
+    return <ImageBodyRenderer body={body as ImageBody} />
   }
 
   if (bodyType === BodyType.YOUTUBE_VIDEO) {
