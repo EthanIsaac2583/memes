@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class YoutubeVideoBody extends Body {
 
+  private String text;
+
   @NotEmpty
   private String markup;
 
