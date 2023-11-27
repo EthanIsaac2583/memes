@@ -8,5 +8,9 @@ interface IProps {
 export const PlainTextBodyRenderer: FC<IProps> = (props) => {
   const { question } = props;
 
-    return <div>{question.body}</div>;
+    return (
+      <div>
+        <p className="h3">{question.text}</p>
+      </div>
+    );
 };

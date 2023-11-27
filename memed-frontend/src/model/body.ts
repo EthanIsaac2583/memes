@@ -2,7 +2,7 @@ import {BodyType} from "./body-type";
 
 export type PlainTextBody = {
   type: BodyType.PLAIN_TEXT;
-  body: string;
+  text: string;
 }
 
 export type ImageBody = {
