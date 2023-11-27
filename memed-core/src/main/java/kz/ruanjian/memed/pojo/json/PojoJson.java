@@ -1,10 +1,14 @@
 package kz.ruanjian.memed.pojo.json;
 
 import kz.ruanjian.memed.pojo.BlankType;
+import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
+import kz.ruanjian.memed.pojo.body.Body;
+import kz.ruanjian.memed.pojo.body.PlainTextBody;
+import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.springframework.stereotype.Component;
 
@@ -47,5 +51,23 @@ public class PojoJson {
     }
 
     throw new PojoProcessException("Can not process blank");
+  }
+
+  public Body parseBody(String stringedBody) {
+    Body body = jsonUtil.parse(stringedBody, Body.class);
+
+    if (body== null) {
+      return null;
+    }
+
+    if (BodyType.PLAIN_TEXT.equals(body.getType())) {
+      return jsonUtil.parse(stringedBody, PlainTextBody.class);
+    }
+
+    if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
+      return jsonUtil.parse(stringedBody, YoutubeVideoBody.class);
+    }
+
+    throw new PojoProcessException("Can not process body");
   }
 }
