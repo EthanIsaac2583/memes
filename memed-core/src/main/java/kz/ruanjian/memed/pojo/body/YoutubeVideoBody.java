@@ -14,6 +14,14 @@ public class YoutubeVideoBody extends Body {
   public YoutubeVideoBody() {
   }
 
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
   public String getMarkup() {
     return markup;
   }
@@ -28,19 +36,20 @@ public class YoutubeVideoBody extends Body {
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
     YoutubeVideoBody that = (YoutubeVideoBody) o;
-    return Objects.equals(markup, that.markup);
+    return Objects.equals(text, that.text) && Objects.equals(markup, that.markup);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), markup);
+    return Objects.hash(super.hashCode(), text, markup);
   }
 
   @Override
   public String toString() {
-    return "YouTubeVideoQuestion{" +
-      "markup='" + markup + '\'' +
-      ", type=" + type +
-      '}';
+    return "YoutubeVideoBody{" +
+            "text='" + text + '\'' +
+            ", markup='" + markup + '\'' +
+            ", type=" + type +
+            '}';
   }
 }
