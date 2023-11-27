@@ -5,15 +5,17 @@ import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.Body;
 import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
+import kz.ruanjian.memed.util.json.JsonUtil;
+import kz.ruanjian.memed.util.json.JsonProcessException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BodyConverter implements AttributeConverter<Body, String> {
 
-  private final PojoConverter pojoConverter;
+  private final JsonUtil jsonUtil;
 
-  public BodyConverter(PojoConverter pojoConverter) {
-    this.pojoConverter = pojoConverter;
+  public BodyConverter(JsonUtil jsonUtil) {
+    this.jsonUtil = jsonUtil;
   }
 
   @Override
@@ -22,25 +24,25 @@ public class BodyConverter implements AttributeConverter<Body, String> {
       return null;
     }
 
-    return pojoConverter.stringify(body);
+    return jsonUtil.stringify(body);
   }
 
   @Override
   public Body convertToEntityAttribute(String s) {
-    Body body = pojoConverter.convert(s, Body.class);
+    Body body = jsonUtil.parse(s, Body.class);
 
     if (body== null) {
       return null;
     }
 
     if (BodyType.PLAIN_TEXT.equals(body.getType())) {
-      return pojoConverter.convert(s, PlainTextBody.class);
+      return jsonUtil.parse(s, PlainTextBody.class);
     }
 
     if (BodyType.YOUTUBE_VIDEO.equals(body.getType())) {
-      return pojoConverter.convert(s, YoutubeVideoBody.class);
+      return jsonUtil.parse(s, YoutubeVideoBody.class);
     }
 
-    throw new PojoConvertException(String.format("There is no question converter for %s type", body.getType()));
+    throw new JsonProcessException(String.format("There is no question converter for %s type", body.getType()));
   }
 }

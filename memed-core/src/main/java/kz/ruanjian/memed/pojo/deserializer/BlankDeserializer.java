@@ -7,7 +7,7 @@ import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.MultipleChoiceBlank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
-import kz.ruanjian.memed.pojo.coverter.PojoConverter;
+import kz.ruanjian.memed.util.json.JsonUtil;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,27 +15,27 @@ import java.io.IOException;
 @Component
 public class BlankDeserializer extends JsonDeserializer<Blank> {
 
-  private final PojoConverter pojoConverter;
+  private final JsonUtil jsonUtil;
 
-  public BlankDeserializer(PojoConverter pojoConverter) {
-    this.pojoConverter = pojoConverter;
+  public BlankDeserializer(JsonUtil jsonUtil) {
+    this.jsonUtil = jsonUtil;
   }
 
   @Override
   public Blank deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
     String stringedBlank = jsonParser.getCodec().readTree(jsonParser).toString();
-    Blank blank = pojoConverter.convert(stringedBlank, Blank.class);
+    Blank blank = jsonUtil.parse(stringedBlank, Blank.class);
 
     if (blank == null) {
       return null;
     }
 
     if (BlankType.SINGLE_CHOICE.equals(blank.getType())) {
-      return pojoConverter.convert(stringedBlank, SingleChoiceBlank.class);
+      return jsonUtil.parse(stringedBlank, SingleChoiceBlank.class);
     }
 
     if (BlankType.MULTIPLE_CHOICE.equals(blank.getType())) {
-      return pojoConverter.convert(stringedBlank, MultipleChoiceBlank.class);
+      return jsonUtil.parse(stringedBlank, MultipleChoiceBlank.class);
     }
 
     throw new PojoDeserializeException(String.format("There is no blank deserializer for %s type", blank.getType()));
