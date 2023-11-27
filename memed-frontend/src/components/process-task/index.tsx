@@ -1,6 +1,6 @@
 import {TTask} from "../../model/task";
 import {FC} from "react";
-import {RenderQuestion} from "../render-body";
+import {RenderBody} from "../render-body";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -26,7 +26,7 @@ export const ProcessTask: FC<IProps> = (props) => {
       <Container>
         <Row>
           <Col md={6}>
-            {/*<RenderQuestion question={task.question} />*/}
+            <RenderBody body={task.body} />
           </Col>
           <Col md={6}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>

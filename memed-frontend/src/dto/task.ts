@@ -5,7 +5,7 @@ import {TAnswer} from "../model/answer";
 export type TTaskDto = {
   id?: number;
   name: string;
-  question: Body;
+  body: Body;
   blank: TBlank;
   answer: TAnswer;
 };

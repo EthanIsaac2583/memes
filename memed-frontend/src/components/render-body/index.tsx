@@ -5,22 +5,26 @@ import {PlainTextBodyRenderer} from "./plain-text-body-renderer";
 import {YoutubeVideoBodyRenderer} from "./youtube-video-body-renderer";
 
 interface IProps {
-  question: Body;
+  body: Body;
 }
 
-export const RenderQuestion: FC<IProps> = (props) => {
-  const { question } = props;
+export const RenderBody: FC<IProps> = (props) => {
+  const { body } = props;
 
-  const questionType = useMemo(() => {
-    return question.type;
-  }, [question]);
+  const bodyType = useMemo(() => {
+    return body.type;
+  }, [body]);
 
-  if (questionType === BodyType.PLAIN_TEXT) {
-    return <PlainTextBodyRenderer question={question as PlainTextBody} />
+  if (bodyType === BodyType.PLAIN_TEXT) {
+    return <PlainTextBodyRenderer question={body as PlainTextBody} />
   }
 
-  if (questionType === BodyType.YOUTUBE_VIDEO) {
-    return <YoutubeVideoBodyRenderer question={question as YoutubeVideoBody} />
+  if (bodyType === BodyType.IMAGE) {
+    return <div>image</div>;
+  }
+
+  if (bodyType === BodyType.YOUTUBE_VIDEO) {
+    return <YoutubeVideoBodyRenderer question={body as YoutubeVideoBody} />
   }
 
   return <div>Unknown question type</div>

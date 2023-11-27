@@ -5,9 +5,15 @@ export type PlainTextBody = {
   body: string;
 }
 
+export type ImageBody = {
+  type: BodyType.IMAGE,
+  text: string;
+  url: string;
+}
+
 export type YoutubeVideoBody = {
   type: BodyType.YOUTUBE_VIDEO,
   markup: string;
 }
 
-export type Body = PlainTextBody | YoutubeVideoBody;
+export type Body = PlainTextBody | ImageBody | YoutubeVideoBody;
