@@ -1,10 +1,14 @@
 package kz.ruanjian.memed.pojo.body;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class ImageBody extends Body {
 
   private String text;
+
+  @NotEmpty
   private String url;
 
   public ImageBody() {
