@@ -14,7 +14,9 @@ export const ImageBodyRenderer: FC<IProps> = (props) => {
       <div>
         <Image src={body.url} fluid />
       </div>
-      <div><p>{body.text}</p></div>
+      <div>
+        <p className="h3">{body.text}</p>
+      </div>
     </div>
   );
 };
