@@ -3,6 +3,8 @@ package kz.ruanjian.memed.pojo.json;
 import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
+import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.springframework.stereotype.Component;
 
@@ -31,5 +33,19 @@ public class PojoJson {
     }
 
     throw new PojoProcessException("Can not process answer");
+  }
+
+  public Blank parseBlank(String stringedBlank) {
+    Blank blank = jsonUtil.parse(stringedBlank, Blank.class);
+
+    if (blank == null) {
+      return null;
+    }
+
+    if (BlankType.SINGLE_CHOICE.equals(blank.getType())) {
+      return jsonUtil.parse(stringedBlank, SingleChoiceBlank.class);
+    }
+
+    throw new PojoProcessException("Can not process blank");
   }
 }
