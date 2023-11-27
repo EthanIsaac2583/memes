@@ -1,7 +1,7 @@
-import {EBlankType} from "./blank-type";
+import {BlankType} from "./blank-type";
 
 type TSingleChoiceAnswer = {
-  type: EBlankType.SINGLE_CHOICE;
+  type: BlankType.SINGLE_CHOICE;
   key: string;
 }
 

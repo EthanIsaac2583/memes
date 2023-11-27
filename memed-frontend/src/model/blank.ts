@@ -1,9 +1,14 @@
-import {EBlankType} from "./blank-type";
+import {BlankType} from "./blank-type";
 import {Option} from "./option";
 
 export type SingleChoiceBlank = {
-  type: EBlankType.SINGLE_CHOICE;
+  type: BlankType.SINGLE_CHOICE;
   options: Array<Option>;
 }
 
-export type TBlank = SingleChoiceBlank;
+export type MultipleChoiceBlank = {
+  type: BlankType.MULTIPLE_CHOICE;
+  options: Array<Option>;
+}
+
+export type TBlank = SingleChoiceBlank | MultipleChoiceBlank;

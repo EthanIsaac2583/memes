@@ -1,7 +1,7 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {CloseButton, Form} from "react-bootstrap";
-import {EBlankType} from "../../model/blank-type";
+import {BlankType} from "../../model/blank-type";
 import Button from "react-bootstrap/Button";
 import {FormSection} from "../../components/form-section";
 import {useFieldArray, useFormContext} from "react-hook-form";
@@ -23,7 +23,7 @@ export const BlankSection = () => {
       <Row>
         <Col md={4} xs={12}>
           <Form.Select {...register('blank.type')}>
-            <option value={EBlankType.SINGLE_CHOICE.toString()}>{EBlankType.SINGLE_CHOICE}</option>
+            <option value={BlankType.SINGLE_CHOICE.toString()}>{BlankType.SINGLE_CHOICE}</option>
           </Form.Select>
         </Col>
       </Row>

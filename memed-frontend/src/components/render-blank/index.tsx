@@ -1,7 +1,8 @@
-import {TBlank, SingleChoiceBlank} from "../../model/blank";
+import {MultipleChoiceBlank, SingleChoiceBlank, TBlank} from "../../model/blank";
 import {FC, useMemo} from "react";
-import {EBlankType} from "../../model/blank-type";
+import {BlankType} from "../../model/blank-type";
 import {SingleChoiceBlankRenderer} from "./single-choice-blank-renderer";
+import {MultipleChoiceBlankRenderer} from "./multiple-choice-blank-renderer";
 
 interface IProps {
   blank: TBlank;
@@ -14,10 +15,16 @@ export const RenderBlank: FC<IProps> = (props) => {
     return blank.type;
   }, [blank]);
 
-  if (blankType === EBlankType.SINGLE_CHOICE) {
+  if (blankType === BlankType.SINGLE_CHOICE) {
     return (
       <SingleChoiceBlankRenderer blank={blank as SingleChoiceBlank} />
     );
+  }
+
+  if (blankType === BlankType.MULTIPLE_CHOICE) {
+    return (
+      <MultipleChoiceBlankRenderer blank={blank as MultipleChoiceBlank} />
+    )
   }
 
   return <div>Unknown blank</div>;

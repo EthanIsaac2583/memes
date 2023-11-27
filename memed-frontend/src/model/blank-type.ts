@@ -1,4 +1,6 @@
-export enum EBlankType {
+export enum BlankType {
 
-  SINGLE_CHOICE = 'SINGLE_CHOICE'
+  SINGLE_CHOICE = 'SINGLE_CHOICE',
+
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE'
 }

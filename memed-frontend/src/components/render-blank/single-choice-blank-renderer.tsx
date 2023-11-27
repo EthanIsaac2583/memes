@@ -1,7 +1,7 @@
 import {SingleChoiceBlank} from "../../model/blank";
 import {FC} from "react";
 import {useFormContext} from "react-hook-form";
-import {EBlankType} from "../../model/blank-type";
+import {BlankType} from "../../model/blank-type";
 import {RectRadio} from "../ui-kit/rect-radio";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,7 +17,7 @@ export const SingleChoiceBlankRenderer: FC<IProps> = (props) => {
 
   return (
     <>
-      <input {...register('type')} defaultValue={EBlankType.SINGLE_CHOICE.toString()} hidden />
+      <input {...register('type')} defaultValue={BlankType.SINGLE_CHOICE.toString()} hidden />
       {blank.options.map(option => {
         return (
           <Row key={option.key} className="mb-2">

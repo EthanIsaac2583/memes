@@ -3,13 +3,13 @@ import Col from "react-bootstrap/Col";
 import {Form} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import {useFormContext} from "react-hook-form";
-import {EBlankType} from "../../model/blank-type";
+import {BlankType} from "../../model/blank-type";
 import {useEffect} from "react";
 
 export const AnswerSection = () => {
   const { watch, register, setValue } = useFormContext();
 
-  const blankType = watch('blank.type') as EBlankType;
+  const blankType = watch('blank.type') as BlankType;
 
   useEffect(() => {
     setValue('answer.type', blankType);
