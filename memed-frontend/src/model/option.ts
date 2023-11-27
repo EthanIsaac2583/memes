@@ -1,4 +1,4 @@
-export type TOption = {
+export type Option = {
 
   key: string;
   value: string;

@@ -1,4 +1,4 @@
-import {TSingleChoiceBlank} from "../../model/blank";
+import {SingleChoiceBlank} from "../../model/blank";
 import {FC} from "react";
 import {useFormContext} from "react-hook-form";
 import {EBlankType} from "../../model/blank-type";
@@ -7,10 +7,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 interface IProps {
-  blank: TSingleChoiceBlank;
+  blank: SingleChoiceBlank;
 }
 
-export const SingleChoiceBlank: FC<IProps> = (props) => {
+export const SingleChoiceBlankRenderer: FC<IProps> = (props) => {
   const { blank } = props;
 
   const { register } = useFormContext();
