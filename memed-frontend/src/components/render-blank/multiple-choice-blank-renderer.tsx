@@ -17,7 +17,7 @@ export const MultipleChoiceBlankRenderer: FC<IProps> = (props) => {
 
     return (
         <div>
-            <p>You can chose several options</p>
+            <p>You can choose several options</p>
             <input {...register('type')} defaultValue={BlankType.MULTIPLE_CHOICE.toString()} hidden/>
             {blank.options.map(option => {
                 return (

@@ -13,7 +13,8 @@ export const TaskById = () => {
   useEffect(() => {
     axios<TTask>({
       method: 'GET',
-      url: `http://localhost:8080/api/v1/tasks/${id}`
+      // url: `http://localhost:8080/api/v1/tasks/${id}`
+      url: `http://192.168.100.5:8080/api/v1/tasks/${id}`
     })
       .then(response => {
         setTask(response.data);
