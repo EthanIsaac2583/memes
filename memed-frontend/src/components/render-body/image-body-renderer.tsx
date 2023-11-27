@@ -12,10 +12,10 @@ export const ImageBodyRenderer: FC<IProps> = (props) => {
   return (
     <div>
       <div>
-        <Image src={body.url} fluid />
+        <p className="h3">{body.text}</p>
       </div>
       <div>
-        <p className="h3">{body.text}</p>
+        <Image src={body.url} fluid />
       </div>
     </div>
   );

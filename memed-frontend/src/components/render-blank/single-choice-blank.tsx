@@ -3,6 +3,8 @@ import {FC} from "react";
 import {useFormContext} from "react-hook-form";
 import {EBlankType} from "../../model/blank-type";
 import {RectRadio} from "../ui-kit/rect-radio";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 interface IProps {
   blank: TSingleChoiceBlank;
@@ -18,13 +20,16 @@ export const SingleChoiceBlank: FC<IProps> = (props) => {
       <input {...register('type')} defaultValue={EBlankType.SINGLE_CHOICE.toString()} hidden />
       {blank.options.map(option => {
         return (
-          <RectRadio
-            key={option.key}
-            {...register('key', { required: true })}
-            id={option.key}
-            value={option.key}
-            label={option.value}
-          />
+          <Row key={option.key} className="mb-2">
+            <Col>
+              <RectRadio
+                {...register('key', { required: true })}
+                id={option.key}
+                value={option.key}
+                label={option.value}
+              />
+            </Col>
+          </Row>
         )
       })}
     </>

@@ -36,8 +36,8 @@ export const ProcessTask: FC<IProps> = (props) => {
                 </Col>
               </Row>
               <Row className="mt-3">
-                <Col>
-                  <Button type="submit">Submit</Button>
+                <Col className="d-grid">
+                  <Button type="submit" size="lg">Submit</Button>
                 </Col>
               </Row>
             </form>
