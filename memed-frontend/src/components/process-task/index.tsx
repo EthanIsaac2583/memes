@@ -28,7 +28,7 @@ export const ProcessTask: FC<IProps> = (props) => {
           <Col md={6}>
             <RenderBody body={task.body} />
           </Col>
-          <Col md={6}>
+          <Col md={6} className="mt-xs-3">
             <form onSubmit={methods.handleSubmit(onSubmit)}>
               <Row>
                 <Col>
