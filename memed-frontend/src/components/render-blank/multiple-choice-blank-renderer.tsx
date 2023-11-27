@@ -16,7 +16,8 @@ export const MultipleChoiceBlankRenderer: FC<IProps> = (props) => {
     const {register} = useFormContext();
 
     return (
-        <>
+        <div>
+            <p>You can chose several options</p>
             <input {...register('type')} defaultValue={BlankType.MULTIPLE_CHOICE.toString()} hidden/>
             {blank.options.map(option => {
                 return (
@@ -32,6 +33,6 @@ export const MultipleChoiceBlankRenderer: FC<IProps> = (props) => {
                     </Row>
                 );
             })}
-        </>
+        </div>
     );
 };
