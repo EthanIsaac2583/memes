@@ -6,20 +6,10 @@ import java.util.Objects;
 
 public class ImageBody extends Body {
 
-  private String text;
-
   @NotEmpty
   private String url;
 
   public ImageBody() {
-  }
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
   }
 
   public String getUrl() {
@@ -36,20 +26,11 @@ public class ImageBody extends Body {
     if (o==null || getClass()!=o.getClass()) return false;
     if (!super.equals(o)) return false;
     ImageBody imageBody = (ImageBody) o;
-    return Objects.equals(text, imageBody.text) && Objects.equals(url, imageBody.url);
+    return Objects.equals(url, imageBody.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), text, url);
-  }
-
-  @Override
-  public String toString() {
-    return "ImageBody{" +
-      "text='" + text + '\'' +
-      ", url='" + url + '\'' +
-      ", type=" + type +
-      '}';
+    return Objects.hash(super.hashCode(), url);
   }
 }
