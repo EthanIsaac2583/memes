@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/templates")
+@RequestMapping("/api/v1/templates")
 public class TemplateController {
 
   private final TemplateService templateService;
