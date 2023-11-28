@@ -28,7 +28,7 @@ public class QuizService {
   public Quiz findOrCreateByTemplateId(Long id) {
     return quizRepository
       .findByTemplateId(id)
-      .orElse(generateQuizByTemplateId(id));
+      .orElseGet(() -> generateQuizByTemplateId(id));
   }
 
   private Quiz generateQuizByTemplateId(Long id) {
