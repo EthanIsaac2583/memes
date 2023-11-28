@@ -97,18 +97,20 @@ public class Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Question question = (Question) o;
-    return isAssessed==question.isAssessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(answer, question.answer);
+    return isAssessed==question.isAssessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, isAssessed, grade, answer);
+    return Objects.hash(id, quiz, task, isAssessed, grade, answer);
   }
 
   @Override
   public String toString() {
     return "Question{" +
       "id=" + id +
+      ", quiz=" + quiz +
+      ", task=" + task +
       ", isAssessed=" + isAssessed +
       ", grade=" + grade +
       ", answer=" + answer +
