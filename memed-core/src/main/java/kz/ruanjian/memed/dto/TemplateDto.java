@@ -1,13 +1,20 @@
 package kz.ruanjian.memed.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Objects;
 import java.util.Set;
 
 public class TemplateDto {
 
   private Long id;
+
+  @NotEmpty
   private String name;
+
   private String description;
+
+  @NotEmpty
   private Set<Long> taskIds;
 
   public TemplateDto() {
