@@ -29,7 +29,7 @@ public class Quiz {
   private Template template;
 
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-  private Set<Question> answers;
+  private Set<Question> questions;
 
   public Quiz() {
   }
@@ -50,12 +50,12 @@ public class Quiz {
     this.template = template;
   }
 
-  public Set<Question> getAnswers() {
-    return answers;
+  public Set<Question> getQuestions() {
+    return questions;
   }
 
-  public void setAnswers(Set<Question> answers) {
-    this.answers = answers;
+  public void setQuestions(Set<Question> questions) {
+    this.questions = questions;
   }
 
   @Override
@@ -69,5 +69,12 @@ public class Quiz {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  @Override
+  public String toString() {
+    return "Quiz{" +
+      "id=" + id +
+      '}';
   }
 }
