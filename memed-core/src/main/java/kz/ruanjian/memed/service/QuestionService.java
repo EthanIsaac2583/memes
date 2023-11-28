@@ -16,7 +16,7 @@ public class QuestionService {
 
   public Question findNextQuestionByQuizId(Long id) {
     return questionRepository
-      .findFirstByQuizIdAndAssessed(id, false)
+      .findFirstByQuizIdAndAssessedIsTrue(id)
       .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 }
