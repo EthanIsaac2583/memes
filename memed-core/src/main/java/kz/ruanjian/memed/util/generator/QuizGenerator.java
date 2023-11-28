@@ -2,6 +2,7 @@ package kz.ruanjian.memed.util.generator;
 
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Quiz;
+import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ public class QuizGenerator {
 
   public Quiz generate(Template template) {
     Quiz quiz = new Quiz();
+    quiz.setStatus(QuizStatus.IN_PROGRESS);
 
     quiz.setTemplate(template);
     quiz.setQuestions(generateQuestions(template, quiz));
