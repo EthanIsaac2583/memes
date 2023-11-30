@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.controller;
 
+import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.QuizRequestDto;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.service.QuizService;
@@ -19,7 +20,7 @@ public class QuizController {
   }
 
   @PostMapping("/request")
-  public Quiz request(@RequestBody QuizRequestDto quizRequest) {
+  public Quiz request(@RequestBody @Valid QuizRequestDto quizRequest) {
     return quizService.request(quizRequest);
   }
 }
