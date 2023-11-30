@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Quiz} from "../../model/quiz";
 import {ProcessQuiz} from "../../components/process-quiz";
+import {BaseLayout} from "../../components/base-layout";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
@@ -24,5 +25,9 @@ export const ProcessQuizByTemplateId = () => {
     return null;
   }
 
-  return <ProcessQuiz quiz={quiz} />;
+  return (
+    <BaseLayout>
+      <ProcessQuiz quiz={quiz} />
+    </BaseLayout>
+  );
 };
