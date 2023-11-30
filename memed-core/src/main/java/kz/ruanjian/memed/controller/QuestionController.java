@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.controller;
 
+import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.NextQuestionDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.service.QuestionService;
@@ -18,7 +19,7 @@ public class QuestionController {
   }
 
   @GetMapping("/quizzes/questions/next")
-  public Question findNextQuestionByQuizId(NextQuestionDto nextQuestion) {
+  public Question findNextQuestionByQuizId(@Valid NextQuestionDto nextQuestion) {
     return questionService.findNextQuestion(nextQuestion);
   }
 }

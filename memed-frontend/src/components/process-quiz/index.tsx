@@ -15,7 +15,8 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   useEffect(() => {
     axios<Question>({
       method: 'GET',
-      url: `http://localhost:8080/api/v1/quizzes/${quiz.id}/questions/next`
+      url: `http://localhost:8080/api/v1/quizzes/questions/next`,
+      params: { quizId: quiz.id }
     })
       .then(response => {
         setQuestion(response.data);
