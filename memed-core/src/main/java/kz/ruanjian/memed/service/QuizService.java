@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.RequestQuizDto;
+import kz.ruanjian.memed.dto.QuizRequestDto;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.QuizRepository;
@@ -26,14 +26,14 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz request(RequestQuizDto requestQuizDto) {
+  public Quiz request(QuizRequestDto quizRequestDto) {
     return quizRepository
-      .findByTemplateId(requestQuizDto.getTemplateId())
-      .orElseGet(() -> generateQuizByTemplateId(requestQuizDto.getTemplateId()));
+      .findOne(quizRequestDto)
+      .orElseGet(() -> generateQuizByTemplateId(quizRequestDto));
   }
 
-  private Quiz generateQuizByTemplateId(Long id) {
-    Template template = findTemplateById(id);
+  private Quiz generateQuizByTemplateId(QuizRequestDto quizRequestDto) {
+    Template template = findTemplateById(quizRequestDto.getTemplateId());
     Quiz quiz = quizGenerator.generate(template);
     quizRepository.save(quiz);
 

@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.controller;
 
-import kz.ruanjian.memed.dto.RequestQuizDto;
+import kz.ruanjian.memed.dto.QuizRequestDto;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.service.QuizService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ public class QuizController {
   }
 
   @PostMapping("/request")
-  public Quiz request(@RequestBody RequestQuizDto requestQuiz) {
-    return quizService.request(requestQuiz);
+  public Quiz request(@RequestBody QuizRequestDto quizRequest) {
+    return quizService.request(quizRequest);
   }
 }
