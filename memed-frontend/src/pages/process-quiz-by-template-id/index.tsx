@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Quiz} from "../../model/quiz";
+import {ProcessQuiz} from "../../components/process-quiz";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
@@ -19,5 +20,9 @@ export const ProcessQuizByTemplateId = () => {
       });
   }, [templateId]);
 
-  return <div>{JSON.stringify(quiz)}</div>;
+  if (quiz === null) {
+    return null;
+  }
+
+  return <ProcessQuiz quiz={quiz} />;
 };
