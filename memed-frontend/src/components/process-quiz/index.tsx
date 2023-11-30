@@ -1,5 +1,5 @@
 import {Quiz} from "../../model/quiz";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 
 interface IProps {
   quiz: Quiz;
@@ -7,6 +7,10 @@ interface IProps {
 
 export const ProcessQuiz: FC<IProps> = (props) => {
   const { quiz } = props;
+
+  useEffect(() => {
+    console.log('--------> quiz ', quiz);
+  }, [quiz]);
 
   return <div>{JSON.stringify(quiz)}</div>;
 };
