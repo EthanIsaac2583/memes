@@ -29,10 +29,10 @@ public class QuizService {
   public Quiz request(QuizRequestDto quizRequestDto) {
     return quizRepository
       .findOne(quizRequestDto)
-      .orElseGet(() -> generateQuizByTemplateId(quizRequestDto));
+      .orElseGet(() -> generateQuiz(quizRequestDto));
   }
 
-  private Quiz generateQuizByTemplateId(QuizRequestDto quizRequestDto) {
+  private Quiz generateQuiz(QuizRequestDto quizRequestDto) {
     Template template = findTemplateById(quizRequestDto.getTemplateId());
     Quiz quiz = quizGenerator.generate(template);
     quizRepository.save(quiz);
