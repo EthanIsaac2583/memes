@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.service;
 
+import kz.ruanjian.memed.dto.NextQuestionDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -14,9 +15,9 @@ public class QuestionService {
     this.questionRepository = questionRepository;
   }
 
-  public Question findNextQuestionByQuizId(Long id) {
+  public Question findNextQuestion(NextQuestionDto nextQuestionDto) {
     return questionRepository
-      .findFirstByQuizIdAndIsAssessedIs(id, false)
+      .findOne(nextQuestionDto)
       .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 }
