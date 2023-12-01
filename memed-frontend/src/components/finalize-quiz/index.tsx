@@ -1,5 +1,6 @@
 import {Quiz} from "../../model/quiz";
 import {FC} from "react";
+import {useRepositories} from "../../repository/repositories-context";
 
 interface IProps {
   quiz: Quiz;
@@ -9,9 +10,14 @@ interface IProps {
 export const FinalizeQuiz: FC<IProps> = (props) => {
   const { quiz, onFinalize } = props;
 
+  const repositories = useRepositories();
+
   const handleFinalizeQuiz = () => {
-    console.log('------> handleFinalizeQuiz ', quiz);
-    onFinalize?.();
+    repositories?.quizRepository
+      .finalizeById(quiz.id)
+      .then(() => {
+        onFinalize?.();
+      });
   };
 
   return (
