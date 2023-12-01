@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Quiz} from "../../model/quiz";
@@ -8,6 +8,7 @@ import {FinalizeQuiz} from "../../components/finalize-quiz";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
+  const navigate = useNavigate();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [ended, setEnded] = useState(false);
@@ -28,7 +29,7 @@ export const ProcessQuizByTemplateId = () => {
   };
 
   const handleFinalizeQuiz = () => {
-    console.log('-------> handleFinalizeQuiz');
+    navigate("/");
   };
 
   if (quiz === null) {
