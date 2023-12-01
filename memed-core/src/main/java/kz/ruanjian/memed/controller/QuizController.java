@@ -19,9 +19,9 @@ public class QuizController {
     this.quizService = quizService;
   }
 
-  // todo post method
+  // todo post method, route fix
   @GetMapping("/request")
-  public Quiz request(@RequestParam Long templateId) {
+  public Quiz requestByTemplateId(@RequestParam Long templateId) {
     return quizService.request(templateId);
   }
 
