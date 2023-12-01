@@ -34,7 +34,7 @@ public class Question {
   private Task task;
 
   @Column(name = "is_assessed")
-  private boolean isAssessed;
+  private boolean assessed;
 
   private int grade;
 
@@ -69,11 +69,11 @@ public class Question {
   }
 
   public boolean isAssessed() {
-    return isAssessed;
+    return assessed;
   }
 
   public void setAssessed(boolean assessed) {
-    isAssessed = assessed;
+    this.assessed = assessed;
   }
 
   public int getGrade() {
@@ -97,12 +97,12 @@ public class Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Question question = (Question) o;
-    return isAssessed==question.isAssessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
+    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, quiz, task, isAssessed, grade, answer);
+    return Objects.hash(id, quiz, task, assessed, grade, answer);
   }
 
   @Override
@@ -111,7 +111,7 @@ public class Question {
       "id=" + id +
       ", quiz=" + quiz +
       ", task=" + task +
-      ", isAssessed=" + isAssessed +
+      ", assessed=" + assessed +
       ", grade=" + grade +
       ", answer=" + answer +
       '}';
