@@ -3,6 +3,8 @@ package kz.ruanjian.memed.controller;
 import kz.ruanjian.memed.dto.TemplateDto;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.service.TemplateService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,11 @@ public class TemplateController {
   @GetMapping("/{id}")
   public Template findById(@PathVariable Long id) {
     return templateService.findById(id);
+  }
+
+  @GetMapping
+  public Page<Template> findAll(Pageable pageable) {
+    return templateService.findAll(pageable);
   }
 
   @PostMapping

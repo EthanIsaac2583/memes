@@ -7,6 +7,8 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.TaskRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,10 @@ public class TemplateService {
   public Template findById(Long id) {
     return templateRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(TEMPLATE_NOT_FOUND));
+  }
+
+  public Page<Template> findAll(Pageable pageable) {
+    return templateRepository.findAll(pageable);
   }
 
   @Transactional
