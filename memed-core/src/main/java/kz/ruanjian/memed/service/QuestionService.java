@@ -1,6 +1,5 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.NextQuestionDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ public class QuestionService {
     this.questionRepository = questionRepository;
   }
 
-  public Question findNextQuestion(NextQuestionDto nextQuestionDto) {
+  public Question findNextQuestion(Long quizId) {
     return new Question();
   }
 }
