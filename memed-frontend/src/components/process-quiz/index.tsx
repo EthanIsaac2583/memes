@@ -17,7 +17,7 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   const repositories = useRepositories();
 
   const handleFetchNextQuestion = () => {
-    repositories.questionRepository
+    repositories?.questionRepository
       .nextQuestion(quiz.id)
       .then(setQuestion)
       .catch((errorResponse: ErrorResponse) => {

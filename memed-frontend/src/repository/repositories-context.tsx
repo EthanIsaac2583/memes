@@ -1,21 +1,27 @@
-import {createContext, FC, PropsWithChildren, useContext} from "react";
+import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {QuestionRepository} from "./question-repository";
 
 interface RepositoryContext {
   questionRepository: QuestionRepository;
 }
 
-const DEFAULT_VALUE: RepositoryContext = {
-  questionRepository: new QuestionRepository()
+const repositoriesContext = createContext<RepositoryContext | null>(null);
+
+interface IProps {
+  baseUrl: string;
 }
 
-const repositoriesContext = createContext<RepositoryContext>(DEFAULT_VALUE);
+export const RepositoriesProvider: FC<PropsWithChildren<IProps>> = (props) => {
+  const { children, baseUrl } = props;
 
-export const RepositoriesProvider: FC<PropsWithChildren> = (props) => {
-  const { children } = props;
+  const repositories: RepositoryContext = useMemo(() => {
+    return {
+      questionRepository: new QuestionRepository(baseUrl)
+    }
+  }, [baseUrl]);
 
   return (
-    <repositoriesContext.Provider value={DEFAULT_VALUE}>
+    <repositoriesContext.Provider value={repositories}>
       {children}
     </repositoriesContext.Provider>
   );
