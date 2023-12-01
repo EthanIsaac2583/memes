@@ -3,7 +3,7 @@ import {FC, useEffect, useState} from "react";
 import {Question} from "../../model/question";
 import {ProcessQuestion} from "../process-question";
 import {ErrorResponse} from "../../model/error-response";
-import {QuestionRepository} from "../../repository/question-repository";
+import {useRepositories} from "../../repository/repositories-context";
 
 interface IProps {
   quiz: Quiz;
@@ -14,8 +14,10 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   const { quiz, onEnd } = props;
   const [question, setQuestion] = useState<Question | null>(null);
 
+  const repositories = useRepositories();
+
   const handleFetchNextQuestion = () => {
-    new QuestionRepository()
+    repositories.questionRepository
       .nextQuestion(quiz.id)
       .then(setQuestion)
       .catch((errorResponse: ErrorResponse) => {
