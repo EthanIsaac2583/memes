@@ -5,4 +5,4 @@ type TSingleChoiceAnswer = {
   key: string;
 }
 
-export type TAnswer = TSingleChoiceAnswer;
+export type Answer = TSingleChoiceAnswer;

@@ -10,10 +10,11 @@ import Button from "react-bootstrap/Button";
 
 interface IProps {
   task: TTask;
+  onProcessed?: () => void;
 }
 
 export const ProcessTask: FC<IProps> = (props) => {
-  const { task } = props;
+  const { task, onProcessed } = props;
 
   const methods = useForm();
 
