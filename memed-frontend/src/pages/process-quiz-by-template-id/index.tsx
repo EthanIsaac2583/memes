@@ -4,6 +4,7 @@ import axios from "axios";
 import {Quiz} from "../../model/quiz";
 import {ProcessQuiz} from "../../components/process-quiz";
 import {BaseLayout} from "../../components/base-layout";
+import {FinalizeQuiz} from "../../components/finalize-quiz";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
@@ -26,6 +27,10 @@ export const ProcessQuizByTemplateId = () => {
     setEnded(true);
   };
 
+  const handleFinalizeQuiz = () => {
+    console.log('-------> handleFinalizeQuiz');
+  };
+
   if (quiz === null) {
     return null;
   }
@@ -33,7 +38,10 @@ export const ProcessQuizByTemplateId = () => {
   return (
     <BaseLayout>
       {ended ? (
-        <div>you ended quiz</div>
+        <FinalizeQuiz
+          quiz={quiz}
+          onFinalize={handleFinalizeQuiz}
+        />
       ) : (
         <ProcessQuiz
           quiz={quiz}
