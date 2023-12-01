@@ -23,11 +23,13 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   }, [quiz]);
 
   const handleProcessed = () => {
-    // axios({
-    //   method: 'PATCH',
-    //   url: `http://192.168.100.5:8080/api/v1/questions/${question?.id}`,
-    //   data: answer
-    // })
+    axios<Question>({
+      method: 'GET',
+      url: `http://192.168.100.5:8080/api/v1/quizzes/${quiz.id}/questions/next`
+    })
+      .then(response => {
+        setQuestion(response.data);
+      });
   };
 
   if (question === null) {

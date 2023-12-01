@@ -24,7 +24,7 @@ export const ProcessQuestion: FC<IProps> = (props) => {
   const onSubmit: SubmitHandler<Answer> = (answer) => {
     axios({
       method: 'PATCH',
-      url: `http://192.168.100.5:8080/api/v1/questions/${question?.id}`,
+      url: `http://localhost:8080/api/v1/questions/${question?.id}`,
       data: { answer } as AnswerDto
     })
       .then(() => {
