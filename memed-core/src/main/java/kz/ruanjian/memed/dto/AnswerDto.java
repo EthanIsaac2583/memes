@@ -1,12 +1,20 @@
 package kz.ruanjian.memed.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import kz.ruanjian.memed.pojo.answer.Answer;
+import kz.ruanjian.memed.pojo.deserializer.AnswerDeserializer;
 
 import java.util.Objects;
 
 public class AnswerDto {
 
   private Long questionId;
+
+  @Valid
+  @NotNull
+  @JsonDeserialize(using = AnswerDeserializer.class)
   private Answer answer;
 
   public AnswerDto() {
