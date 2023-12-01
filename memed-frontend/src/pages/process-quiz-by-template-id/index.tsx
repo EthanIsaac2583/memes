@@ -9,7 +9,7 @@ export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [isEnded, setEnded] = useState(false);
+  const [ended, setEnded] = useState(false);
 
   useEffect(() => {
     axios<Quiz>({
@@ -30,16 +30,16 @@ export const ProcessQuizByTemplateId = () => {
     return null;
   }
 
-  if (isEnded) {
-    return <div>you ended quiz</div>;
-  }
-
   return (
     <BaseLayout>
-      <ProcessQuiz
-        quiz={quiz}
-        onEnd={handleEndQuiz}
-      />
+      {ended ? (
+        <div>you ended quiz</div>
+      ) : (
+        <ProcessQuiz
+          quiz={quiz}
+          onEnd={handleEndQuiz}
+        />
+      )}
     </BaseLayout>
   );
 };
