@@ -28,7 +28,7 @@ public class QuizService {
   @Transactional
   public Quiz request(Long templateId) {
     return quizRepository
-      .findFirstByStatusAndTemplateId(QuizStatus.IN_PROGRESS, templateId)
+      .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, templateId)
       .orElseGet(() -> generateQuiz(templateId));
   }
 

@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long>, JpaSpecificationExecutor<Quiz> {
 
-  Optional<Quiz> findFirstByStatusAndTemplateId(QuizStatus status, Long templateId);
+  Optional<Quiz> findTop1ByStatusAndTemplateId(QuizStatus status, Long templateId);
 }
