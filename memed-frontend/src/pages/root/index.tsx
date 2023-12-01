@@ -16,7 +16,7 @@ export const RootPage = () => {
   useEffect(() => {
     axios<IPageable<TQuizTemplate>>({
       method: 'GET',
-      url: 'http://192.168.100.5:8080/api/v1/quiz-templates'
+      url: 'http://192.168.100.5:8080/api/v1/templates'
     }).then((response) => {
       setTemplates(response.data.content);
     });
@@ -37,7 +37,7 @@ export const RootPage = () => {
                       <Card.Header>Quiz</Card.Header>
                       <Card.Body>
                         <Card.Title>{template.name}</Card.Title>
-                        <Button variant="dark" href={`/quiz-templates/${template.id}/run`}>Run</Button>
+                        <Button variant="dark" href={`/templates/${template.id}/process-quiz`}>Process</Button>
                       </Card.Body>
                     </Card>
                 </Col>
