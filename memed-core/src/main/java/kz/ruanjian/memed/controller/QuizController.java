@@ -19,7 +19,6 @@ public class QuizController {
 
   @GetMapping("/request")
   public Quiz request(@RequestParam Long templateId) {
-    System.out.println("---------> templateId " + templateId);
-    return new Quiz();
+    return quizService.request(templateId);
   }
 }
