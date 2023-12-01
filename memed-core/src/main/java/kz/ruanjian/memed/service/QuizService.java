@@ -32,12 +32,28 @@ public class QuizService {
       .orElseGet(() -> generateQuiz(templateId));
   }
 
+  @Transactional
+  public Quiz finalizeById(Long id) {
+    Quiz quiz = findById(id);
+    quiz.setStatus(QuizStatus.DONE);
+
+    quizRepository.save(quiz);
+
+    return quiz;
+  }
+
   private Quiz generateQuiz(Long templateId) {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
     quizRepository.save(quiz);
 
     return quiz;
+  }
+
+  private Quiz findById(Long id) {
+    return quizRepository
+      .findById(id)
+      .orElseThrow(() -> new NotFoundException("Quiz not found"));
   }
 
   private Template findTemplateById(Long id) {
