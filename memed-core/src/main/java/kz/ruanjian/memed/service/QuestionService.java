@@ -26,6 +26,8 @@ public class QuestionService {
   public Question provideAnswer(AnswerDto answerDto) {
     Question question = findById(answerDto.getQuestionId());
     question.setAnswer(answerDto.getAnswer());
+    question.setAssessed(true);
+    question.setGrade(100);
 
     questionRepository.save(question);
 
