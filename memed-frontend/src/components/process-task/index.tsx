@@ -8,6 +8,8 @@ import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import {Answer} from "../../model/answer";
 import {Question} from "../../model/question";
+import axios from "axios";
+import {AnswerDto} from "../../dto/answer-dto";
 
 interface IProps {
   question: Question;
@@ -20,7 +22,14 @@ export const ProcessQuestion: FC<IProps> = (props) => {
   const methods = useForm<Answer>();
 
   const onSubmit: SubmitHandler<Answer> = (answer) => {
-    onProcessed?.();
+    axios({
+      method: 'PATCH',
+      url: `http://192.168.100.5:8080/api/v1/questions/${question?.id}`,
+      data: { answer } as AnswerDto
+    })
+      .then(() => {
+        onProcessed?.();
+      });
   };
 
   return (

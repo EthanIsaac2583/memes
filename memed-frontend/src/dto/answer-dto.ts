@@ -1,6 +1,6 @@
 import {Answer} from "../model/answer";
 
 export type AnswerDto = {
-  questionId: number;
+  questionId?: number;
   answer: Answer;
 }
