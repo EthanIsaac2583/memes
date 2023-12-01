@@ -19,7 +19,6 @@ public class QuestionController {
 
   @GetMapping("/quizzes/questions/next")
   public Question findNextQuestionByQuizId(@RequestParam Long quizId) {
-    System.out.println("-------> quizId " + quizId);
-    return new Question();
+    return questionService.findNextQuestion(quizId);
   }
 }
