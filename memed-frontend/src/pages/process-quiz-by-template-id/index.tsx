@@ -12,9 +12,9 @@ export const ProcessQuizByTemplateId = () => {
 
   useEffect(() => {
     axios<Quiz>({
-      method: 'POST',
-      url: "http://localhost:8080/api/v1/quizzes/request",
-      data: { templateId }
+      method: 'GET',
+      url: "http://192.168.100.5:8080/api/v1/quizzes/request",
+      params: { templateId }
     })
       .then(response => {
         setQuiz(response.data);
