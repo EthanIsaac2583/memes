@@ -9,7 +9,5 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-  Optional<Question> findFirstByQuizIdAndAssessedIs(Long quizId, boolean assessed);
-
   Optional<Question> findTop1ByQuizIdAndAssessedIs(Long quizId, boolean assessed);
 }
