@@ -9,6 +9,7 @@ export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [isEnded, setEnded] = useState(false);
 
   useEffect(() => {
     axios<Quiz>({
@@ -21,13 +22,24 @@ export const ProcessQuizByTemplateId = () => {
       });
   }, [templateId]);
 
+  const handleEndQuiz = () => {
+    setEnded(true);
+  };
+
   if (quiz === null) {
     return null;
   }
 
+  if (isEnded) {
+    return <div>you ended quiz</div>;
+  }
+
   return (
     <BaseLayout>
-      <ProcessQuiz quiz={quiz} />
+      <ProcessQuiz
+        quiz={quiz}
+        onEnd={handleEndQuiz}
+      />
     </BaseLayout>
   );
 };
