@@ -1,9 +1,9 @@
 import {Quiz} from "../../model/quiz";
 import {FC, useEffect, useState} from "react";
-import axios, {AxiosError, AxiosResponse} from "axios";
 import {Question} from "../../model/question";
 import {ProcessQuestion} from "../process-question";
 import {ErrorResponse} from "../../model/error-response";
+import {QuestionRepository} from "../../repository/question-repository";
 
 interface IProps {
   quiz: Quiz;
@@ -14,34 +14,23 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   const { quiz, onEnd } = props;
   const [question, setQuestion] = useState<Question | null>(null);
 
-  useEffect(() => {
-    axios({
-      method: 'GET',
-      url: `http://192.168.100.5:8080/api/v1/quizzes/${quiz.id}/questions/next`
-    })
-      .then((response: AxiosResponse<Question>) => {
-        setQuestion(response.data);
-      })
-      .catch((errorResponse: AxiosError<ErrorResponse>) => {
-        if (errorResponse?.response?.data.statusCode === 404) {
+  const handleFetchNextQuestion = () => {
+    new QuestionRepository()
+      .nextQuestion(quiz.id)
+      .then(setQuestion)
+      .catch((errorResponse: ErrorResponse) => {
+        if (errorResponse.statusCode === 404) {
           onEnd?.();
         }
       });
-  }, [quiz]);
+  }
+
+  useEffect(() => {
+    handleFetchNextQuestion();
+  }, []);
 
   const handleProcessed = () => {
-    axios({
-      method: 'GET',
-      url: `http://192.168.100.5:8080/api/v1/quizzes/${quiz.id}/questions/next`
-    })
-      .then((response: AxiosResponse<Question>) => {
-        setQuestion(response.data);
-      })
-      .catch((errorResponse: AxiosError<ErrorResponse>) => {
-        if (errorResponse?.response?.data.statusCode === 404) {
-          onEnd?.();
-        }
-      });
+    handleFetchNextQuestion();
   };
 
   if (question === null) {
