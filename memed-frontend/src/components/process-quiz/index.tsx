@@ -6,10 +6,11 @@ import {ProcessQuestion} from "../process-question";
 
 interface IProps {
   quiz: Quiz;
+  onEnded?: () => void;
 }
 
 export const ProcessQuiz: FC<IProps> = (props) => {
-  const { quiz } = props;
+  const { quiz, onEnded } = props;
   const [question, setQuestion] = useState<Question | null>(null);
 
   useEffect(() => {
@@ -19,6 +20,10 @@ export const ProcessQuiz: FC<IProps> = (props) => {
     })
       .then(response => {
         setQuestion(response.data);
+      })
+      .catch(errorResponse => {
+        console.log('--------> errorResponse 1', errorResponse);
+        onEnded?.();
       });
   }, [quiz]);
 
@@ -29,6 +34,10 @@ export const ProcessQuiz: FC<IProps> = (props) => {
     })
       .then(response => {
         setQuestion(response.data);
+      })
+      .catch(errorResponse => {
+        console.log('--------> errorResponse 2', errorResponse);
+        onEnded?.();
       });
   };
 
