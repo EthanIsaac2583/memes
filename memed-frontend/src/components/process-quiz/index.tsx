@@ -2,7 +2,7 @@ import {Quiz} from "../../model/quiz";
 import {FC, useEffect, useState} from "react";
 import axios from "axios";
 import {Question} from "../../model/question";
-import {ProcessTask} from "../process-task";
+import {ProcessQuestion} from "../process-task";
 
 interface IProps {
   quiz: Quiz;
@@ -22,9 +22,17 @@ export const ProcessQuiz: FC<IProps> = (props) => {
       });
   }, [quiz]);
 
+  const handleProcessed = () => {
+    // axios({
+    //   method: 'PATCH',
+    //   url: `http://192.168.100.5:8080/api/v1/questions/${question?.id}`,
+    //   data: answer
+    // })
+  };
+
   if (question === null) {
     return null;
   }
 
-  return <ProcessTask task={question.task} />;
+  return <ProcessQuestion question={question} onProcessed={handleProcessed} />;
 };

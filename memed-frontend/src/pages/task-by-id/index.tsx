@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {ProcessTask} from "../../components/process-task";
+import {ProcessQuestion} from "../../components/process-task";
 import {TTask} from "../../model/task";
 import {BaseLayout} from "../../components/base-layout";
 
@@ -27,7 +27,7 @@ export const TaskById = () => {
 
   return (
     <BaseLayout>
-      <ProcessTask task={task} />
+      <ProcessQuestion question={task} />
     </BaseLayout>
   );
 };

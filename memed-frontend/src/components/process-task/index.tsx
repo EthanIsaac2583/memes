@@ -1,25 +1,26 @@
-import {TTask} from "../../model/task";
 import {FC} from "react";
 import {RenderBody} from "../render-body";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {RenderBlank} from "../render-blank";
-import {FormProvider, useForm} from "react-hook-form";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import Button from "react-bootstrap/Button";
+import {Answer} from "../../model/answer";
+import {Question} from "../../model/question";
 
 interface IProps {
-  task: TTask;
+  question: Question;
   onProcessed?: () => void;
 }
 
-export const ProcessTask: FC<IProps> = (props) => {
-  const { task, onProcessed } = props;
+export const ProcessQuestion: FC<IProps> = (props) => {
+  const { question, onProcessed } = props;
 
-  const methods = useForm();
+  const methods = useForm<Answer>();
 
-  const onSubmit = (data: unknown) => {
-    console.log('-----> on submit', data);
+  const onSubmit: SubmitHandler<Answer> = (answer) => {
+    onProcessed?.();
   };
 
   return (
@@ -27,13 +28,13 @@ export const ProcessTask: FC<IProps> = (props) => {
       <Container>
         <Row>
           <Col md={6}>
-            <RenderBody body={task.body} />
+            <RenderBody body={question.task.body} />
           </Col>
           <Col md={6} className="mt-xs-3">
             <form onSubmit={methods.handleSubmit(onSubmit)}>
               <Row>
                 <Col>
-                  <RenderBlank blank={task.blank} />
+                  <RenderBlank blank={question.task.blank} />
                 </Col>
               </Row>
               <Row className="mt-3">
