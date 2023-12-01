@@ -2,7 +2,7 @@ import {Quiz} from "../../model/quiz";
 import {FC, useEffect, useState} from "react";
 import axios from "axios";
 import {Question} from "../../model/question";
-import {ProcessQuestion} from "../process-task";
+import {ProcessQuestion} from "../process-question";
 
 interface IProps {
   quiz: Quiz;
