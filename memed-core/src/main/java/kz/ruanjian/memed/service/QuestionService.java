@@ -4,6 +4,7 @@ import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import kz.ruanjian.memed.util.grader.GraderContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
+  private final GraderContext graderContext;
 
-  public QuestionService(QuestionRepository questionRepository) {
+  public QuestionService(QuestionRepository questionRepository, GraderContext graderContext) {
     this.questionRepository = questionRepository;
+    this.graderContext = graderContext;
   }
 
   public Question findNextQuestion(Long quizId) {
@@ -26,8 +29,8 @@ public class QuestionService {
   public Question provideAnswer(AnswerDto answerDto) {
     Question question = findById(answerDto.getQuestionId());
     question.setAnswer(answerDto.getAnswer());
+    question.setGrade(graderContext.grade(question));
     question.setAssessed(true);
-    question.setGrade(100);
 
     questionRepository.save(question);
 

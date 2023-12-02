@@ -9,14 +9,14 @@ public class GraderContext implements Grader {
 
   @Override
   public int grade(Question question) {
-    if (question.getAnswer() instanceof SingleChoiceAnswer userSingleChoiceAnswer) {
-      if (question.getTask().getAnswer() instanceof SingleChoiceAnswer correctSingleChoiceAnswer) {
+    if (question.getAnswer() instanceof SingleChoiceAnswer userSingleChoiceAnswer &&
+      (question.getTask().getAnswer() instanceof SingleChoiceAnswer correctSingleChoiceAnswer)) {
         if (userSingleChoiceAnswer.equals(correctSingleChoiceAnswer)) {
           return 100;
         }
 
         return 0;
-      }
+
     }
 
     return 0;
