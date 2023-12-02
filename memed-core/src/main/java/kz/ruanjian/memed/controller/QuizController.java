@@ -18,6 +18,7 @@ public class QuizController {
     this.quizService = quizService;
   }
 
+  // should be GET method (idempotent)
   @PostMapping("/templates/{templateId}/quizzes/request")
   public Quiz requestByTemplateId(@PathVariable Long templateId) {
     return quizService.requestByTemplateId(templateId);

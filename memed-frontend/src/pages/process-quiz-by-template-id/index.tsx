@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Quiz} from "../../model/quiz";
 import {ProcessQuiz} from "../../components/process-quiz";
@@ -8,7 +8,6 @@ import {useRepositories} from "../../repository/repositories-context";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
-  const navigate = useNavigate();
   const repositories = useRepositories();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -26,8 +25,8 @@ export const ProcessQuizByTemplateId = () => {
     setEnded(true);
   };
 
-  const handleFinalizeQuiz = () => {
-    navigate("/");
+  const handleFinalizeQuiz = (updatedQuiz: Quiz) => {
+    setQuiz(updatedQuiz);
   };
 
   if (quiz === null) {

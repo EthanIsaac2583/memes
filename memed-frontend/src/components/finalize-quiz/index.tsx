@@ -4,7 +4,7 @@ import {useRepositories} from "../../repository/repositories-context";
 
 interface IProps {
   quiz: Quiz;
-  onFinalize?: () => void;
+  onFinalize?: (quiz: Quiz) => void;
 }
 
 export const FinalizeQuiz: FC<IProps> = (props) => {
@@ -15,8 +15,8 @@ export const FinalizeQuiz: FC<IProps> = (props) => {
   const handleFinalizeQuiz = () => {
     repositories?.quizRepository
       .finalizeById(quiz.id)
-      .then(() => {
-        onFinalize?.();
+      .then((updatedQuiz) => {
+        onFinalize?.(updatedQuiz);
       });
   };
 
