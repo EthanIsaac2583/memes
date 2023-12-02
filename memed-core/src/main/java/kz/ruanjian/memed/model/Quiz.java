@@ -25,9 +25,6 @@ public class Quiz {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Enumerated(EnumType.STRING)
-  private QuizStatus status;
-
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "template_id")
@@ -36,6 +33,11 @@ public class Quiz {
   @JsonIgnore
   @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private Set<Question> questions;
+
+  @Enumerated(EnumType.STRING)
+  private QuizStatus status;
+
+  private int grade;
 
   public Quiz() {
   }
@@ -46,14 +48,6 @@ public class Quiz {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public QuizStatus getStatus() {
-    return status;
-  }
-
-  public void setStatus(QuizStatus status) {
-    this.status = status;
   }
 
   public Template getTemplate() {
@@ -72,17 +66,33 @@ public class Quiz {
     this.questions = questions;
   }
 
+  public QuizStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(QuizStatus status) {
+    this.status = status;
+  }
+
+  public int getGrade() {
+    return grade;
+  }
+
+  public void setGrade(int grade) {
+    this.grade = grade;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Quiz quiz = (Quiz) o;
-    return Objects.equals(id, quiz.id) && status==quiz.status;
+    return grade==quiz.grade && Objects.equals(id, quiz.id) && status==quiz.status;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status);
+    return Objects.hash(id, status, grade);
   }
 
   @Override
@@ -90,6 +100,7 @@ public class Quiz {
     return "Quiz{" +
       "id=" + id +
       ", status=" + status +
+      ", grade=" + grade +
       '}';
   }
 }

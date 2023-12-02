@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.service;
 
+import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Template;
@@ -36,6 +37,7 @@ public class QuizService {
   public Quiz finalizeById(Long id) {
     Quiz quiz = findById(id);
     quiz.setStatus(QuizStatus.DONE);
+    quiz.setGrade(gradeQuiz(quiz));
 
     quizRepository.save(quiz);
 
@@ -60,5 +62,19 @@ public class QuizService {
     return templateRepository
       .findById(id)
       .orElseThrow(() -> new NotFoundException("Template not found"));
+  }
+
+  private int gradeQuiz(Quiz quiz) {
+    return (questionGradesSum(quiz) * 100) / questionsCount(quiz);
+  }
+
+  private int questionGradesSum(Quiz quiz) {
+    return quiz.getQuestions().stream()
+      .mapToInt(Question::getGrade)
+      .sum();
+  }
+
+  private int questionsCount(Quiz quiz) {
+    return quiz.getQuestions().size();
   }
 }
