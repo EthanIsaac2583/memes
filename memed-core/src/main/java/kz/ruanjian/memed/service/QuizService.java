@@ -27,10 +27,10 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz request(Long templateId) {
+  public Quiz requestByTemplateId(Long id) {
     return quizRepository
-      .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, templateId)
-      .orElseGet(() -> generateQuiz(templateId));
+      .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, id)
+      .orElseGet(() -> generateQuiz(id));
   }
 
   @Transactional
