@@ -65,7 +65,7 @@ public class QuizService {
   }
 
   private int gradeQuiz(Quiz quiz) {
-    return (questionGradesSum(quiz) * 100) / questionsCount(quiz);
+    return questionGradesSum(quiz) / questionsCount(quiz);
   }
 
   private int questionGradesSum(Quiz quiz) {
