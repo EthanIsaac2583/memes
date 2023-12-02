@@ -25,9 +25,10 @@ create table templates_tasks
 create table quizzes
 (
   id          bigserial primary key,
-  status      varchar(50) not null,
   lead_id     bigint references leads (id),
-  template_id bigint      not null references templates (id)
+  template_id bigint      not null references templates (id),
+  status      varchar(50) not null,
+  grade       int
 );
 
 create table questions
