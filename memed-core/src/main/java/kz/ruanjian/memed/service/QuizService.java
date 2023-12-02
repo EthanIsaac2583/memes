@@ -30,7 +30,7 @@ public class QuizService {
   public Quiz requestByTemplateId(Long id) {
     return quizRepository
       .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, id)
-      .orElseGet(() -> generateQuiz(id));
+      .orElseGet(() -> generateByTemplateId(id));
   }
 
   @Transactional
@@ -44,7 +44,7 @@ public class QuizService {
     return quiz;
   }
 
-  private Quiz generateQuiz(Long templateId) {
+  private Quiz generateByTemplateId(Long templateId) {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
     quizRepository.save(quiz);
