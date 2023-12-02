@@ -23,4 +23,18 @@ export class QuizRepository {
         throw exception?.response?.data;
       });
   }
+
+  public async requestByTemplateId(templateId: number) {
+    return axios({
+      method: 'POST',
+      baseURL: this.baseUrl,
+      url: `/api/v1/templates/${templateId}/quizzes/request`
+    })
+      .then((response: AxiosResponse<Quiz>) => {
+        return response.data;
+      })
+      .catch((exception: AxiosError<ErrorResponse>) => {
+        throw exception?.response?.data;
+      });
+  }
 }

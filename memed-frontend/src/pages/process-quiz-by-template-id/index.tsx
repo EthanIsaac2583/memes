@@ -1,27 +1,25 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Quiz} from "../../model/quiz";
 import {ProcessQuiz} from "../../components/process-quiz";
 import {BaseLayout} from "../../components/base-layout";
 import {FinalizeQuiz} from "../../components/finalize-quiz";
+import {useRepositories} from "../../repository/repositories-context";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId } = useParams();
   const navigate = useNavigate();
+  const repositories = useRepositories();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [ended, setEnded] = useState(false);
 
   useEffect(() => {
-    axios<Quiz>({
-      method: 'GET',
-      url: "http://192.168.100.5:8080/api/v1/quizzes/request",
-      params: { templateId }
-    })
-      .then(response => {
-        setQuiz(response.data);
-      });
+    if (templateId && parseInt(templateId, 10)) {
+      repositories?.quizRepository
+        .requestByTemplateId(parseInt(templateId, 10))
+        .then(setQuiz);
+    }
   }, [templateId]);
 
   const handleEndQuiz = () => {
