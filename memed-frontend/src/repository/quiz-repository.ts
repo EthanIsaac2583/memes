@@ -10,8 +10,18 @@ export class QuizRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async findByTemplateId(templateId: number) {
-    return undefined;
+  public async findById(quizId: number) {
+    return axios({
+      method: 'GET',
+      baseURL: this.baseUrl,
+      url: `/api/v1/quizzes/${quizId}`
+    })
+      .then((response: AxiosResponse<Quiz>) => {
+        return response.data;
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        throw error?.response?.data;
+      });
   }
 
   public async requestByTemplateId(templateId: number) {

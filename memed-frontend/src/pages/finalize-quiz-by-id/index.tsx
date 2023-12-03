@@ -26,11 +26,11 @@ export const FinalizeQuizById = () => {
 
   useEffect(() => {
     if (quizId) {
-      // repositories?.quizRepository
-      //   .requestByTemplateId(parseInt(templateId, 10))
-      //   .then(setQuiz);
+      repositories?.quizRepository
+        .findById(parseInt(quizId, 10))
+        .then(setQuiz);
     }
-  }, [quizId]);
+  }, []);
 
   if (quiz === null) {
     return null;
