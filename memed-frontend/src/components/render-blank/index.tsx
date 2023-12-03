@@ -5,7 +5,7 @@ import {MultipleChoiceBlankRenderer} from "./multiple-choice-blank-renderer";
 import {BlankRenderer} from "./types";
 
 export const RenderBlank: FC<BlankRenderer> = (props) => {
-  const { blank } = props;
+  const { blank, onSubmitBlank } = props;
 
   const blankType = useMemo(() => {
     return blank.type;
@@ -13,13 +13,13 @@ export const RenderBlank: FC<BlankRenderer> = (props) => {
 
   if (blankType === BlankType.SINGLE_CHOICE) {
     return (
-      <SingleChoiceBlankRenderer blank={blank} />
+      <SingleChoiceBlankRenderer blank={blank} onSubmitBlank={onSubmitBlank} />
     );
   }
 
   if (blankType === BlankType.MULTIPLE_CHOICE) {
     return (
-      <MultipleChoiceBlankRenderer blank={blank} />
+      <MultipleChoiceBlankRenderer blank={blank} onSubmitBlank={onSubmitBlank} />
     )
   }
 

@@ -6,6 +6,8 @@ import Col from "react-bootstrap/Col";
 import {RenderBlank} from "../render-blank";
 import Button from "react-bootstrap/Button";
 import {Question} from "../../model/question";
+import {Answer} from "../../model/answer";
+import {useRepositories} from "../../repository/repositories-context";
 
 interface IProps {
   question: Question;
@@ -13,7 +15,17 @@ interface IProps {
 }
 
 export const ProcessQuestion: FC<IProps> = (props) => {
-  const { question } = props;
+  const { question, onProcessed } = props;
+
+  const repositories = useRepositories();
+
+  const handleSubmitBlank = (answer: Answer) => {
+    repositories?.questionRepository
+      .provideAnswer(question.id, answer)
+      .then(() => {
+        onProcessed?.();
+      });
+  }
 
   return (
     <Container>
@@ -22,16 +34,7 @@ export const ProcessQuestion: FC<IProps> = (props) => {
           <RenderBody body={question.task.body} />
         </Col>
         <Col md={6} className="mt-xs-3">
-          <Row>
-            <Col>
-              <RenderBlank blank={question.task.blank} />
-            </Col>
-          </Row>
-          <Row className="mt-3">
-            <Col className="d-grid">
-              <Button type="submit" size="lg">Submit</Button>
-            </Col>
-          </Row>
+          <RenderBlank blank={question.task.blank} onSubmitBlank={handleSubmitBlank} />
         </Col>
       </Row>
     </Container>
