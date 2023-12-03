@@ -18,10 +18,9 @@ export const MultipleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
   };
 
     return (
-      <>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Row>
           <Col>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
               <p>You can choose several options</p>
               <input {...methods.register('type')} defaultValue={BlankType.MULTIPLE_CHOICE.toString()} hidden/>
               {blank.options.map(option => {
@@ -38,7 +37,6 @@ export const MultipleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
                   </Row>
                 );
               })}
-            </form>
           </Col>
         </Row>
         <Row className="mt-3">
@@ -46,6 +44,6 @@ export const MultipleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
             <Button type="submit" size="lg">Submit</Button>
           </Col>
         </Row>
-      </>
+      </form>
     );
 };

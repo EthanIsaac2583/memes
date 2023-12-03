@@ -18,26 +18,24 @@ export const SingleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
   };
 
   return (
-    <>
+    <form onSubmit={methods.handleSubmit(onSubmit)}>
       <Row>
         <Col>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <input {...methods.register('type')} defaultValue={BlankType.SINGLE_CHOICE.toString()} hidden />
-            {blank.options.map(option => {
-              return (
-                <Row key={option.key} className="mb-2">
-                  <Col>
-                    <RectRadio
-                      {...methods.register('key', { required: true })}
-                      id={option.key}
-                      value={option.key}
-                      label={option.value}
-                    />
-                  </Col>
-                </Row>
-              )
-            })}
-          </form>
+          <input {...methods.register('type')} defaultValue={BlankType.SINGLE_CHOICE.toString()} hidden />
+          {blank.options.map(option => {
+            return (
+              <Row key={option.key} className="mb-2">
+                <Col>
+                  <RectRadio
+                    {...methods.register('key', { required: true })}
+                    id={option.key}
+                    value={option.key}
+                    label={option.value}
+                  />
+                </Col>
+              </Row>
+            )
+          })}
         </Col>
       </Row>
       <Row className="mt-3">
@@ -45,6 +43,6 @@ export const SingleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
           <Button type="submit" size="lg">Submit</Button>
         </Col>
       </Row>
-    </>
+    </form>
   );
 };
