@@ -91,7 +91,7 @@ export const FinalizeQuizById = () => {
           <Row>
             <Col>
               <Alert variant="info">
-                <Alert.Heading>{GRADE_RATE_TITLE_MAP[gradeRate]} Earned grade {quiz.grade}</Alert.Heading>
+                <Alert.Heading>{GRADE_RATE_TITLE_MAP[gradeRate]}. Earned grade is {quiz.grade}</Alert.Heading>
                 {GRADE_RATE_HINT_MAP[gradeRate]}
               </Alert>
             </Col>
