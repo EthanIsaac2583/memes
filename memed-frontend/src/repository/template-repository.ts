@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
 import {IPageable} from "../model/general";
 import {TQuizTemplate} from "../model/quiz-template";
-import {AxiosError, AxiosResponse} from "axios";
 import {ErrorResponse} from "../model/error-response";
 
 export class TemplateRepository {
