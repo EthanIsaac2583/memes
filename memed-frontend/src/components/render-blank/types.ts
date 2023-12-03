@@ -1,7 +1,7 @@
-import {SingleChoiceBlank, Blank} from "../../model/blank";
+import {Blank} from "../../model/blank";
 import {Answer} from "../../model/answer";
 
-interface IProps {
+export interface BlankRenderer {
   blank: Blank;
-  onSubmit?: (answer: Answer) => void;
+  onSubmitBlank?: (answer: Answer) => void;
 }

@@ -1,8 +1,13 @@
 import {BlankType} from "./blank-type";
 
-type TSingleChoiceAnswer = {
+type SingleChoiceAnswer = {
   type: BlankType.SINGLE_CHOICE;
   key: string;
 }
 
-export type Answer = TSingleChoiceAnswer;
+type MultipleChoiceAnswer = {
+  type: BlankType.MULTIPLE_CHOICE;
+  keys: Array<string>;
+}
+
+export type Answer = SingleChoiceAnswer | MultipleChoiceAnswer;
