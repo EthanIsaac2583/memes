@@ -10,8 +10,8 @@ import {Alert} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
-export const FinalizeQuizByTemplateId = () => {
-  const { templateId } = useParams();
+export const FinalizeQuizById = () => {
+  const { quizId } = useParams();
   const repositories = useRepositories();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -25,12 +25,12 @@ export const FinalizeQuizByTemplateId = () => {
   };
 
   useEffect(() => {
-    if (templateId) {
-      repositories?.quizRepository
-        .requestByTemplateId(parseInt(templateId, 10))
-        .then(setQuiz);
+    if (quizId) {
+      // repositories?.quizRepository
+      //   .requestByTemplateId(parseInt(templateId, 10))
+      //   .then(setQuiz);
     }
-  }, [templateId]);
+  }, [quizId]);
 
   if (quiz === null) {
     return null;

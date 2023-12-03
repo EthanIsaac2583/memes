@@ -7,7 +7,7 @@ import {useRepositories} from "../../repository/repositories-context";
 
 interface IProps {
   quiz: Quiz;
-  onEnd?: () => void;
+  onEnd?: (quiz: Quiz) => void;
 }
 
 export const ProcessQuiz: FC<IProps> = (props) => {
@@ -22,7 +22,7 @@ export const ProcessQuiz: FC<IProps> = (props) => {
       .then(setQuestion)
       .catch((errorResponse: ErrorResponse) => {
         if (errorResponse.statusCode === 404) {
-          onEnd?.();
+          onEnd?.(quiz);
         }
       });
   }

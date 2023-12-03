@@ -16,7 +16,7 @@ export class QuizRepository {
 
   public async requestByTemplateId(templateId: number) {
     return axios({
-      method: 'POST',
+      method: 'GET',
       baseURL: this.baseUrl,
       url: `/api/v1/templates/${templateId}/quizzes/request`
     })
