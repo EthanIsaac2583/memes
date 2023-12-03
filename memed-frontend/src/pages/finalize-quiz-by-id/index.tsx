@@ -23,7 +23,7 @@ const GRADE_RATE_TITLE_MAP = {
 }
 
 const GRADE_RATE_HINT_MAP = {
-  [GradeRate.BAD]: "Your effort is appreciated! You've got this! 📚💪",
+  [GradeRate.BAD]: "Keep refining your skills. Your success story is unfolding! 🚀🛠️",
   [GradeRate.OKAY]: "You're on the right track! Improvement is a journey, not a destination! 🌱🚀",
   [GradeRate.GOOD]: "Fantastic job! Your knowledge shines. The sky's the limit! 🌈✨"
 }
