@@ -16,14 +16,14 @@ public class SingleChoiceAnswerGrader implements Grader {
 
   @Override
   public int grade(Question question) {
-    if (isCorrectAnswer(question)) {
+    if (isCorrect(question)) {
       return memedProperties.getGradeMax();
     }
 
     return memedProperties.getGradeMin();
   }
 
-  private boolean isCorrectAnswer(Question question) {
+  private boolean isCorrect(Question question) {
     Answer correctAnswer = question.getTask().getAnswer();
     Answer userAnswer = question.getAnswer();
 

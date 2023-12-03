@@ -2,7 +2,7 @@ package kz.ruanjian.memed.util.grader;
 
 import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Question;
-import kz.ruanjian.memed.pojo.answer.Answer;
+import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,17 +16,34 @@ public class MultipleChoiceAnswerGrader implements Grader {
 
   @Override
   public int grade(Question question) {
-    if (isCorrectAnswer(question)) {
+    if (isCorrect(question)) {
       return memedProperties.getGradeMax();
     }
 
     return memedProperties.getGradeMin();
   }
 
-  private boolean isCorrectAnswer(Question question) {
-    Answer correctAnswer = question.getTask().getAnswer();
-    Answer userAnswer = question.getAnswer();
+  private boolean isCorrect(Question question) {
+    MultipleChoiceAnswer correctAnswer = resolveCorrectAnswer(question);
+    MultipleChoiceAnswer userAnswer = resolveUserAnswer(question);
 
-    return correctAnswer.equals(userAnswer);
+    return userAnswer.getKeys().stream()
+      .anyMatch(key -> correctAnswer.getKeys().contains(key));
+  }
+
+  private MultipleChoiceAnswer resolveCorrectAnswer(Question question) {
+    if (question.getTask().getAnswer() instanceof MultipleChoiceAnswer correctAnswer) {
+      return correctAnswer;
+    }
+
+    throw new AnswerGradeException("Incorrect answer type");
+  }
+
+  public MultipleChoiceAnswer resolveUserAnswer(Question question) {
+    if (question.getAnswer() instanceof MultipleChoiceAnswer userAnswer) {
+      return userAnswer;
+    }
+
+    throw new AnswerGradeException("Incorrect answer type");
   }
 }
