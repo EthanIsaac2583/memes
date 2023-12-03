@@ -11,4 +11,4 @@ export type MultipleChoiceBlank = {
   options: Array<Option>;
 }
 
-export type TBlank = SingleChoiceBlank | MultipleChoiceBlank;
+export type Blank = SingleChoiceBlank | MultipleChoiceBlank;

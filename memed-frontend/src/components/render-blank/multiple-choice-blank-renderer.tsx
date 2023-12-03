@@ -5,9 +5,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {BlankType} from "../../model/blank-type";
 import {useFormContext} from "react-hook-form";
+import {Answer} from "../../model/answer";
 
 interface IProps {
     blank: MultipleChoiceBlank;
+    onSubmit?: (answer: Answer) => void;
 }
 
 export const MultipleChoiceBlankRenderer: FC<IProps> = (props) => {

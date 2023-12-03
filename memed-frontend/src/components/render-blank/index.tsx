@@ -1,11 +1,11 @@
-import {MultipleChoiceBlank, SingleChoiceBlank, TBlank} from "../../model/blank";
+import {MultipleChoiceBlank, SingleChoiceBlank, Blank} from "../../model/blank";
 import {FC, useMemo} from "react";
 import {BlankType} from "../../model/blank-type";
 import {SingleChoiceBlankRenderer} from "./single-choice-blank-renderer";
 import {MultipleChoiceBlankRenderer} from "./multiple-choice-blank-renderer";
 
 interface IProps {
-  blank: TBlank;
+  blank: Blank;
 }
 
 export const RenderBlank: FC<IProps> = (props) => {
