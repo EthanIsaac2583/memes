@@ -1,10 +1,12 @@
 import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {QuestionRepository} from "./question-repository";
 import {QuizRepository} from "./quiz-repository";
+import {TemplateRepository} from "./template-repository";
 
 interface RepositoryContext {
   questionRepository: QuestionRepository;
   quizRepository: QuizRepository;
+  templateRepository: TemplateRepository;
 }
 
 const repositoriesContext = createContext<RepositoryContext | null>(null);
@@ -19,7 +21,8 @@ export const RepositoriesProvider: FC<PropsWithChildren<IProps>> = (props) => {
   const repositories: RepositoryContext = useMemo(() => {
     return {
       questionRepository: new QuestionRepository(baseUrl),
-      quizRepository: new QuizRepository(baseUrl)
+      quizRepository: new QuizRepository(baseUrl),
+      templateRepository: new TemplateRepository(baseUrl)
     }
   }, [baseUrl]);
 
