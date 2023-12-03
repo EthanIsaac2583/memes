@@ -16,6 +16,14 @@ export const FinalizeQuizByTemplateId = () => {
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
 
+  const handleFinalizeQuiz = () => {
+    if (quiz) {
+      repositories?.quizRepository
+        .finalizeById(quiz.id)
+        .then(setQuiz);
+    }
+  };
+
   useEffect(() => {
     if (templateId) {
       repositories?.quizRepository
@@ -42,7 +50,7 @@ export const FinalizeQuizByTemplateId = () => {
           </Row>
           <Row className="justify-content-center mt-5">
             <Col md={4} className="d-grid">
-              <Button size="lg" type="button">Get grade</Button>
+              <Button onClick={handleFinalizeQuiz} size="lg" type="button">Get grade</Button>
             </Col>
           </Row>
         </Container>

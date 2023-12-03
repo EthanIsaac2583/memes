@@ -10,11 +10,15 @@ export class QuizRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async finalizeById(id: number): Promise<Quiz> {
+  public async findByTemplateId(templateId: number) {
+    return undefined;
+  }
+
+  public async requestByTemplateId(templateId: number) {
     return axios({
-      method: 'PATCH',
+      method: 'POST',
       baseURL: this.baseUrl,
-      url: `api/v1/quizzes/${id}/finalize`
+      url: `/api/v1/templates/${templateId}/quizzes/request`
     })
       .then((response: AxiosResponse<Quiz>) => {
         return response.data;
@@ -24,11 +28,11 @@ export class QuizRepository {
       });
   }
 
-  public async requestByTemplateId(templateId: number) {
+  public async finalizeById(id: number): Promise<Quiz> {
     return axios({
-      method: 'POST',
+      method: 'PATCH',
       baseURL: this.baseUrl,
-      url: `/api/v1/templates/${templateId}/quizzes/request`
+      url: `api/v1/quizzes/${id}/finalize`
     })
       .then((response: AxiosResponse<Quiz>) => {
         return response.data;

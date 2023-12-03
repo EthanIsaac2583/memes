@@ -2,6 +2,9 @@ package kz.ruanjian.memed.controller;
 
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.service.QuizService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +21,17 @@ public class QuizController {
     this.quizService = quizService;
   }
 
-  // should be GET method (idempotent)
-  @PostMapping("/templates/{templateId}/quizzes/request")
+  @GetMapping("/quizzes/{id}")
+  public Quiz findById(@PathVariable Long id) {
+    return quizService.findById(id);
+  }
+
+  @GetMapping("/quizzes")
+  public Page<Quiz> findAll(Pageable pageable) {
+    return quizService.findAll(pageable);
+  }
+
+  @GetMapping("/templates/{templateId}/quizzes/request")
   public Quiz requestByTemplateId(@PathVariable Long templateId) {
     return quizService.requestByTemplateId(templateId);
   }

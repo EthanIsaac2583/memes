@@ -8,6 +8,8 @@ import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,15 @@ public class QuizService {
     this.quizRepository = quizRepository;
     this.templateRepository = templateRepository;
     this.quizGenerator = quizGenerator;
+  }
+
+  public Quiz findById(Long id) {
+    return quizRepository.findById(id)
+      .orElseThrow(() -> new NotFoundException("Quiz not found"));
+  }
+
+  public Page<Quiz> findAll(Pageable pageable) {
+    return quizRepository.findAll(pageable);
   }
 
   @Transactional
@@ -50,12 +61,6 @@ public class QuizService {
     quizRepository.save(quiz);
 
     return quiz;
-  }
-
-  private Quiz findById(Long id) {
-    return quizRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("Quiz not found"));
   }
 
   private Template findTemplateById(Long id) {
