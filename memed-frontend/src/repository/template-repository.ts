@@ -1,4 +1,4 @@
-import axios from "axios/index";
+import axios from "axios";
 import {IPageable} from "../model/general";
 import {TQuizTemplate} from "../model/quiz-template";
 import {AxiosError, AxiosResponse} from "axios";
