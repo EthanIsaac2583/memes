@@ -14,9 +14,10 @@ export const RootPage = () => {
   const [templates, setTemplates] = useState<Array<TQuizTemplate>>([]);
 
   useEffect(() => {
+    // todo move to repository
     axios<IPageable<TQuizTemplate>>({
       method: 'GET',
-      url: 'http://192.168.100.5:8080/api/v1/templates'
+      url: 'http://ec2-3-79-152-118.eu-central-1.compute.amazonaws.com/api/v1/templates'
     }).then((response) => {
       setTemplates(response.data.content);
     });
