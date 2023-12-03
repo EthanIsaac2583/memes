@@ -4,7 +4,7 @@ import kz.ruanjian.memed.model.Question;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SingleChoiceAnswerGrader implements Grader {
+public class MultipleChoiceAnswerGrader implements Grader {
 
   @Override
   public int grade(Question question) {
