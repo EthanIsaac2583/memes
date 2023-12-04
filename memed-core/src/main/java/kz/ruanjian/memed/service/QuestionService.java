@@ -9,6 +9,7 @@ import kz.ruanjian.memed.util.grader.GraderContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,8 @@ public class QuestionService {
   }
 
   public Item<Question> findItem(Long quizId, Integer number) {
-    Pageable pageable = PageRequest.of(number, 1);
+    Sort ascById = Sort.by(Sort.Order.asc("id"));
+    Pageable pageable = PageRequest.of(number, 1, ascById);
     Page<Question> page = questionRepository.findAll(pageable);
 
     Item<Question> item = new Item<>();
