@@ -33,7 +33,7 @@ public class QuestionService {
   public Item<Question> findItem(Long quizId, Integer number) {
     Sort ascById = Sort.by(Sort.Order.asc("id"));
     Pageable pageable = PageRequest.of(number, 1, ascById);
-    Page<Question> page = questionRepository.findAll(pageable);
+    Page<Question> page = questionRepository.findAll(questionRepository.quizIdEquals(quizId), pageable);
 
     Item<Question> item = new Item<>();
     item.setHasNext(page.hasNext());
