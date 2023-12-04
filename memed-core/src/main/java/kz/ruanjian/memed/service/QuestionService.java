@@ -36,6 +36,8 @@ public class QuestionService {
     Page<Question> page = questionRepository.findAll(questionRepository.quizIdEquals(quizId), pageable);
 
     Item<Question> item = new Item<>();
+    item.setTotalItems(page.getTotalPages());
+    item.setNumber(page.getNumber());
     item.setHasNext(page.hasNext());
     item.setHasPrevious(page.hasPrevious());
 
