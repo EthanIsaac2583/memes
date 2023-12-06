@@ -9,5 +9,5 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface SingularRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
-  Single<T> findSingle(Specification<T> spec);
+  Single<T> findSingle(Specification<T> spec, int number);
 }

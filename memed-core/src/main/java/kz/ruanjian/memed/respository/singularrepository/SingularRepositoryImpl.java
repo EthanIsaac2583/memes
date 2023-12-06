@@ -21,8 +21,9 @@ public class SingularRepositoryImpl<T, ID extends Serializable> extends SimpleJp
   }
 
   @Override
-  public Single<T> findSingle(@Nullable Specification<T> spec) {
+  public Single<T> findSingle(@Nullable Specification<T> spec, int number) {
     TypedQuery<T> query = this.getQuery(spec, Sort.unsorted());
+    query.setFirstResult(number);
     query.setMaxResults(1);
     T singleResult = query.getSingleResult();
     Single<T> single = new Single<>();

@@ -50,7 +50,7 @@ public class QuestionService {
   }
 
   public Single<Question> findSingle(Long quizId) {
-    return questionRepository.findSingle(questionRepository.quizIdEquals(quizId));
+    return questionRepository.findSingle(questionRepository.quizIdEquals(quizId), 1);
   }
 
   @Transactional
