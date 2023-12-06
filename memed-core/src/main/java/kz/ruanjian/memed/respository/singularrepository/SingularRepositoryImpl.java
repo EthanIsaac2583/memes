@@ -28,12 +28,18 @@ public class SingularRepositoryImpl<T, ID extends Serializable> extends SimpleJp
     TypedQuery<T> query = this.getQuery(spec, pageable);
     Page<T> page = this.readPage(query, this.getDomainClass(), pageable, spec);
 
+    return mapToSingle(page);
+  }
+
+  private Single<T> mapToSingle(Page<T> page) {
     Single<T> single = new Single<>();
 
     single.setHasNext(page.hasNext());
     single.setHasPrevious(page.hasPrevious());
     single.setSize(page.getTotalPages());
-    single.setContent(page.getContent().get(0));
+    if (!page.getContent().isEmpty()) {
+      single.setContent(page.getContent().get(0));
+    }
 
     return single;
   }
