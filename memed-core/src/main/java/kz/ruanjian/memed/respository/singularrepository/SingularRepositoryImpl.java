@@ -3,7 +3,9 @@ package kz.ruanjian.memed.respository.singularrepository;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -22,12 +24,16 @@ public class SingularRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 
   @Override
   public Single<T> findSingle(@Nullable Specification<T> spec, int number) {
-    TypedQuery<T> query = this.getQuery(spec, Sort.unsorted());
-    query.setFirstResult(Math.max(number - 1, 0));
-    query.setMaxResults(1);
-    T singleResult = query.getSingleResult();
+    Pageable pageable = PageRequest.of(number, 1);
+    TypedQuery<T> query = this.getQuery(spec, pageable);
+    Page<T> page = this.readPage(query, this.getDomainClass(), pageable, spec);
+
     Single<T> single = new Single<>();
-    single.setContent(singleResult);
+
+    single.setHasNext(page.hasNext());
+    single.setHasPrevious(page.hasPrevious());
+    single.setSize(page.getTotalPages());
+    single.setContent(page.getContent().get(0));
 
     return single;
   }
