@@ -1,20 +1,14 @@
 package kz.ruanjian.memed.respository.singularrepository;
 
 import jakarta.persistence.EntityManager;
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import jakarta.persistence.PersistenceContext;
 
-public class SingularRepositoryImpl<T, D> extends SimpleJpaRepository<T, D> implements SingularRepository<T, D> {
+public class SingularRepositoryImpl<T> implements SingularRepository<T> {
 
+  @PersistenceContext
   private final EntityManager entityManager;
 
-  public SingularRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
-    super(entityInformation, entityManager);
-    this.entityManager = entityManager;
-  }
-
-  public SingularRepositoryImpl(Class<T> domainClass, EntityManager entityManager) {
-    super(domainClass, entityManager);
+  public SingularRepositoryImpl(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 

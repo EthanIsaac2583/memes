@@ -3,6 +3,7 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.respository.singularrepository.Single;
 import kz.ruanjian.memed.service.QuestionService;
 import kz.ruanjian.memed.util.Item;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,11 @@ public class QuestionController {
   @GetMapping("/questions/item")
   public Item<Question> findItem(@RequestParam Long quizId, @RequestParam Integer number) {
     return questionService.findItem(quizId, number);
+  }
+
+  @GetMapping("/questions/single")
+  public Single<Question> findSingle() {
+    return questionService.findSingle();
   }
 
   @PatchMapping("/questions/{id}")

@@ -3,6 +3,7 @@ package kz.ruanjian.memed.service;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
+import kz.ruanjian.memed.respository.singularrepository.Single;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.grader.GraderContext;
@@ -46,6 +47,10 @@ public class QuestionService {
     }
 
     return item;
+  }
+
+  public Single<Question> findSingle() {
+    return questionRepository.findSingle();
   }
 
   @Transactional
