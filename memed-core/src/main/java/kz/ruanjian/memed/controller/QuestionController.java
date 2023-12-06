@@ -35,8 +35,9 @@ public class QuestionController {
   }
 
   @GetMapping("/questions/single")
-  public Single<Question> findSingle(@RequestParam Long quizId) {
-    return questionService.findSingle(quizId);
+  public Single<Question> findSingle(@RequestParam Long quizId,
+                                     @RequestParam Integer number) {
+    return questionService.findSingle(quizId, number);
   }
 
   @PatchMapping("/questions/{id}")
