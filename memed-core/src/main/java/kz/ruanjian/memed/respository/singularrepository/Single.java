@@ -9,6 +9,7 @@ public class Single<T> {
   private boolean hasNext;
   private boolean hasPrevious;
   private int size;
+  private int number;
 
   public Single() {
   }
@@ -45,17 +46,25 @@ public class Single<T> {
     this.size = size;
   }
 
+  public int getNumber() {
+    return number;
+  }
+
+  public void setNumber(int number) {
+    this.number = number;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Single<?> single = (Single<?>) o;
-    return hasNext==single.hasNext && hasPrevious==single.hasPrevious && size==single.size && Objects.equals(content, single.content);
+    return hasNext==single.hasNext && hasPrevious==single.hasPrevious && size==single.size && number==single.number && Objects.equals(content, single.content);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, hasNext, hasPrevious, size);
+    return Objects.hash(content, hasNext, hasPrevious, size, number);
   }
 
   @Override
@@ -65,6 +74,7 @@ public class Single<T> {
       ", hasNext=" + hasNext +
       ", hasPrevious=" + hasPrevious +
       ", size=" + size +
+      ", number=" + number +
       '}';
   }
 }

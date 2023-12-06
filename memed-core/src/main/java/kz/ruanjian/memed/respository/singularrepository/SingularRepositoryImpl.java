@@ -37,6 +37,8 @@ public class SingularRepositoryImpl<T, ID extends Serializable> extends SimpleJp
     single.setHasNext(page.hasNext());
     single.setHasPrevious(page.hasPrevious());
     single.setSize(page.getTotalPages());
+    single.setNumber(page.getNumber());
+
     if (!page.getContent().isEmpty()) {
       single.setContent(page.getContent().get(0));
     }
