@@ -1,8 +1,10 @@
 package kz.ruanjian.memed.respository.singularrepository;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -19,8 +21,8 @@ public class SingularRepositoryImpl<T, ID extends Serializable> extends SimpleJp
   }
 
   @Override
-  public Single<T> findSingle() {
-    TypedQuery<T> query = this.getQuery(null, Sort.unsorted());
+  public Single<T> findSingle(@Nullable Specification<T> spec) {
+    TypedQuery<T> query = this.getQuery(spec, Sort.unsorted());
     query.setMaxResults(1);
     T singleResult = query.getSingleResult();
     Single<T> single = new Single<>();
