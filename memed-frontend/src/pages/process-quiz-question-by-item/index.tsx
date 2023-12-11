@@ -6,7 +6,7 @@ import {Item} from "../../model/item";
 import {Question} from "../../model/question";
 
 export const ProcessQuizQuestionByItem = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const repositories = useRepositories();
   const [questionItem, setQuestionItem] = useState<Item<Question> | null>(null);
 
@@ -16,9 +16,19 @@ export const ProcessQuizQuestionByItem = () => {
       .then(setQuestionItem);
   }, [repositories, searchParams]);
 
+  const handleNavigate = (number: number) => {
+    searchParams.set("number", number.toString());
+    setSearchParams(searchParams);
+  };
+
   if (questionItem === null) {
     return null;
   }
 
-  return <ProcessQuestion questionItem={questionItem} />
+  return (
+    <ProcessQuestion
+      questionItem={questionItem}
+      onNavigate={handleNavigate}
+    />
+  );
 }

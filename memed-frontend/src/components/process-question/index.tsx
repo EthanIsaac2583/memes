@@ -13,10 +13,11 @@ import Button from "react-bootstrap/Button";
 interface IProps {
   questionItem: Item<Question>;
   onProcessed?: () => void;
+  onNavigate?: (number: number) => void;
 }
 
 export const ProcessQuestion: FC<IProps> = (props) => {
-  const { questionItem, onProcessed } = props;
+  const { questionItem, onProcessed, onNavigate } = props;
 
   const repositories = useRepositories();
 
@@ -32,13 +33,31 @@ export const ProcessQuestion: FC<IProps> = (props) => {
     <Container>
       <Row>
         <Col>
-          <Button disabled={!questionItem.hasPrevious}>Previous</Button>
+          <Button
+            onClick={() => {
+              if (questionItem.hasPrevious && onNavigate) {
+                onNavigate(questionItem.number - 1);
+              }
+            }}
+            disabled={!questionItem.hasPrevious}
+          >
+            Previous
+          </Button>
         </Col>
         <Col>
           {questionItem.number} / {questionItem.totalItems}
         </Col>
         <Col>
-          <Button disabled={!questionItem.hasNext}>Next</Button>
+          <Button
+            onClick={() => {
+              if (questionItem.hasNext && onNavigate) {
+                onNavigate(questionItem.number + 1);
+              }
+            }}
+            disabled={!questionItem.hasNext}
+          >
+            Next
+          </Button>
         </Col>
       </Row>
       <Row>
