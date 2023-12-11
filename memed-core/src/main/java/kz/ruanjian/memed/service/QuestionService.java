@@ -63,7 +63,11 @@ public class QuestionService {
   }
 
   private Pageable toPageable(Itemized itemized) {
-    return PageRequest.of(itemized.getNumber(), 1, Sort.by(Sort.Order.asc("id")));
+    int number = Math.max(itemized.getNumber() - 1, 0);
+    int size = 1;
+    Sort sort = Sort.by(Sort.Order.asc("id"));
+
+    return PageRequest.of(number, size, sort);
   }
 
   private Specification<Question> toSpecification(Itemized itemized) {
@@ -74,7 +78,7 @@ public class QuestionService {
     Item<Question> item = new Item<>();
 
     item.setTotalItems(questionPage.getTotalPages());
-    item.setNumber(questionPage.getNumber());
+    item.setNumber(questionPage.getNumber() + 1);
     item.setHasPrevious(questionPage.hasPrevious());
     item.setHasPrevious(questionPage.hasPrevious());
 
