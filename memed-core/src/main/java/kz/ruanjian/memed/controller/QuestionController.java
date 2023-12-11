@@ -37,9 +37,7 @@ public class QuestionController {
 
   @GetMapping("/questions/item")
   public Item<Question> findItem(Itemized itemized) {
-    System.out.println("---------> itemized " + itemized);
-
-    return new Item<>();
+    return questionService.findItem(itemized);
   }
 
   @PatchMapping("/questions/{id}")
