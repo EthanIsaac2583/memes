@@ -5,9 +5,8 @@ import kz.ruanjian.memed.service.QuizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +35,7 @@ public class QuizController {
     return quizService.requestByTemplateId(templateId);
   }
 
-  @PatchMapping("/quizzes/{id}/finalize")
+  @PutMapping("/quizzes/{id}/finalize")
   public Quiz finalizeById(@PathVariable Long id) {
     return quizService.finalizeById(id);
   }
