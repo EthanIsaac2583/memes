@@ -2,13 +2,11 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
-import kz.ruanjian.memed.respository.QuestionMetaViewRepository;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.Itemized;
 import kz.ruanjian.memed.util.grader.GraderContext;
-import kz.ruanjian.memed.view.QuestionMetaView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,14 +21,10 @@ import java.util.Optional;
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
-  private final QuestionMetaViewRepository questionMetaViewRepository;
   private final GraderContext graderContext;
 
-  public QuestionService(QuestionRepository questionRepository,
-                         QuestionMetaViewRepository questionMetaViewRepository,
-                         GraderContext graderContext) {
+  public QuestionService(QuestionRepository questionRepository, GraderContext graderContext) {
     this.questionRepository = questionRepository;
-    this.questionMetaViewRepository = questionMetaViewRepository;
     this.graderContext = graderContext;
   }
 
@@ -70,9 +64,9 @@ public class QuestionService {
       .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 
-  private Optional<QuestionMetaView> findFirstUnAssessedQuestion(Itemized itemized) {
-    return questionMetaViewRepository
-      .findTop1ByQuizIdAndAssessedIs(itemized.getQuizId(), false);
+  private Optional<Long> findFirstAssessableQuestion(Itemized itemized) {
+    return questionRepository
+      .findFirstAssessableQuestionNumber(itemized.getQuizId());
   }
 
   private Pageable toPageable(Itemized itemized) {
@@ -85,8 +79,7 @@ public class QuestionService {
 
   private int determineNumber(Itemized itemized) {
     if (itemized.getNumber() == null) {
-      return findFirstUnAssessedQuestion(itemized)
-        .map(QuestionMetaView::getRowIndex)
+      return findFirstAssessableQuestion(itemized)
         .map(Math::toIntExact)
         .map(number -> Math.max(number - 1, 0))
         .orElseThrow(() -> new NotFoundException("Question not found"));

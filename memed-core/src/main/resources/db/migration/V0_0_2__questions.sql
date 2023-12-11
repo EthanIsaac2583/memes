@@ -41,10 +41,3 @@ create table questions
   answer      varchar(3000),
   grade       int
 );
-
-CREATE VIEW view_question_metas AS
-SELECT q.id,
-       q.is_assessed,
-       q.quiz_id,
-       row_number() OVER (PARTITION BY q.quiz_id ORDER BY q.id) AS rowindex
-FROM questions q;
