@@ -8,6 +8,7 @@ import {Question} from "../../model/question";
 import {Answer} from "../../model/answer";
 import {useRepositories} from "../../repository/repositories-context";
 import {Item} from "../../model/item";
+import Button from "react-bootstrap/Button";
 
 interface IProps {
   questionItem: Item<Question>;
@@ -29,6 +30,17 @@ export const ProcessQuestion: FC<IProps> = (props) => {
 
   return (
     <Container>
+      <Row>
+        <Col>
+          <Button disabled={!questionItem.hasPrevious}>Previous</Button>
+        </Col>
+        <Col>
+          {questionItem.number} / {questionItem.totalItems}
+        </Col>
+        <Col>
+          <Button disabled={!questionItem.hasNext}>Next</Button>
+        </Col>
+      </Row>
       <Row>
         <Col md={6}>
           <RenderBody body={questionItem.item.task.body} />
