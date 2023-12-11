@@ -72,7 +72,7 @@ public class QuestionService {
   private Pageable toPageable(Itemized itemized) {
     int number = determineNumber(itemized);
     int size = 1;
-    Sort sort = Sort.by(Sort.Order.asc("id"));
+    Sort sort = Sort.by(Sort.Order.asc("number"));
 
     return PageRequest.of(number, size, sort);
   }
