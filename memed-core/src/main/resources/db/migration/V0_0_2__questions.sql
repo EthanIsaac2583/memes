@@ -43,6 +43,7 @@ create table questions
 
 CREATE VIEW view_question_metas AS
 SELECT
-    row_number() OVER (ORDER BY q.id) AS rowindex,
-    q.is_assessed
+    q.id,
+    q.is_assessed,
+    row_number() OVER (ORDER BY q.id) AS rowindex
 FROM questions q;
