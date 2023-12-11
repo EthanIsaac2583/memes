@@ -9,7 +9,7 @@ public class Itemized {
   @NotNull
   private Long quizId;
 
-  private Integer number = 1;
+  private Integer number;
 
   public Itemized() {
   }

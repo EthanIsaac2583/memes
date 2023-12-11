@@ -8,6 +8,7 @@ import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.Itemized;
 import kz.ruanjian.memed.util.grader.GraderContext;
+import kz.ruanjian.memed.view.QuestionMetaView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -42,8 +45,6 @@ public class QuestionService {
   }
 
   public Item<Question> findItem(Itemized itemized) {
-    System.out.println("-----_> " + questionMetaViewRepository.findTop1ByQuizIdAndAssessedIs(itemized.getQuizId(), false));
-
     Pageable pageable = toPageable(itemized);
     Specification<Question> specification = toSpecification(itemized);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
@@ -69,12 +70,29 @@ public class QuestionService {
       .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 
+  private Optional<QuestionMetaView> findFirstUnAssessedQuestion(Itemized itemized) {
+    return questionMetaViewRepository
+      .findTop1ByQuizIdAndAssessedIs(itemized.getQuizId(), false);
+  }
+
   private Pageable toPageable(Itemized itemized) {
-    int number = Math.max(itemized.getNumber() - 1, 0);
+    int number = determineNumber(itemized);
     int size = 1;
     Sort sort = Sort.by(Sort.Order.asc("id"));
 
     return PageRequest.of(number, size, sort);
+  }
+
+  private int determineNumber(Itemized itemized) {
+    if (itemized.getNumber() == null) {
+      return findFirstUnAssessedQuestion(itemized)
+        .map(QuestionMetaView::getRowIndex)
+        .map(Math::toIntExact)
+        .map(number -> Math.max(number - 1, 0))
+        .orElseThrow(() -> new NotFoundException("Question not found"));
+    }
+
+    return Math.max(itemized.getNumber() - 1, 0);
   }
 
   private Specification<Question> toSpecification(Itemized itemized) {
