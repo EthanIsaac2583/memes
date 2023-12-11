@@ -7,20 +7,21 @@ import {RenderBlank} from "../render-blank";
 import {Question} from "../../model/question";
 import {Answer} from "../../model/answer";
 import {useRepositories} from "../../repository/repositories-context";
+import {Item} from "../../model/item";
 
 interface IProps {
-  question: Question;
+  questionItem: Item<Question>;
   onProcessed?: () => void;
 }
 
 export const ProcessQuestion: FC<IProps> = (props) => {
-  const { question, onProcessed } = props;
+  const { questionItem, onProcessed } = props;
 
   const repositories = useRepositories();
 
   const handleSubmitBlank = (answer: Answer) => {
     repositories?.questionRepository
-      .provideAnswer(question.id, answer)
+      .provideAnswer(questionItem.item.id, answer)
       .then(() => {
         onProcessed?.();
       });
@@ -30,10 +31,10 @@ export const ProcessQuestion: FC<IProps> = (props) => {
     <Container>
       <Row>
         <Col md={6}>
-          <RenderBody body={question.task.body} />
+          <RenderBody body={questionItem.item.task.body} />
         </Col>
         <Col md={6} className="mt-xs-3">
-          <RenderBlank blank={question.task.blank} onSubmitBlank={handleSubmitBlank} />
+          <RenderBlank blank={questionItem.item.task.blank} onSubmitBlank={handleSubmitBlank} />
         </Col>
       </Row>
     </Container>

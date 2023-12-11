@@ -2,6 +2,7 @@ import {Question} from "../model/question";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {ErrorResponse} from "../model/error-response";
 import {Answer} from "../model/answer";
+import {Item} from "../model/item";
 
 export class QuestionRepository {
 
@@ -11,14 +12,14 @@ export class QuestionRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async nextQuestion(quizId: number): Promise<{ item: Question }> {
+  public async nextQuestion(quizId: number): Promise<Item<Question>> {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
       url: `/api/v1/questions/item`,
       params: { quizId }
     })
-      .then((response: AxiosResponse<{ item: Question }>) => {
+      .then((response: AxiosResponse<Item<Question>>) => {
         return response.data;
       })
       .catch((errorResponse: AxiosError<ErrorResponse>) => {
