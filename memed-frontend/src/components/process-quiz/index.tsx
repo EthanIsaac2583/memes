@@ -19,7 +19,10 @@ export const ProcessQuiz: FC<IProps> = (props) => {
   const handleFetchNextQuestion = () => {
     repositories?.questionRepository
       .nextQuestion(quiz.id)
-      .then(setQuestion)
+      .then((response) => {
+        console.log('------> response', response);
+        setQuestion(response.item);
+      })
       .catch((errorResponse: ErrorResponse) => {
         if (errorResponse.statusCode === 404) {
           onEnd?.(quiz);

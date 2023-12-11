@@ -11,12 +11,14 @@ export class QuestionRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async nextQuestion(quizId: number): Promise<Question> {
+  public async nextQuestion(quizId: number): Promise<{ item: Question }> {
     return axios({
       method: 'GET',
-      url: `${this.baseUrl}/api/v1/quizzes/${quizId}/questions/next`
+      baseURL: this.baseUrl,
+      url: `/api/v1/questions/item`,
+      params: { quizId }
     })
-      .then((response: AxiosResponse<Question>) => {
+      .then((response: AxiosResponse<{ item: Question }>) => {
         return response.data;
       })
       .catch((errorResponse: AxiosError<ErrorResponse>) => {
