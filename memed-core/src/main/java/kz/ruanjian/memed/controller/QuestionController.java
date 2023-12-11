@@ -3,7 +3,6 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
-import kz.ruanjian.memed.respository.singularrepository.Single;
 import kz.ruanjian.memed.service.QuestionService;
 import kz.ruanjian.memed.util.Item;
 import org.springframework.web.bind.annotation.GetMapping;
