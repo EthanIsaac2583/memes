@@ -5,6 +5,8 @@ import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.grader.GraderContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,10 @@ public class QuestionService {
     return questionRepository
       .findTop1ByQuizIdAndAssessedIs(quizId, false)
       .orElseThrow(() -> new NotFoundException("Question not found"));
+  }
+
+  public Page<Question> findAll(Pageable pageable) {
+    return questionRepository.findAll(pageable);
   }
 
   @Transactional
