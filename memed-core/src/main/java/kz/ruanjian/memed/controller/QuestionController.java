@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.service.QuestionService;
+import kz.ruanjian.memed.util.Item;
+import kz.ruanjian.memed.util.Itemized;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,13 @@ public class QuestionController {
   @GetMapping("/questions")
   public Page<Question> findAll(Pageable pageable) {
     return questionService.findAll(pageable);
+  }
+
+  @GetMapping("/questions/item")
+  public Item<Question> findItem(Itemized itemized) {
+    System.out.println("---------> itemized " + itemized);
+
+    return new Item<>();
   }
 
   @PatchMapping("/questions/{id}")
