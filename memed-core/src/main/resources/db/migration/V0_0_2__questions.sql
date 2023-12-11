@@ -45,5 +45,6 @@ CREATE VIEW view_question_metas AS
 SELECT
     q.id,
     q.is_assessed,
+    q.quiz_id,
     row_number() OVER (ORDER BY q.id) AS rowindex
 FROM questions q;

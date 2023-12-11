@@ -20,6 +20,9 @@ public class QuestionMetaView {
   @Column(name = "rowindex")
   private Long rowIndex;
 
+  @Column(name = "quiz_id")
+  private Long quizId;
+
   public Long getId() {
     return id;
   }
@@ -44,12 +47,21 @@ public class QuestionMetaView {
     this.rowIndex = rowIndex;
   }
 
+  public Long getQuizId() {
+    return quizId;
+  }
+
+  public void setQuizId(Long quizId) {
+    this.quizId = quizId;
+  }
+
   @Override
   public String toString() {
     return "QuestionMetaView{" +
       "id=" + id +
       ", assessed=" + assessed +
       ", rowIndex=" + rowIndex +
+      ", quizId=" + quizId +
       '}';
   }
 }

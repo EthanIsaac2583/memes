@@ -42,7 +42,7 @@ public class QuestionService {
   }
 
   public Item<Question> findItem(Itemized itemized) {
-    System.out.println("-----_> " + questionMetaViewRepository.findTop1ByAssessedIs(false));
+    System.out.println("-----_> " + questionMetaViewRepository.findTop1ByQuizIdAndAssessedIs(itemized.getQuizId(), false));
 
     Pageable pageable = toPageable(itemized);
     Specification<Question> specification = toSpecification(itemized);

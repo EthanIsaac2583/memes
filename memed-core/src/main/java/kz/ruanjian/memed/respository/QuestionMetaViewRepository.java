@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface QuestionMetaViewRepository extends JpaRepository<QuestionMetaView, Long> {
 
-  Optional<QuestionMetaView> findTop1ByAssessedIs(boolean assessed);
+  Optional<QuestionMetaView> findTop1ByQuizIdAndAssessedIs(Long quizId, boolean assessed);
 }
