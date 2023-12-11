@@ -36,7 +36,7 @@ public class QuestionController {
   }
 
   @GetMapping("/questions/item")
-  public Item<Question> findItem(Itemized itemized) {
+  public Item<Question> findItem(@Valid Itemized itemized) {
     return questionService.findItem(itemized);
   }
 
