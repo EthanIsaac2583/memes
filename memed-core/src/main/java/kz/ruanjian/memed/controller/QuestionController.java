@@ -9,8 +9,8 @@ import kz.ruanjian.memed.util.Itemized;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +40,7 @@ public class QuestionController {
     return questionService.findItem(itemized);
   }
 
-  @PatchMapping("/questions/{id}")
+  @PutMapping("/questions/{id}")
   public Question provideAnswer(@PathVariable Long id, @RequestBody @Valid AnswerDto answer) {
     answer.setQuestionId(id);
 
