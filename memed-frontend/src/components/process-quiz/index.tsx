@@ -19,7 +19,7 @@ export const ProcessQuiz: FC<IProps> = (props) => {
 
   const handleFetchNextQuestion = () => {
     repositories?.questionRepository
-      .nextQuestion(quiz.id)
+      .nextQuestion(new URLSearchParams())
       .then(setQuestionItem)
       .catch((errorResponse: ErrorResponse) => {
         if (errorResponse.statusCode === 404) {

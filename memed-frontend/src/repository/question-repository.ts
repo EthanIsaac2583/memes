@@ -12,12 +12,12 @@ export class QuestionRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async nextQuestion(quizId: number): Promise<Item<Question>> {
+  public async nextQuestion(params: URLSearchParams): Promise<Item<Question>> {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
       url: `/api/v1/questions/item`,
-      params: { quizId }
+      params
     })
       .then((response: AxiosResponse<Item<Question>>) => {
         return response.data;
