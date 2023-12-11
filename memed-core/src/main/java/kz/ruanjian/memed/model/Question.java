@@ -44,15 +44,20 @@ public class Question {
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
 
-  public Question() {
-  }
-
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Integer getNumber() {
+    return number;
+  }
+
+  public void setNumber(Integer number) {
+    this.number = number;
   }
 
   public Quiz getQuiz() {
@@ -100,18 +105,19 @@ public class Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Question question = (Question) o;
-    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
+    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(number, question.number) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, quiz, task, assessed, grade, answer);
+    return Objects.hash(id, number, quiz, task, assessed, grade, answer);
   }
 
   @Override
   public String toString() {
     return "Question{" +
       "id=" + id +
+      ", number=" + number +
       ", quiz=" + quiz +
       ", task=" + task +
       ", assessed=" + assessed +
