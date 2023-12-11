@@ -40,5 +40,9 @@ export const ProcessQuiz: FC<IProps> = (props) => {
     return null;
   }
 
-  return <ProcessQuestion questionItem={questionItem} onProcessed={handleProcessed} />;
+  if (1 !== 1) {
+    return <ProcessQuestion questionItem={questionItem} onProcessed={handleProcessed} />;
+  }
+
+  return null;
 };

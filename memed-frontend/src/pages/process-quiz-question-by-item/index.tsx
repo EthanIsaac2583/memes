@@ -1,18 +1,24 @@
 import {useSearchParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useRepositories} from "../../repository/repositories-context";
+import {ProcessQuestion} from "../../components/process-question";
+import {Item} from "../../model/item";
+import {Question} from "../../model/question";
 
 export const ProcessQuizQuestionByItem = () => {
   const [searchParams] = useSearchParams();
   const repositories = useRepositories();
+  const [questionItem, setQuestionItem] = useState<Item<Question> | null>(null);
 
   useEffect(() => {
     repositories?.questionRepository
       .nextQuestion(searchParams)
-      .then(response => {
-        console.log('-------> response', response);
-      })
+      .then(setQuestionItem);
   }, [repositories, searchParams]);
 
-  return null;
+  if (questionItem === null) {
+    return null;
+  }
+
+  return <ProcessQuestion questionItem={questionItem} />
 }
