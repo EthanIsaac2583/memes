@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Item<T> {
 
-  private T content;
+  private T item;
   private int totalItems;
   private int number;
   private boolean hasNext;
@@ -13,12 +13,12 @@ public class Item<T> {
   public Item() {
   }
 
-  public T getContent() {
-    return content;
+  public T getItem() {
+    return item;
   }
 
-  public void setContent(T content) {
-    this.content = content;
+  public void setItem(T item) {
+    this.item = item;
   }
 
   public int getTotalItems() {
@@ -57,19 +57,19 @@ public class Item<T> {
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
-    Item<?> item = (Item<?>) o;
-    return totalItems==item.totalItems && number==item.number && hasNext==item.hasNext && hasPrevious==item.hasPrevious && Objects.equals(content, item.content);
+    Item<?> item1 = (Item<?>) o;
+    return totalItems==item1.totalItems && number==item1.number && hasNext==item1.hasNext && hasPrevious==item1.hasPrevious && Objects.equals(item, item1.item);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, totalItems, number, hasNext, hasPrevious);
+    return Objects.hash(item, totalItems, number, hasNext, hasPrevious);
   }
 
   @Override
   public String toString() {
     return "Item{" +
-      "content=" + content +
+      "item=" + item +
       ", totalItems=" + totalItems +
       ", number=" + number +
       ", hasNext=" + hasNext +

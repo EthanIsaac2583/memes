@@ -83,7 +83,7 @@ public class QuestionService {
     item.setHasPrevious(questionPage.hasPrevious());
 
     if (!questionPage.isEmpty()) {
-      item.setContent(questionPage.getContent().get(0));
+      item.setItem(questionPage.getContent().get(0));
     }
 
     return item;
