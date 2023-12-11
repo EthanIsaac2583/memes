@@ -26,8 +26,12 @@ export class QuestionRepository {
 
   public async provideAnswer(questionId: number , answer: Answer): Promise<void> {
     return axios({
-      method: 'PATCH',
-      url: `${this.baseUrl}/api/v1/questions/${questionId}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      baseURL: this.baseUrl,
+      url: `/api/v1/questions/${questionId}`,
       data: { answer }
     })
       .then(() => {})

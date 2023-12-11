@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {RenderBlank} from "../render-blank";
-import Button from "react-bootstrap/Button";
 import {Question} from "../../model/question";
 import {Answer} from "../../model/answer";
 import {useRepositories} from "../../repository/repositories-context";

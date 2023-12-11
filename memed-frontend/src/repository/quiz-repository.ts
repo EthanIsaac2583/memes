@@ -40,7 +40,7 @@ export class QuizRepository {
 
   public async finalizeById(id: number): Promise<Quiz> {
     return axios({
-      method: 'PATCH',
+      method: 'PUT',
       baseURL: this.baseUrl,
       url: `api/v1/quizzes/${id}/finalize`
     })
