@@ -49,10 +49,6 @@ public class QuestionService {
     return item;
   }
 
-  public Single<Question> findSingle(Long quizId, Integer number) {
-    return questionRepository.findSingle(questionRepository.quizIdEquals(quizId), number);
-  }
-
   @Transactional
   public Question provideAnswer(AnswerDto answerDto) {
     Question question = findById(answerDto.getQuestionId());

@@ -34,12 +34,6 @@ public class QuestionController {
     return questionService.findItem(quizId, number);
   }
 
-  @GetMapping("/questions/single")
-  public Single<Question> findSingle(@RequestParam Long quizId,
-                                     @RequestParam Integer number) {
-    return questionService.findSingle(quizId, number);
-  }
-
   @PatchMapping("/questions/{id}")
   public Question provideAnswer(@PathVariable Long id, @RequestBody @Valid AnswerDto answer) {
     answer.setQuestionId(id);
