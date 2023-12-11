@@ -98,7 +98,7 @@ public class QuestionService {
     item.setTotalItems(questionPage.getTotalPages());
     item.setNumber(questionPage.getNumber() + 1);
     item.setHasPrevious(questionPage.hasPrevious());
-    item.setHasPrevious(questionPage.hasPrevious());
+    item.setHasNext(questionPage.hasNext());
 
     if (!questionPage.isEmpty()) {
       item.setItem(questionPage.getContent().get(0));
