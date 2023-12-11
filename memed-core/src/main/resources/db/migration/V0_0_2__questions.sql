@@ -34,6 +34,7 @@ create table quizzes
 create table questions
 (
   id          bigserial primary key,
+  number      int     not null,
   quiz_id     bigint  not null references quizzes (id),
   task_id     bigint  not null references tasks (id),
   is_assessed boolean not null,
@@ -42,9 +43,8 @@ create table questions
 );
 
 CREATE VIEW view_question_metas AS
-SELECT
-  q.id,
-  q.is_assessed,
-  q.quiz_id,
-  row_number() OVER (PARTITION BY q.quiz_id ORDER BY q.id) AS rowindex
+SELECT q.id,
+       q.is_assessed,
+       q.quiz_id,
+       row_number() OVER (PARTITION BY q.quiz_id ORDER BY q.id) AS rowindex
 FROM questions q;

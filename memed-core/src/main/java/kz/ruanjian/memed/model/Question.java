@@ -24,6 +24,9 @@ public class Question {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(updatable = false)
+  private Integer number;
+
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "quiz_id", updatable = false)
