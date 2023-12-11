@@ -43,4 +43,13 @@ public class QuestionMetaView {
   public void setRowIndex(Long rowIndex) {
     this.rowIndex = rowIndex;
   }
+
+  @Override
+  public String toString() {
+    return "QuestionMetaView{" +
+      "id=" + id +
+      ", assessed=" + assessed +
+      ", rowIndex=" + rowIndex +
+      '}';
+  }
 }

@@ -2,6 +2,7 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.respository.QuestionMetaViewRepository;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
@@ -19,10 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
+  private final QuestionMetaViewRepository questionMetaViewRepository;
   private final GraderContext graderContext;
 
-  public QuestionService(QuestionRepository questionRepository, GraderContext graderContext) {
+  public QuestionService(QuestionRepository questionRepository,
+                         QuestionMetaViewRepository questionMetaViewRepository,
+                         GraderContext graderContext) {
     this.questionRepository = questionRepository;
+    this.questionMetaViewRepository = questionMetaViewRepository;
     this.graderContext = graderContext;
   }
 
@@ -37,6 +42,8 @@ public class QuestionService {
   }
 
   public Item<Question> findItem(Itemized itemized) {
+    System.out.println("-----_> " + questionMetaViewRepository.findTop1ByAssessedIs(false));
+
     Pageable pageable = toPageable(itemized);
     Specification<Question> specification = toSpecification(itemized);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
