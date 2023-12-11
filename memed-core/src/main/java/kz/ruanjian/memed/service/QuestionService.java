@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,8 @@ public class QuestionService {
 
   public Item<Question> findItem(Itemized itemized) {
     Pageable pageable = toPageable(itemized);
-    Page<Question> questionPage = questionRepository.findAll(pageable);
+    Specification<Question> specification = toSpecification(itemized);
+    Page<Question> questionPage = questionRepository.findAll(specification, pageable);
 
     return toItem(questionPage);
   }
@@ -62,6 +64,10 @@ public class QuestionService {
 
   private Pageable toPageable(Itemized itemized) {
     return PageRequest.of(itemized.getNumber(), 1, Sort.by(Sort.Order.asc("id")));
+  }
+
+  private Specification<Question> toSpecification(Itemized itemized) {
+    return questionRepository.quizIdEquals(itemized.getQuizId());
   }
 
   private Item<Question> toItem(Page<Question> questionPage) {
