@@ -1,7 +1,8 @@
 export type Item<T> = {
-  item: T;
+  content: T;
   totalItems: number;
   number: number;
   hasNext: boolean;
   hasPrevious: boolean;
+  last: boolean;
 }

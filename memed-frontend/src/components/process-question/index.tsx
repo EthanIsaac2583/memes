@@ -23,9 +23,13 @@ export const ProcessQuestion: FC<IProps> = (props) => {
 
   const handleSubmitBlank = (answer: Answer) => {
     repositories?.questionRepository
-      .provideAnswer(questionItem.item.id, answer)
+      .provideAnswer(questionItem.content.id, answer)
       .then(() => {
-        onProcessed?.();
+        if (questionItem.last && onProcessed) {
+          onProcessed();
+        } else if (questionItem.hasNext && onNavigate) {
+          onNavigate(questionItem.number + 1);
+        }
       });
   }
 
@@ -62,10 +66,10 @@ export const ProcessQuestion: FC<IProps> = (props) => {
       </Row>
       <Row>
         <Col md={6}>
-          <RenderBody body={questionItem.item.task.body} />
+          <RenderBody body={questionItem.content.task.body} />
         </Col>
         <Col md={6} className="mt-xs-3">
-          <RenderBlank blank={questionItem.item.task.blank} onSubmitBlank={handleSubmitBlank} />
+          <RenderBlank blank={questionItem.content.task.blank} onSubmitBlank={handleSubmitBlank} />
         </Col>
       </Row>
     </Container>
