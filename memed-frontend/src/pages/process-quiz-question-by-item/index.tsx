@@ -4,6 +4,7 @@ import {useRepositories} from "../../repository/repositories-context";
 import {ProcessQuestion} from "../../components/process-question";
 import {Item} from "../../model/item";
 import {Question} from "../../model/question";
+import {ErrorResponse} from "../../model/error-response";
 
 export const ProcessQuizQuestionByItem = () => {
   const navigate = useNavigate();
@@ -14,7 +15,12 @@ export const ProcessQuizQuestionByItem = () => {
   useEffect(() => {
     repositories?.questionRepository
       .nextQuestion(searchParams)
-      .then(setQuestionItem);
+      .then(setQuestionItem)
+      .catch((error: ErrorResponse) => {
+        if (error.statusCode === 404) {
+          navigate(`/quizzes/${searchParams.get("quizId")}/finalize`);
+        }
+      });
   }, [repositories, searchParams]);
 
   const handleNavigate = (number: number) => {
