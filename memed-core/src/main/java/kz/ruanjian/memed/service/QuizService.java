@@ -7,6 +7,7 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import kz.ruanjian.memed.service.exception.UnAssessableQuiz;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +48,8 @@ public class QuizService {
   @Transactional
   public Quiz finalizeById(Long id) {
     Quiz quiz = findById(id);
+    verify(quiz);
+
     quiz.setStatus(QuizStatus.DONE);
     quiz.setGrade(gradeQuiz(quiz));
 
@@ -81,5 +84,17 @@ public class QuizService {
 
   private int questionsCount(Quiz quiz) {
     return quiz.getQuestions().size();
+  }
+
+  private void verify(Quiz quiz) {
+    verifyAllQuestionsAreAssessed(quiz);
+  }
+
+  private void verifyAllQuestionsAreAssessed(Quiz quiz) {
+    boolean hasUnAssessedQuestion = quiz.getQuestions().stream().anyMatch(question -> !question.isAssessed());
+
+    if (hasUnAssessedQuestion) {
+      throw new UnAssessableQuiz("Quiz has not assessed ");
+    }
   }
 }
