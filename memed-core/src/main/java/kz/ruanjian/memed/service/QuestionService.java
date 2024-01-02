@@ -64,9 +64,11 @@ public class QuestionService {
       .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 
-  private Optional<Long> findFirstAssessableQuestion(Itemized itemized) {
+  private int findFirstAssessableQuestion(Itemized itemized) {
     return questionRepository
-      .findFirstAssessableQuestionNumber(itemized.getQuizId());
+      .findFirstAssessableQuestionNumber(itemized.getQuizId())
+      .map(Long::intValue)
+      .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 
   private Pageable toPageable(Itemized itemized) {
@@ -79,10 +81,8 @@ public class QuestionService {
 
   private int determineNumber(Itemized itemized) {
     if (itemized.getNumber() == null) {
-      return findFirstAssessableQuestion(itemized)
-        .map(Math::toIntExact)
-        .map(number -> Math.max(number - 1, 0))
-        .orElseThrow(() -> new NotFoundException("Question not found"));
+      int firstAssessableQuestion = findFirstAssessableQuestion(itemized);
+      return Math.max(firstAssessableQuestion - 1, 0);
     }
 
     return Math.max(itemized.getNumber() - 1, 0);
@@ -93,6 +93,10 @@ public class QuestionService {
   }
 
   private Item<Question> toItem(Page<Question> questionPage) {
+    if (!questionPage.isEmpty()) {
+      throw new NotFoundException("Question not found");
+    }
+
     Item<Question> item = new Item<>();
 
     item.setTotalItems(questionPage.getTotalPages());
@@ -100,10 +104,6 @@ public class QuestionService {
     item.setHasPrevious(questionPage.hasPrevious());
     item.setHasNext(questionPage.hasNext());
     item.setLast(questionPage.isLast());
-
-    if (!questionPage.isEmpty()) {
-      item.setContent(questionPage.getContent().get(0));
-    }
 
     return item;
   }
