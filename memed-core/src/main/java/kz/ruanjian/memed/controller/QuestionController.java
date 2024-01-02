@@ -25,11 +25,6 @@ public class QuestionController {
     this.questionService = questionService;
   }
 
-  @GetMapping("/quizzes/{quizId}/questions/next")
-  public Question findNextQuestionByQuizId(@PathVariable Long quizId) {
-    return questionService.findNextQuestion(quizId);
-  }
-
   @GetMapping("/questions")
   public Page<Question> findAll(Pageable pageable) {
     return questionService.findAll(pageable);

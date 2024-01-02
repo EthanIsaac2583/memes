@@ -14,8 +14,6 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSpecificationExecutor<Question> {
 
-  Optional<Question> findTop1ByQuizIdAndAssessedIs(Long quizId, boolean assessed);
-
   @Query("SELECT q.number FROM Question q WHERE q.assessed = false AND q.quiz.id = :quizId ORDER BY q.number LIMIT 1")
   Optional<Long> findFirstAssessableQuestionNumber(@Param("quizId") Long quizId);
 

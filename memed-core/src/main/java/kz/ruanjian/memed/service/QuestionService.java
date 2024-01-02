@@ -15,23 +15,16 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
   private final GraderContext graderContext;
 
-  public QuestionService(QuestionRepository questionRepository, GraderContext graderContext) {
+  public QuestionService(QuestionRepository questionRepository,
+                         GraderContext graderContext) {
     this.questionRepository = questionRepository;
     this.graderContext = graderContext;
-  }
-
-  public Question findNextQuestion(Long quizId) {
-    return questionRepository
-      .findTop1ByQuizIdAndAssessedIs(quizId, false)
-      .orElseThrow(() -> new NotFoundException("Question not found"));
   }
 
   public Page<Question> findAll(Pageable pageable) {
@@ -42,6 +35,10 @@ public class QuestionService {
     Pageable pageable = toPageable(itemized);
     Specification<Question> specification = toSpecification(itemized);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
+
+    if (questionPage.isEmpty()) {
+      throw new NotFoundException("Question not found");
+    }
 
     return toItem(questionPage);
   }
@@ -93,12 +90,9 @@ public class QuestionService {
   }
 
   private Item<Question> toItem(Page<Question> questionPage) {
-    if (!questionPage.isEmpty()) {
-      throw new NotFoundException("Question not found");
-    }
-
     Item<Question> item = new Item<>();
 
+    item.setContent(questionPage.getContent().get(0));
     item.setTotalItems(questionPage.getTotalPages());
     item.setNumber(questionPage.getNumber() + 1);
     item.setHasPrevious(questionPage.hasPrevious());
