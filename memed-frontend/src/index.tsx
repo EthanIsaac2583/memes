@@ -11,7 +11,6 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <RepositoriesProvider baseUrl="http://ec2-3-79-152-118.eu-central-1.compute.amazonaws.com">
   <RepositoriesProvider baseUrl="http://localhost:8080">
     <RouterProvider router={router} />
   </RepositoriesProvider>
