@@ -6,7 +6,6 @@ import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
-import kz.ruanjian.memed.util.Itemized;
 import kz.ruanjian.memed.util.grader.GraderContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +15,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class QuestionService {
+
+  private static final String QUESTION_NOT_FOUND = "Question not found";
 
   private final QuestionRepository questionRepository;
   private final GraderContext graderContext;
@@ -31,20 +34,27 @@ public class QuestionService {
     this.itemMapper = itemMapper;
   }
 
-  public Page<Question> findAll(Pageable pageable) {
-    return questionRepository.findAll(pageable);
+  public Question findById(Long id) {
+    return questionRepository
+      .findById(id)
+      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
-  public Item<Question> findItem(Itemized itemized) {
-    Pageable pageable = toPageable(itemized);
-    Specification<Question> specification = questionRepository.quizIdEquals(itemized.getQuizId());
+  public Item<Question> findQuestionsItem(Long quizId, Optional<Integer> number) {
+    int questionNumber = identifyAssessableQuestionNumber(quizId, number);
+    Pageable pageable = generateSingleQuestionPageable(questionNumber);
+    Specification<Question> specification = questionRepository.quizIdEquals(quizId);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
 
     if (questionPage.isEmpty()) {
-      throw new NotFoundException("Question not found");
+      throw new NotFoundException(QUESTION_NOT_FOUND);
     }
 
     return itemMapper.toItem(questionPage);
+  }
+
+  public Page<Question> findAll(Pageable pageable) {
+    return questionRepository.findAll(pageable);
   }
 
   @Transactional
@@ -59,33 +69,26 @@ public class QuestionService {
     return question;
   }
 
-  private Question findById(Long id) {
-    return questionRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("Question not found"));
+  private int identifyAssessableQuestionNumber(Long quizId, Optional<Integer> number) {
+    if (number.isPresent()) {
+      return Math.max(number.get() - 1, 0);
+    }
+
+    int firstAssessableNumber = findFirstAssessableQuestionNumberByQuizId(quizId);
+    return Math.max(firstAssessableNumber - 1, 0);
   }
 
-  private int findFirstAssessableQuestion(Itemized itemized) {
+  private int findFirstAssessableQuestionNumberByQuizId(Long id) {
     return questionRepository
-      .findFirstAssessableQuestionNumber(itemized.getQuizId())
+      .findFirstAssessableQuestionNumber(id)
       .map(Long::intValue)
-      .orElseThrow(() -> new NotFoundException("Question not found"));
+      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
-  private Pageable toPageable(Itemized itemized) {
-    int number = determineNumber(itemized);
+  private Pageable generateSingleQuestionPageable(int number) {
     int size = 1;
     Sort sort = Sort.by(Sort.Order.asc("number"));
 
     return PageRequest.of(number, size, sort);
-  }
-
-  private int determineNumber(Itemized itemized) {
-    if (itemized.getNumber() == null) {
-      int firstAssessableQuestion = findFirstAssessableQuestion(itemized);
-      return Math.max(firstAssessableQuestion - 1, 0);
-    }
-
-    return Math.max(itemized.getNumber() - 1, 0);
   }
 }
