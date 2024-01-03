@@ -5,21 +5,17 @@ import {ProcessQuestion} from "../../components/process-question";
 import {Item} from "../../model/item";
 import {Question} from "../../model/question";
 import {ErrorResponse} from "../../model/error-response";
-import {StandardMapper} from "../../util/standard-mapper";
 
 export const ProcessQuestionItemByQuizId = () => {
-  const { quizId: quizIdParam } = useParams();
+  const { quizId = '' } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const repositories = useRepositories();
   const [questionItem, setQuestionItem] = useState<Item<Question> | null>(null);
 
   useEffect(() => {
-    const quizId = StandardMapper.parseToNumber(quizIdParam);
-    const number = StandardMapper.parseToNumber(searchParams.get('number'));
-
     repositories?.questionRepository
-      .nextQuestion(quizId, number)
+      .nextQuestion(quizId, searchParams.get('number'))
       .then(setQuestionItem)
       .catch((error: ErrorResponse) => {
         if (error.statusCode === 404) {

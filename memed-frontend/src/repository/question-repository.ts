@@ -12,7 +12,7 @@ export class QuestionRepository {
     this.baseUrl = baseUrl;
   }
 
-  public async nextQuestion(quizId: number, number?: number): Promise<Item<Question>> {
+  public async nextQuestion(quizId: string, number: string | null): Promise<Item<Question>> {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
