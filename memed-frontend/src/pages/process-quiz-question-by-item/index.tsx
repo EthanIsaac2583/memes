@@ -5,6 +5,7 @@ import {ProcessQuestion} from "../../components/process-question";
 import {Item} from "../../model/item";
 import {Question} from "../../model/question";
 import {ErrorResponse} from "../../model/error-response";
+import {BaseLayout} from "../../components/base-layout";
 
 export const ProcessQuestionItemByQuizId = () => {
   const { quizId = '' } = useParams();
@@ -38,10 +39,12 @@ export const ProcessQuestionItemByQuizId = () => {
   }
 
   return (
-    <ProcessQuestion
-      questionItem={questionItem}
-      onNavigate={handleNavigate}
-      onProcessed={handleProcessed}
-    />
+    <BaseLayout>
+      <ProcessQuestion
+        questionItem={questionItem}
+        onNavigate={handleNavigate}
+        onProcessed={handleProcessed}
+      />
+    </BaseLayout>
   );
 }
