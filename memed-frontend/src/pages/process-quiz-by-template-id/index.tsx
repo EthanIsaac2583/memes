@@ -11,7 +11,7 @@ export const ProcessQuizByTemplateId = () => {
     repositories?.quizRepository
       .requestByTemplateId(parseInt(templateId, 10))
       .then(fetchedQuiz => {
-        navigate(`/questions/item?quizId=${fetchedQuiz.id}`);
+        navigate(`/quizzes/${fetchedQuiz.id}/questions/item`);
       });
   }, []);
 
