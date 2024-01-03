@@ -19,7 +19,7 @@ export const ProcessQuestionItemByQuizId = () => {
       .then(setQuestionItem)
       .catch((error: ErrorResponse) => {
         if (error.statusCode === 404) {
-          navigate(`/quizzes/${searchParams.get("quizId")}/finalize`);
+          navigate(`/quizzes/${quizId}/finalize`);
         }
       });
   }, [repositories, searchParams]);
@@ -30,7 +30,7 @@ export const ProcessQuestionItemByQuizId = () => {
   };
 
   const handleProcessed = () => {
-    navigate(`/quizzes/${searchParams.get("quizId")}/finalize`);
+    navigate(`/quizzes/${quizId}/finalize`);
   };
 
   if (questionItem === null) {
