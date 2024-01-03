@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.AnswerDto;
+import kz.ruanjian.memed.mapper.ItemMapper;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -20,11 +21,14 @@ public class QuestionService {
 
   private final QuestionRepository questionRepository;
   private final GraderContext graderContext;
+  private final ItemMapper itemMapper;
 
   public QuestionService(QuestionRepository questionRepository,
-                         GraderContext graderContext) {
+                         GraderContext graderContext,
+                         ItemMapper itemMapper) {
     this.questionRepository = questionRepository;
     this.graderContext = graderContext;
+    this.itemMapper = itemMapper;
   }
 
   public Page<Question> findAll(Pageable pageable) {
@@ -33,14 +37,14 @@ public class QuestionService {
 
   public Item<Question> findItem(Itemized itemized) {
     Pageable pageable = toPageable(itemized);
-    Specification<Question> specification = toSpecification(itemized);
+    Specification<Question> specification = questionRepository.quizIdEquals(itemized.getQuizId());
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
 
     if (questionPage.isEmpty()) {
       throw new NotFoundException("Question not found");
     }
 
-    return toItem(questionPage);
+    return itemMapper.toItem(questionPage);
   }
 
   @Transactional
@@ -83,22 +87,5 @@ public class QuestionService {
     }
 
     return Math.max(itemized.getNumber() - 1, 0);
-  }
-
-  private Specification<Question> toSpecification(Itemized itemized) {
-    return questionRepository.quizIdEquals(itemized.getQuizId());
-  }
-
-  private Item<Question> toItem(Page<Question> questionPage) {
-    Item<Question> item = new Item<>();
-
-    item.setContent(questionPage.getContent().get(0));
-    item.setTotalItems(questionPage.getTotalPages());
-    item.setNumber(questionPage.getNumber() + 1);
-    item.setHasPrevious(questionPage.hasPrevious());
-    item.setHasNext(questionPage.hasNext());
-    item.setLast(questionPage.isLast());
-
-    return item;
   }
 }
