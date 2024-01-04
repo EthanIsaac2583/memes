@@ -61,10 +61,10 @@ public class QuizService {
   private Quiz generateByTemplateId(Long templateId) {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
-    quizRepository.save(quiz);
 
     verifyQuizzesCountUnderLimitIfLimitPresent(quiz);
 
+    quizRepository.save(quiz);
     return quiz;
   }
 
