@@ -108,7 +108,7 @@ public class QuizService {
     if (quiz.getTemplate().getLimit() > 0) {
       Long quizzesCount = findQuizzesCountByTemplateId(quiz.getTemplate().getId());
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
-        throw new DataConflictException("Reached limit of quizzes for all user. Fix that with auth.");
+        throw new DataConflictException("Reached limit of quizzes for all users. Fix that with auth.");
       }
     }
   }
