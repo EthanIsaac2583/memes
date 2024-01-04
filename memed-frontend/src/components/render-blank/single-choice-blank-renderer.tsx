@@ -13,7 +13,7 @@ export const SingleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
   const {question, onSubmitBlank } = props;
 
   const blank = question.task.blank as SingleChoiceBlank;
-  const blankAnswer = question.task.answer as SingleChoiceAnswer;
+  const userAnswer = question.answer as SingleChoiceAnswer | null;
 
   const methods = useForm<Answer>();
 
@@ -35,6 +35,7 @@ export const SingleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
                     id={option.key}
                     value={option.key}
                     label={option.value}
+                    defaultChecked={option.key === userAnswer?.key}
                   />
                 </Col>
               </Row>

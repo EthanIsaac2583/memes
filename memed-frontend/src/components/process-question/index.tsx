@@ -69,7 +69,7 @@ export const ProcessQuestion: FC<IProps> = (props) => {
           <RenderBody body={questionItem.content.task.body} />
         </Col>
         <Col md={6} className="mt-xs-3">
-          <RenderBlank task={questionItem.content.task} onSubmitBlank={handleSubmitBlank} />
+          <RenderBlank question={questionItem.content} onSubmitBlank={handleSubmitBlank} />
         </Col>
       </Row>
     </Container>

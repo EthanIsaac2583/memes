@@ -5,11 +5,11 @@ interface IProps {
   id?: string;
   value?: string;
   label?: string;
-  checked?: boolean;
+  defaultChecked?: boolean;
 }
 
 export const RectRadio = forwardRef<HTMLInputElement, IProps>((props, ref) => {
-  const { id, label, value, checked, ...otherProps } = props;
+  const { id, label, value, defaultChecked, ...otherProps } = props;
 
   return (
     <label htmlFor={id} className="rect-radio--root">
@@ -20,7 +20,7 @@ export const RectRadio = forwardRef<HTMLInputElement, IProps>((props, ref) => {
         type="radio"
         value={value}
         className="rect-radio--input"
-        checked={checked}
+        defaultChecked={defaultChecked}
       />
       <span className="rect-radio--text">{label}</span>
     </label>
