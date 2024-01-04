@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {useRepositories} from "../../repository/repositories-context";
+import {BaseLayout} from "../../components/base-layout";
 
 export const ProcessQuizByTemplateId = () => {
   const { templateId = '' } = useParams();
@@ -15,5 +16,5 @@ export const ProcessQuizByTemplateId = () => {
       });
   }, []);
 
-  return null;
+  return <BaseLayout />;
 };

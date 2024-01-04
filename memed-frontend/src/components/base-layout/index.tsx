@@ -10,7 +10,7 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
     <>
       <Navbar sticky="top" expand="sm" bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand as={Link} to="/">
             <img src={Logo} alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
