@@ -1,11 +1,11 @@
 import {BlankType} from "./blank-type";
 
-type SingleChoiceAnswer = {
+export type SingleChoiceAnswer = {
   type: BlankType.SINGLE_CHOICE;
   key: string;
 }
 
-type MultipleChoiceAnswer = {
+export type MultipleChoiceAnswer = {
   type: BlankType.MULTIPLE_CHOICE;
   keys: Array<string>;
 }
