@@ -63,6 +63,8 @@ public class QuizService {
     Quiz quiz = quizGenerator.generate(template);
     quizRepository.save(quiz);
 
+    verifyQuizzesCountUnderLimitIfLimitPresent(quiz);
+
     return quiz;
   }
 
@@ -70,6 +72,10 @@ public class QuizService {
     return templateRepository
       .findById(id)
       .orElseThrow(() -> new NotFoundException("Template not found"));
+  }
+
+  private Long findQuizzesCountByTemplateId(Long id) {
+    return quizRepository.count(quizRepository.templateIdEquals(id));
   }
 
   private int gradeQuiz(Quiz quiz) {
@@ -95,6 +101,15 @@ public class QuizService {
 
     if (hasUnAssessedQuestion) {
       throw new DataConflictException("Quiz has not assessed question");
+    }
+  }
+
+  private void verifyQuizzesCountUnderLimitIfLimitPresent(Quiz quiz) {
+    if (quiz.getTemplate().getLimit() > 0) {
+      Long quizzesCount = findQuizzesCountByTemplateId(quiz.getTemplate().getId());
+      if (quizzesCount >= quiz.getTemplate().getLimit()) {
+        throw new DataConflictException("Reached limit of quizzes for all user. Fix that with auth.");
+      }
     }
   }
 }
