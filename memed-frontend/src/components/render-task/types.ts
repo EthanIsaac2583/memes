@@ -1,7 +1,7 @@
-import {Blank} from "../../model/blank";
 import {Answer} from "../../model/answer";
+import {Task} from "../../model/task";
 
-export interface BlankRenderer {
-  blank: Blank;
+export interface TaskRenderer {
+  task: Task;
   onSubmitBlank?: (answer: Answer) => void;
 }

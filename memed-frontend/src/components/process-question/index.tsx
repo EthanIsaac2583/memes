@@ -3,7 +3,7 @@ import {RenderBody} from "../render-body";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {RenderBlank} from "../render-blank";
+import {RenderTask} from "../render-task";
 import {Question} from "../../model/question";
 import {Answer} from "../../model/answer";
 import {useRepositories} from "../../repository/repositories-context";
@@ -69,7 +69,7 @@ export const ProcessQuestion: FC<IProps> = (props) => {
           <RenderBody body={questionItem.content.task.body} />
         </Col>
         <Col md={6} className="mt-xs-3">
-          <RenderBlank blank={questionItem.content.task.blank} onSubmitBlank={handleSubmitBlank} />
+          <RenderTask task={questionItem.content.task} onSubmitBlank={handleSubmitBlank} />
         </Col>
       </Row>
     </Container>

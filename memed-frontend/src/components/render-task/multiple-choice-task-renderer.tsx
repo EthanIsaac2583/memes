@@ -4,12 +4,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {BlankType} from "../../model/blank-type";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {BlankRenderer} from "./types";
+import {TaskRenderer} from "./types";
 import {Answer} from "../../model/answer";
 import Button from "react-bootstrap/Button";
 
-export const MultipleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
-    const {blank, onSubmitBlank} = props;
+export const MultipleChoiceTaskRenderer: FC<TaskRenderer> = (props) => {
+    const {task, onSubmitBlank} = props;
 
     const methods = useForm<Answer>();
 
@@ -23,7 +23,7 @@ export const MultipleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
           <Col>
               <p>You can choose several options</p>
               <input {...methods.register('type')} defaultValue={BlankType.MULTIPLE_CHOICE.toString()} hidden/>
-              {blank.options.map(option => {
+              {task.blank.options.map(option => {
                 return (
                   <Row key={option.key} className="mb-2">
                     <Col>

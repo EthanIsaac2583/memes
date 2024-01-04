@@ -1,8 +1,8 @@
-import {TTask} from "./task";
+import {Task} from "./task";
 
 export type Question = {
   id: 1;
-  task: TTask;
+  task: Task;
   assessed: boolean;
   grade: number;
   answer: null;
