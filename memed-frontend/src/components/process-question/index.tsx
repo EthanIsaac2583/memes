@@ -36,7 +36,7 @@ export const ProcessQuestion: FC<IProps> = (props) => {
   return (
     <Container>
       <Row className="mb-5">
-        <Col className="flex-grow-0">
+        <Col xs={3} className="d-flex align-items-center justify-content-start">
           <Button
             onClick={() => {
               if (questionItem.hasPrevious && onNavigate) {
@@ -48,10 +48,10 @@ export const ProcessQuestion: FC<IProps> = (props) => {
             Previous
           </Button>
         </Col>
-        <Col className="d-flex justify-content-center">
+        <Col xs={6} className="d-flex align-items-center justify-content-center">
           <span>{questionItem.number} / {questionItem.totalItems}</span>
         </Col>
-        <Col className="flex-grow-0">
+        <Col xs={3} className="d-flex align-items-center justify-content-end">
           <Button
             onClick={() => {
               if (questionItem.hasNext && onNavigate) {
