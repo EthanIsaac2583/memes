@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {BaseLayout} from "../../components/base-layout";
 import {useRepositories} from "../../repository/repositories-context";
 import {useEffect, useMemo, useState} from "react";
@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import {Alert} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import {ErrorResponse} from "../../model/error-response";
 
 enum GradeRate {
   BAD = 'BAD',
@@ -29,6 +30,7 @@ const GRADE_RATE_HINT_MAP = {
 }
 
 export const FinalizeQuizById = () => {
+  const navigate = useNavigate();
   const { quizId } = useParams();
   const repositories = useRepositories();
 
@@ -38,7 +40,12 @@ export const FinalizeQuizById = () => {
     if (quiz) {
       repositories?.quizRepository
         .finalizeById(quiz.id)
-        .then(setQuiz);
+        .then(setQuiz)
+        .catch((errorResponse: ErrorResponse) => {
+          if (errorResponse.statusCode === 409) {
+            navigate(`/quizzes/${quizId}/questions/item`)
+          }
+        });
     }
   };
 
