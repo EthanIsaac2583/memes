@@ -7,11 +7,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import {useRepositories} from "../../repository/repositories-context";
+import {useNavigate} from "react-router-dom";
 
 export const RootPage = () => {
+  const navigate = useNavigate();
   const repositories = useRepositories();
 
   const [templates, setTemplates] = useState<Array<TQuizTemplate>>([]);
+
+  const createTemplateProcessingNavigation = (templateId: number) => {
+    return () => {
+      navigate(`/templates/${templateId}/process-quiz`);
+    }
+  };
 
   useEffect(() => {
     repositories?.templateRepository
@@ -36,7 +44,7 @@ export const RootPage = () => {
                       <Card.Header>Quiz</Card.Header>
                       <Card.Body>
                         <Card.Title>{template.name}</Card.Title>
-                        <Button variant="dark" href={`/templates/${template.id}/process-quiz`}>Process</Button>
+                        <Button variant="dark" onClick={createTemplateProcessingNavigation(template.id)}>Process</Button>
                       </Card.Body>
                     </Card>
                 </Col>
