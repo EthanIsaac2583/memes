@@ -5,15 +5,15 @@ import {RectRadio} from "../ui-kit/rect-radio";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Answer, SingleChoiceAnswer} from "../../model/answer";
-import {TaskRenderer} from "./types";
+import {BlankRenderer} from "./types";
 import Button from "react-bootstrap/Button";
 import {SingleChoiceBlank} from "../../model/blank";
 
-export const SingleChoiceTaskRenderer: FC<TaskRenderer> = (props) => {
-  const {task, onSubmitBlank } = props;
+export const SingleChoiceBlankRenderer: FC<BlankRenderer> = (props) => {
+  const {question, onSubmitBlank } = props;
 
-  const blank = task.blank as SingleChoiceBlank;
-  const blankAnswer = task.answer as SingleChoiceAnswer;
+  const blank = question.task.blank as SingleChoiceBlank;
+  const blankAnswer = question.task.answer as SingleChoiceAnswer;
 
   const methods = useForm<Answer>();
 
