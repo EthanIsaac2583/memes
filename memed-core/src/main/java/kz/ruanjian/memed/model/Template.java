@@ -25,15 +25,14 @@ public class Template {
 
   private String description;
 
+  private int limit;
+
   @JsonIgnore
   @ManyToMany
   @JoinTable(name = "templates_tasks",
     joinColumns = @JoinColumn(name = "template_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
   private Set<Task> tasks;
-
-  public Template() {
-  }
 
   public Long getId() {
     return id;
@@ -59,6 +58,14 @@ public class Template {
     this.description = description;
   }
 
+  public int getLimit() {
+    return limit;
+  }
+
+  public void setLimit(int limit) {
+    this.limit = limit;
+  }
+
   public Set<Task> getTasks() {
     return tasks;
   }
@@ -72,12 +79,12 @@ public class Template {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Template template = (Template) o;
-    return Objects.equals(id, template.id) && Objects.equals(name, template.name) && Objects.equals(description, template.description);
+    return limit==template.limit && Objects.equals(id, template.id) && Objects.equals(name, template.name) && Objects.equals(description, template.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description);
+    return Objects.hash(id, name, description, limit);
   }
 
   @Override
@@ -86,6 +93,7 @@ public class Template {
       "id=" + id +
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
+      ", limit=" + limit +
       '}';
   }
 }
