@@ -13,7 +13,7 @@ create table templates
   id          bigserial primary key,
   name        varchar(256) not null,
   description varchar(512),
-  limit       int          not null
+  quiz_limit  int          not null
 );
 
 create table templates_tasks
