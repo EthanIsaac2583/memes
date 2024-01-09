@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -30,12 +29,14 @@ public class QuizController {
   }
 
   @GetMapping("/quizzes/{id}")
-  public Quiz findById(@PathVariable Long id) {
+  public Quiz findById(@RequestHeader("x-visit-id") UUID visitId,
+                       @PathVariable Long id) {
     return quizService.findById(id);
   }
 
   @GetMapping("/quizzes")
-  public Page<Quiz> findAll(Pageable pageable) {
+  public Page<Quiz> findAll(@RequestHeader("x-visit-id") UUID visitId,
+                            Pageable pageable) {
     return quizService.findAll(pageable);
   }
 
@@ -47,8 +48,9 @@ public class QuizController {
   }
 
   @PutMapping("/quizzes/{id}/finalize")
-  public Quiz finalizeById(@PathVariable Long id,
-                           @RequestHeader("x-visit-id") UUID visitId) {
-    return quizService.finalizeById(id);
+  public Quiz finalize(@PathVariable Long id,
+                       @RequestHeader("x-visit-id") UUID visitId) {
+    Visit visit = visitService.findById(visitId);
+    return quizService.finalizeByIdAndVisit(id, visit);
   }
 }

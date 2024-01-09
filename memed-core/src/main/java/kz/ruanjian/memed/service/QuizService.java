@@ -47,9 +47,9 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz finalizeById(Long id) {
+  public Quiz finalizeByIdAndVisit(Long id, Visit visit) {
     Quiz quiz = findById(id);
-    verify(quiz);
+    verify(quiz, visit);
 
     quiz.setStatus(QuizStatus.DONE);
     quiz.setGrade(gradeQuiz(quiz));
@@ -91,8 +91,9 @@ public class QuizService {
     return quiz.getQuestions().size();
   }
 
-  private void verify(Quiz quiz) {
+  private void verify(Quiz quiz, Visit visit) {
     verifyAllQuestionsAreAssessed(quiz);
+    verifyQuizVisitAndCurrentVisitAreEqual(quiz, visit);
   }
 
   private void verifyAllQuestionsAreAssessed(Quiz quiz) {
@@ -109,6 +110,12 @@ public class QuizService {
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
         throw new DataConflictException("Reached max limit for quiz");
       }
+    }
+  }
+
+  private void verifyQuizVisitAndCurrentVisitAreEqual(Quiz quiz, Visit visit) {
+    if (!quiz.getVisit().equals(visit)) {
+      throw new DataConflictException("Current visit is not as quiz creation visit");
     }
   }
 }
