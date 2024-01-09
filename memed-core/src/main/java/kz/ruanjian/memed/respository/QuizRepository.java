@@ -14,5 +14,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
   Optional<Quiz> findTop1ByStatusAndTemplateIdAndVisit(QuizStatus status, Long templateId, Visit visit);
 
+  Optional<Quiz> findByIdAndVisit(Long id, Visit visit);
+
   Long countByTemplateAndVisit(Template template, Visit visit);
 }

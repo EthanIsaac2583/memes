@@ -3,6 +3,7 @@ package kz.ruanjian.memed.service;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.mapper.ItemMapper;
 import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
@@ -40,6 +41,12 @@ public class QuestionService {
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
+  public Question findByIdAndQuizId(Long id, Long quizId) {
+    return questionRepository
+      .findByIdAndQuizId(id, quizId)
+      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
+  }
+
   public Item<Question> findQuestionsItem(Long quizId, Optional<Integer> number) {
     int questionNumber = identifyAssessableQuestionNumber(quizId, number);
     Pageable pageable = generateSingleQuestionPageable(questionNumber);
@@ -58,9 +65,7 @@ public class QuestionService {
   }
 
   @Transactional
-  public Question provideAnswer(AnswerDto answerDto) {
-    Question question = findById(answerDto.getQuestionId());
-    question.setAnswer(answerDto.getAnswer());
+  public Question provideAnswer(Visit visit, Question question) {
     question.setGrade(graderContext.grade(question));
     question.setAssessed(true);
 

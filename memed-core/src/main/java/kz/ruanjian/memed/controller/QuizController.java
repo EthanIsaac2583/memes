@@ -41,14 +41,14 @@ public class QuizController {
 
   @GetMapping("/templates/{templateId}/quizzes/request")
   public Quiz request(@PathVariable Long templateId,
-                      @RequestHeader("x-visit-id") UUID visitId,
-                      @RequestHeader("x-user_id") Optional<Long> userId) {
+                      @RequestHeader("x-visit-id") UUID visitId) {
     Visit visit = visitService.findById(visitId);
     return quizService.requestByTemplateIdAndVisit(templateId, visit);
   }
 
   @PutMapping("/quizzes/{id}/finalize")
-  public Quiz finalizeById(@PathVariable Long id) {
+  public Quiz finalizeById(@PathVariable Long id,
+                           @RequestHeader("x-visit-id") UUID visitId) {
     return quizService.finalizeById(id);
   }
 }

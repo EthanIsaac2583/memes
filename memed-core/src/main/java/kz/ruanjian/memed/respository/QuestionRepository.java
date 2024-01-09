@@ -20,4 +20,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSp
   default Specification<Question> quizIdEquals(@NonNull Long quizId) {
     return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("quiz").get("id"), quizId);
   }
+
+  Optional<Question> findByIdAndQuizId(Long id, Long quizId);
 }
