@@ -5,6 +5,7 @@ import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.service.VisitService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,9 @@ public class VisitController {
   }
 
   @PostMapping
-  public Visit create(@RequestBody VisitDto visitDto) {
-    return visitService.create(visitDto);
+  public Visit create(@RequestHeader("User-Agent") String userAgent,
+                      @RequestBody VisitDto visit) {
+    visit.setUserAgent(userAgent);
+    return visitService.create(visit);
   }
 }
