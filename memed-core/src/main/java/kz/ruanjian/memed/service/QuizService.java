@@ -54,9 +54,7 @@ public class QuizService {
     quiz.setStatus(QuizStatus.DONE);
     quiz.setGrade(gradeQuiz(quiz));
 
-    quizRepository.save(quiz);
-
-    return quiz;
+    return quizRepository.save(quiz);
   }
 
   private Quiz generateByTemplateId(Long templateId, Visit visit) {
@@ -66,9 +64,7 @@ public class QuizService {
 
     verifyQuizzesCountNotExceedLimitIfPresent(quiz);
 
-    quizRepository.save(quiz);
-
-    return quiz;
+    return quizRepository.save(quiz);
   }
 
   private Template findTemplateById(Long id) {
