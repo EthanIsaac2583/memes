@@ -40,11 +40,11 @@ public class QuizController {
   }
 
   @GetMapping("/templates/{templateId}/quizzes/request")
-  public Quiz requestByTemplateId(@PathVariable Long templateId,
-                                  @RequestHeader("x-visit-id") UUID visitId,
-                                  @RequestHeader("x-user_id") Optional<Long> userId) {
+  public Quiz request(@PathVariable Long templateId,
+                      @RequestHeader("x-visit-id") UUID visitId,
+                      @RequestHeader("x-user_id") Optional<Long> userId) {
     Visit visit = visitService.findById(visitId);
-    return quizService.requestByTemplateId(templateId, visit);
+    return quizService.requestByTemplateIdAndVisit(templateId, visit);
   }
 
   @PutMapping("/quizzes/{id}/finalize")
