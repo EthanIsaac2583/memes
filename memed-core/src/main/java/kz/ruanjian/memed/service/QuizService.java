@@ -4,6 +4,7 @@ import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Template;
+import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -64,9 +65,12 @@ public class QuizService {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
 
-    verifyQuizzesCountUnderLimitIfLimitPresent(quiz);
+    Visit visit = new Visit();
+    visit.setId(visitId);
+    quiz.setVisit(visit);
 
     quizRepository.save(quiz);
+
     return quiz;
   }
 

@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -49,5 +50,18 @@ public class Visit {
 
   public void setCreated_at(ZonedDateTime created_at) {
     this.created_at = created_at;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this==o) return true;
+    if (o==null || getClass()!=o.getClass()) return false;
+    Visit visit = (Visit) o;
+    return Objects.equals(id, visit.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 }
