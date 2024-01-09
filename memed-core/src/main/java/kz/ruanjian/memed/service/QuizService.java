@@ -7,7 +7,6 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
-import kz.ruanjian.memed.respository.VisitRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
@@ -16,24 +15,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 public class QuizService {
 
   private final QuizGenerator quizGenerator;
   private final QuizRepository quizRepository;
   private final TemplateRepository templateRepository;
-  private final VisitRepository visitRepository;
 
   public QuizService(QuizGenerator quizGenerator,
                      QuizRepository quizRepository,
-                     TemplateRepository templateRepository,
-                     VisitRepository visitRepository) {
+                     TemplateRepository templateRepository) {
     this.quizGenerator = quizGenerator;
     this.quizRepository = quizRepository;
     this.templateRepository = templateRepository;
-    this.visitRepository = visitRepository;
   }
 
   public Quiz findById(Long id) {
@@ -46,10 +40,10 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz requestByTemplateId(Long id, UUID visitId) {
+  public Quiz requestByTemplateId(Long id, Visit visit) {
     return quizRepository
       .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, id)
-      .orElseGet(() -> generateByTemplateId(id, visitId));
+      .orElseGet(() -> generateByTemplateId(id, visit));
   }
 
   @Transactional
@@ -65,11 +59,9 @@ public class QuizService {
     return quiz;
   }
 
-  private Quiz generateByTemplateId(Long templateId, UUID visitId) {
+  private Quiz generateByTemplateId(Long templateId, Visit visit) {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
-
-    Visit visit = findVisitById(visitId);
     quiz.setVisit(visit);
 
     quizRepository.save(quiz);
@@ -85,12 +77,6 @@ public class QuizService {
 
   private Long findQuizzesCountByTemplateId(Long id) {
     return quizRepository.count(quizRepository.templateIdEquals(id));
-  }
-
-  private Visit findVisitById(UUID id) {
-    return visitRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("Visit not found"));
   }
 
   private int gradeQuiz(Quiz quiz) {
