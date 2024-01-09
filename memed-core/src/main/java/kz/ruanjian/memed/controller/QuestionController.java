@@ -53,7 +53,7 @@ public class QuestionController {
                                 @PathVariable Long id,
                                 @RequestBody @Valid AnswerDto answerDto) {
     Visit visit = visitService.findById(visitId);
-    Question question = questionService.findByIdAndQuizId(id, quizId);
+    Question question = questionService.findByIdAndQuizId(id, quizId, visit);
     question.setAnswer(answerDto.getAnswer());
 
     return questionService.provideAnswer(visit, question);

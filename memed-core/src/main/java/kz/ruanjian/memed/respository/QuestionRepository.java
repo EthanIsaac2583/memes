@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.respository;
 
 import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.model.Visit;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -21,5 +22,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSp
     return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("quiz").get("id"), quizId);
   }
 
-  Optional<Question> findByIdAndQuizId(Long id, Long quizId);
+  Optional<Question> findByIdAndQuizIdAndVisit(Long id, Long quizId, Visit visit);
 }
