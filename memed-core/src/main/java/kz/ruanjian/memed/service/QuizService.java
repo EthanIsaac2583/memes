@@ -59,8 +59,7 @@ public class QuizService {
 
   private Quiz generateByTemplateId(Long templateId, Visit visit) {
     Template template = findTemplateById(templateId);
-    Quiz quiz = quizGenerator.generate(template);
-    quiz.setVisit(visit);
+    Quiz quiz = quizGenerator.generate(template, visit);
 
     verifyQuizzesCountNotExceedLimitIfPresent(quiz);
 
