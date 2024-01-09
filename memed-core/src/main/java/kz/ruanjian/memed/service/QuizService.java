@@ -7,6 +7,7 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
+import kz.ruanjian.memed.respository.VisitRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
@@ -20,16 +21,19 @@ import java.util.UUID;
 @Service
 public class QuizService {
 
+  private final QuizGenerator quizGenerator;
   private final QuizRepository quizRepository;
   private final TemplateRepository templateRepository;
-  private final QuizGenerator quizGenerator;
+  private final VisitRepository visitRepository;
 
-  public QuizService(QuizRepository quizRepository,
+  public QuizService(QuizGenerator quizGenerator,
+                     QuizRepository quizRepository,
                      TemplateRepository templateRepository,
-                     QuizGenerator quizGenerator) {
+                     VisitRepository visitRepository) {
+    this.quizGenerator = quizGenerator;
     this.quizRepository = quizRepository;
     this.templateRepository = templateRepository;
-    this.quizGenerator = quizGenerator;
+    this.visitRepository = visitRepository;
   }
 
   public Quiz findById(Long id) {
@@ -65,8 +69,7 @@ public class QuizService {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
 
-    Visit visit = new Visit();
-    visit.setId(visitId);
+    Visit visit = findVisitById(visitId);
     quiz.setVisit(visit);
 
     quizRepository.save(quiz);
@@ -82,6 +85,12 @@ public class QuizService {
 
   private Long findQuizzesCountByTemplateId(Long id) {
     return quizRepository.count(quizRepository.templateIdEquals(id));
+  }
+
+  private Visit findVisitById(UUID id) {
+    return visitRepository
+      .findById(id)
+      .orElseThrow(() -> new NotFoundException("Visit not found"));
   }
 
   private int gradeQuiz(Quiz quiz) {
