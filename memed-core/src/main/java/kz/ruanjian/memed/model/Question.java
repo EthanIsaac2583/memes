@@ -44,6 +44,10 @@ public class Question {
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
 
+  @ManyToOne
+  @JoinColumn(name = "visit_id", updatable = false)
+  private Visit visit;
+
   public Long getId() {
     return id;
   }
@@ -100,29 +104,24 @@ public class Question {
     this.answer = answer;
   }
 
+  public Visit getVisit() {
+    return visit;
+  }
+
+  public void setVisit(Visit visit) {
+    this.visit = visit;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Question question = (Question) o;
-    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(number, question.number) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer);
+    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(number, question.number) && Objects.equals(quiz, question.quiz) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer) && Objects.equals(visit, question.visit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, number, quiz, task, assessed, grade, answer);
-  }
-
-  @Override
-  public String toString() {
-    return "Question{" +
-      "id=" + id +
-      ", number=" + number +
-      ", quiz=" + quiz +
-      ", task=" + task +
-      ", assessed=" + assessed +
-      ", grade=" + grade +
-      ", answer=" + answer +
-      '}';
+    return Objects.hash(id, number, quiz, task, assessed, grade, answer, visit);
   }
 }

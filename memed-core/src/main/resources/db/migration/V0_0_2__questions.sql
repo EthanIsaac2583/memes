@@ -36,10 +36,11 @@ create table quizzes
 create table questions
 (
   id          bigserial primary key,
-  number      int     not null,
-  quiz_id     bigint  not null references quizzes (id),
-  task_id     bigint  not null references tasks (id),
-  is_assessed boolean not null,
+  lead_id     uuid references visits (id) not null,
+  number      int                         not null,
+  quiz_id     bigint                      not null references quizzes (id),
+  task_id     bigint                      not null references tasks (id),
+  is_assessed boolean                     not null,
   answer      varchar(3000),
   grade       int
 );
