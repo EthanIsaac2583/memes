@@ -64,6 +64,8 @@ public class QuizService {
     Quiz quiz = quizGenerator.generate(template);
     quiz.setVisit(visit);
 
+    verifyQuizzesCountNotExceedLimitIfPresent(quiz);
+
     quizRepository.save(quiz);
 
     return quiz;
@@ -75,8 +77,8 @@ public class QuizService {
       .orElseThrow(() -> new NotFoundException("Template not found"));
   }
 
-  private Long findQuizzesCountByTemplateId(Long id) {
-    return quizRepository.count(quizRepository.templateIdEquals(id));
+  private Long findQuizzesCountByTemplateAndVisit(Template template, Visit visit) {
+    return quizRepository.countByTemplateAndVisit(template, visit);
   }
 
   private int gradeQuiz(Quiz quiz) {
@@ -105,11 +107,11 @@ public class QuizService {
     }
   }
 
-  private void verifyQuizzesCountUnderLimitIfLimitPresent(Quiz quiz) {
+  private void verifyQuizzesCountNotExceedLimitIfPresent(Quiz quiz) {
     if (quiz.getTemplate().getLimit() > 0) {
-      Long quizzesCount = findQuizzesCountByTemplateId(quiz.getTemplate().getId());
+      Long quizzesCount = findQuizzesCountByTemplateAndVisit(quiz.getTemplate(), quiz.getVisit());
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
-        throw new DataConflictException("Reached limit of quizzes for all users. Fix that with auth.");
+        throw new DataConflictException("Reached max limit for quiz");
       }
     }
   }

@@ -44,7 +44,7 @@ public class QuizController {
                                   @RequestHeader("x-visit-id") UUID visitId,
                                   @RequestHeader("x-user_id") Optional<Long> userId) {
     Visit visit = visitService.findById(visitId);
-    return quizService.requestByTemplateId(templateId, visitId);
+    return quizService.requestByTemplateId(templateId, visit);
   }
 
   @PutMapping("/quizzes/{id}/finalize")
