@@ -26,7 +26,7 @@ public class Visit {
 
   @JsonIgnore
   @Column(name = "created_at", updatable = false)
-  private ZonedDateTime created_at;
+  private ZonedDateTime createdAt;
 
   public UUID getId() {
     return id;
@@ -44,12 +44,12 @@ public class Visit {
     this.userAgent = userAgent;
   }
 
-  public ZonedDateTime getCreated_at() {
-    return created_at;
+  public ZonedDateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreated_at(ZonedDateTime created_at) {
-    this.created_at = created_at;
+  public void setCreatedAt(ZonedDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   @Override

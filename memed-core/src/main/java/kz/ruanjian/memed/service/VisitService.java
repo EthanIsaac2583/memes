@@ -8,6 +8,7 @@ import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Service
@@ -32,6 +33,7 @@ public class VisitService {
   @Transactional
   public Visit create(VisitDto visitDto) {
     Visit visit = visitMapper.toVisit(visitDto);
+    visit.setCreatedAt(ZonedDateTime.now());
     visitRepository.save(visit);
 
     return visit;
