@@ -1,10 +1,10 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.mapper.ItemMapper;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuestionRepository;
+import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.grader.GraderContext;
@@ -35,19 +35,13 @@ public class QuestionService {
     this.itemMapper = itemMapper;
   }
 
-  public Question findById(Long id) {
-    return questionRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
-  }
-
   public Question findByIdAndQuizId(Long id, Long quizId) {
     return questionRepository
       .findByIdAndQuizId(id, quizId)
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
-  public Item<Question> findQuestionsItem(Long quizId, Optional<Integer> number) {
+  public Item<Question> findQuestionsItem(Visit visit, Long quizId, Optional<Integer> number) {
     int questionNumber = identifyAssessableQuestionNumber(quizId, number);
     Pageable pageable = generateSingleQuestionPageable(questionNumber);
     Specification<Question> specification = questionRepository.quizIdEquals(quizId);
@@ -69,9 +63,9 @@ public class QuestionService {
     question.setGrade(graderContext.grade(question));
     question.setAssessed(true);
 
-    questionRepository.save(question);
+    verify(visit, question);
 
-    return question;
+    return questionRepository.save(question);
   }
 
   private int identifyAssessableQuestionNumber(Long quizId, Optional<Integer> number) {
@@ -88,6 +82,16 @@ public class QuestionService {
       .findFirstAssessableQuestionNumber(id)
       .map(Long::intValue)
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
+  }
+
+  private void verify(Visit visit, Question question) {
+    verifySameVisit(visit, question);
+  }
+
+  private void verifySameVisit(Visit visit, Question question) {
+    if (!question.getQuiz().getVisit().equals(visit)) {
+      throw new DataConflictException("Different visit");
+    }
   }
 
   private Pageable generateSingleQuestionPageable(int number) {

@@ -3,10 +3,8 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
-import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.service.QuestionService;
-import kz.ruanjian.memed.service.QuizService;
 import kz.ruanjian.memed.service.VisitService;
 import kz.ruanjian.memed.util.Item;
 import org.springframework.data.domain.Page;
@@ -29,14 +27,11 @@ public class QuestionController {
 
   private final QuestionService questionService;
   private final VisitService visitService;
-  private final QuizService quizService;
 
   public QuestionController(QuestionService questionService,
-                            VisitService visitService,
-                            QuizService quizService) {
+                            VisitService visitService) {
     this.questionService = questionService;
     this.visitService = visitService;
-    this.quizService = quizService;
   }
 
   @GetMapping("/questions")
@@ -45,18 +40,19 @@ public class QuestionController {
   }
 
   @GetMapping("/quizzes/{quizId}/questions/item")
-  public Item<Question> findItem(@PathVariable Long quizId,
+  public Item<Question> findItem(@RequestHeader("x-visit-id") UUID visitId,
+                                 @PathVariable Long quizId,
                                  @RequestParam Optional<Integer> number) {
-    return questionService.findQuestionsItem(quizId, number);
+    Visit visit = visitService.findById(visitId);
+    return questionService.findQuestionsItem(visit, quizId, number);
   }
 
   @PutMapping("/quizzes/{quizId}/questions/{id}")
-  public Question provideAnswer(@PathVariable Long quizId,
+  public Question provideAnswer(@RequestHeader("x-visit-id") UUID visitId,
+                                @PathVariable Long quizId,
                                 @PathVariable Long id,
-                                @RequestBody @Valid AnswerDto answerDto,
-                                @RequestHeader("x-visit-id") UUID visitId) {
+                                @RequestBody @Valid AnswerDto answerDto) {
     Visit visit = visitService.findById(visitId);
-    Quiz quiz = quizService.findById();
     Question question = questionService.findByIdAndQuizId(id, quizId);
     question.setAnswer(answerDto.getAnswer());
 

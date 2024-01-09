@@ -8,5 +8,6 @@ create table visits
 create table leads
 (
   id   bigserial primary key,
-  name varchar(150)
+  name varchar(150),
+  visit_id uuid references visits (id) not null
 );
