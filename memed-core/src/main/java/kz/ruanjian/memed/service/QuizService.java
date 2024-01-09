@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class QuizService {
 
@@ -39,10 +41,10 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz requestByTemplateId(Long id) {
+  public Quiz requestByTemplateId(Long id, UUID visitId) {
     return quizRepository
       .findTop1ByStatusAndTemplateId(QuizStatus.IN_PROGRESS, id)
-      .orElseGet(() -> generateByTemplateId(id));
+      .orElseGet(() -> generateByTemplateId(id, visitId));
   }
 
   @Transactional
@@ -58,7 +60,7 @@ public class QuizService {
     return quiz;
   }
 
-  private Quiz generateByTemplateId(Long templateId) {
+  private Quiz generateByTemplateId(Long templateId, UUID visitId) {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template);
 

@@ -7,8 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,7 +35,9 @@ public class QuizController {
   }
 
   @GetMapping("/templates/{templateId}/quizzes/request")
-  public Quiz requestByTemplateId(@PathVariable Long templateId) {
+  public Quiz requestByTemplateId(@PathVariable Long templateId,
+                                  @RequestHeader("x-visit-id") UUID visitId,
+                                  @RequestHeader("x-user_id") Optional<Long> userId) {
     return quizService.requestByTemplateId(templateId);
   }
 

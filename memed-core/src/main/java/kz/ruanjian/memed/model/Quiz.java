@@ -26,6 +26,11 @@ public class Quiz {
   private Long id;
 
   @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "visit_id")
+  private Visit visit;
+
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "template_id")
   private Template template;
@@ -39,15 +44,20 @@ public class Quiz {
 
   private int grade;
 
-  public Quiz() {
-  }
-
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Visit getVisit() {
+    return visit;
+  }
+
+  public void setVisit(Visit visit) {
+    this.visit = visit;
   }
 
   public Template getTemplate() {
@@ -93,14 +103,5 @@ public class Quiz {
   @Override
   public int hashCode() {
     return Objects.hash(id, status, grade);
-  }
-
-  @Override
-  public String toString() {
-    return "Quiz{" +
-      "id=" + id +
-      ", status=" + status +
-      ", grade=" + grade +
-      '}';
   }
 }
