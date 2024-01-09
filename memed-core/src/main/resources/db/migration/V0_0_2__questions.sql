@@ -27,8 +27,9 @@ create table quizzes
 (
   id          bigserial primary key,
   lead_id     bigint references leads (id),
-  template_id bigint      not null references templates (id),
-  status      varchar(50) not null,
+  visit_id    uuid references visits (id) not null,
+  template_id bigint                      not null references templates (id),
+  status      varchar(50)                 not null,
   grade       int
 );
 
