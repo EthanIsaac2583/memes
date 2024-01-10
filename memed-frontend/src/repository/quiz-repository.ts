@@ -1,6 +1,7 @@
 import {Quiz} from "../model/quiz";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {ErrorResponse} from "../model/error-response";
+import {ApplicationLocalStorage, StorageKey} from "../util/application-local-storage";
 
 export class QuizRepository {
 
@@ -28,7 +29,10 @@ export class QuizRepository {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
-      url: `/api/v1/templates/${templateId}/quizzes/request`
+      url: `/api/v1/templates/${templateId}/quizzes/request`,
+      headers: {
+        'x-visit-id': ApplicationLocalStorage.getItem(StorageKey.VisitId)
+      }
     })
       .then((response: AxiosResponse<Quiz>) => {
         return response.data;

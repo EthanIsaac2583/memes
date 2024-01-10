@@ -13,7 +13,8 @@ export class VisitRepository {
     return axios({
       method: 'POST',
       baseURL: this.baseUrl,
-      url: '/api/v1/visits'
+      url: '/api/v1/visits',
+      data: {}
     })
       .then((response: AxiosResponse<Visit>) => {
         return response.data;
