@@ -36,7 +36,7 @@ create table quizzes
 create table questions
 (
   id          bigserial primary key,
-  lead_id     uuid references visits (id) not null,
+  visit_id    uuid references visits (id) not null,
   number      int                         not null,
   quiz_id     bigint                      not null references quizzes (id),
   task_id     bigint                      not null references tasks (id),
