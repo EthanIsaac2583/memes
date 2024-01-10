@@ -5,13 +5,14 @@ import {ProcessQuizByTemplateId} from "./process-quiz-by-template-id";
 import {FinalizeQuizById} from "./finalize-quiz-by-id";
 import {ProcessQuestionItemByQuizId} from "./process-quiz-question-by-item";
 import {VisitGuard} from "../components/visit-guard";
+import {VisitRequester} from "../components/visit-requester";
 
 export const router = createBrowserRouter([
   { path: '/about', element: <AboutPage /> },
   { path: '/', element: (
-      <VisitGuard>
+      <VisitRequester>
         <RootPage />
-      </VisitGuard>
+      </VisitRequester>
     )
   },
   { path: '/templates/:templateId/process-quiz', element: (
