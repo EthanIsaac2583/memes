@@ -35,7 +35,7 @@ public class QuestionService {
     this.itemMapper = itemMapper;
   }
 
-  public Question findByIdAndQuizId(Long id, Long quizId, Visit visit) {
+  public Question findByIdAndQuizIdAndVisit(Long id, Long quizId, Visit visit) {
     return questionRepository
       .findByIdAndQuizIdAndVisit(id, quizId, visit)
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
