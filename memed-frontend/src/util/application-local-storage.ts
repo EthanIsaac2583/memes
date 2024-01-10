@@ -21,3 +21,7 @@ export class ApplicationLocalStorage {
     return ApplicationLocalStorage.PREFIX + name;
   }
 }
+
+export enum StorageKey {
+  VisitId = 'visit_id'
+}
