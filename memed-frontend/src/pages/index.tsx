@@ -4,11 +4,32 @@ import {AboutPage} from "./about";
 import {ProcessQuizByTemplateId} from "./process-quiz-by-template-id";
 import {FinalizeQuizById} from "./finalize-quiz-by-id";
 import {ProcessQuestionItemByQuizId} from "./process-quiz-question-by-item";
+import {VisitGuard} from "../components/visit-guard";
 
 export const router = createBrowserRouter([
-  { path: '/', element: <RootPage /> },
   { path: '/about', element: <AboutPage /> },
-  { path: '/templates/:templateId/process-quiz', element: <ProcessQuizByTemplateId /> },
-  { path: `/quizzes/:quizId/questions/item`, element: <ProcessQuestionItemByQuizId /> },
-  { path: '/quizzes/:quizId/finalize', element: <FinalizeQuizById /> },
+  { path: '/', element: (
+      <VisitGuard>
+        <RootPage />
+      </VisitGuard>
+    )
+  },
+  { path: '/templates/:templateId/process-quiz', element: (
+      <VisitGuard>
+        <ProcessQuizByTemplateId />
+      </VisitGuard>
+    )
+  },
+  { path: `/quizzes/:quizId/questions/item`, element: (
+      <VisitGuard>
+        <ProcessQuestionItemByQuizId />
+      </VisitGuard>
+    )
+  },
+  { path: '/quizzes/:quizId/finalize', element: (
+      <VisitGuard>
+        <FinalizeQuizById />
+      </VisitGuard>
+    )
+  },
 ]);
