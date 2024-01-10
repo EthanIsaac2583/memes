@@ -3,6 +3,8 @@ import axios, {AxiosError, AxiosResponse} from "axios";
 import {ErrorResponse} from "../model/error-response";
 import {Answer} from "../model/answer";
 import {Item} from "../model/item";
+import {ApplicationHeader} from "./application-header";
+import {ApplicationLocalStorage, StorageKey} from "../util/application-local-storage";
 
 export class QuestionRepository {
 
@@ -19,6 +21,9 @@ export class QuestionRepository {
       url: `/api/v1/quizzes/${quizId}/questions/item`,
       params: {
         number
+      },
+      headers: {
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
       }
     })
       .then((response: AxiosResponse<Item<Question>>) => {
