@@ -16,7 +16,10 @@ export class QuizRepository {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
-      url: `/api/v1/quizzes/${quizId}`
+      url: `/api/v1/quizzes/${quizId}`,
+      headers: {
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
+      }
     })
       .then((response: AxiosResponse<Quiz>) => {
         return response.data;
@@ -47,7 +50,10 @@ export class QuizRepository {
     return axios({
       method: 'PUT',
       baseURL: this.baseUrl,
-      url: `api/v1/quizzes/${id}/finalize`
+      url: `api/v1/quizzes/${id}/finalize`,
+      headers: {
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
+      }
     })
       .then((response: AxiosResponse<Quiz>) => {
         return response.data;
