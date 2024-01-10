@@ -13,15 +13,10 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
           <Navbar.Brand as={Link} to="/">
             <img src={Logo} alt="logo" />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav>
-              <Nav.Link as={Link} to="/">Quizzes</Nav.Link>
-            </Nav>
-            <Nav>
-              <Nav.Link as={Link} to="/about">About</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav className="me-auto flex-row">
+            <Nav.Link as={Link} to="/" className="mx-2">Quizzes</Nav.Link>
+            <Nav.Link as={Link} to="/about" className="mx-2">About</Nav.Link>
+          </Nav>
         </Container>
       </Navbar>
       <main className="my-3">{props.children}</main>
