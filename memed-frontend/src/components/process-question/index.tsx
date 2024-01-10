@@ -11,19 +11,20 @@ import {Item} from "../../model/item";
 import Button from "react-bootstrap/Button";
 
 interface IProps {
+  quizId: string;
   questionItem: Item<Question>;
   onProcessed?: () => void;
   onNavigate?: (number: number) => void;
 }
 
 export const ProcessQuestion: FC<IProps> = (props) => {
-  const { questionItem, onProcessed, onNavigate } = props;
+  const { quizId, questionItem, onProcessed, onNavigate } = props;
 
   const repositories = useRepositories();
 
   const handleSubmitBlank = (answer: Answer) => {
     repositories?.questionRepository
-      .provideAnswer(questionItem.content.id, answer)
+      .provideAnswer(quizId, questionItem.content.id, answer)
       .then(() => {
         if (questionItem.last && onProcessed) {
           onProcessed();

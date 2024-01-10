@@ -34,14 +34,15 @@ export class QuestionRepository {
       });
   }
 
-  public async provideAnswer(questionId: number , answer: Answer): Promise<void> {
+  public async provideAnswer(quizId: string, questionId: number, answer: Answer): Promise<void> {
     return axios({
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
       },
       baseURL: this.baseUrl,
-      url: `/api/v1/questions/${questionId}`,
+      url: `/api/v1/quizzes/${quizId}/questions/${questionId}`,
       data: { answer }
     })
       .then(() => {})

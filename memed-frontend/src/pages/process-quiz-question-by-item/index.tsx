@@ -41,6 +41,7 @@ export const ProcessQuestionItemByQuizId = () => {
   return (
     <BaseLayout>
       <ProcessQuestion
+        quizId={quizId}
         questionItem={questionItem}
         onNavigate={handleNavigate}
         onProcessed={handleProcessed}
