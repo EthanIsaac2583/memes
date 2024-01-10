@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class QuestionService {
@@ -48,14 +47,7 @@ public class QuestionService {
     Pageable pageable = generateSingleQuestionPageable(questionNumber);
     Specification<Question> specification = questionRepository.quizIdEquals(quizId);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
-
-    if (questionPage.isEmpty()) {
-      throw new NotFoundException(QUESTION_NOT_FOUND);
-    }
-
-    if (!questionPage.getContent().get(0).getVisit().equals(visit)) {
-      throw new ForbiddenException("Forbidden to read question");
-    }
+    verifyItem(questionPage, visit);
 
     return itemMapper.toItem(questionPage);
   }
@@ -97,6 +89,23 @@ public class QuestionService {
   private void verifySameVisit(Visit visit, Question question) {
     if (!question.getQuiz().getVisit().equals(visit)) {
       throw new DataConflictException("Different visit");
+    }
+  }
+
+  private void verifyItem(Page<Question> questionPage, Visit visit) {
+    verifyItemIsPresent(questionPage);
+    verifyItemCanBeRead(questionPage, visit);
+  }
+
+  private void verifyItemIsPresent(Page<Question> questionPage) {
+    if (questionPage.isEmpty()) {
+      throw new NotFoundException(QUESTION_NOT_FOUND);
+    }
+  }
+
+  private void verifyItemCanBeRead(Page<Question> questionPage, Visit visit) {
+    if (!questionPage.getContent().get(0).getVisit().equals(visit)) {
+      throw new ForbiddenException("Forbidden to read question");
     }
   }
 
