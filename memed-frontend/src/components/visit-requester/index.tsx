@@ -1,9 +1,14 @@
-import {FC, PropsWithChildren, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {ApplicationLocalStorage, StorageKey} from "../../util/application-local-storage";
 import {useRepositories} from "../../repository/repositories-context";
 
-export const VisitRequester: FC<PropsWithChildren> = (props) => {
-  const { children } = props;
+interface IProps {
+  children?: ReactNode;
+  onRequested?: () => void;
+}
+
+export const VisitRequester: FC<IProps> = (props) => {
+  const { children, onRequested } = props;
 
   const [fetching, setFetching] = useState(false);
 
@@ -19,6 +24,7 @@ export const VisitRequester: FC<PropsWithChildren> = (props) => {
         .then(visit => {
           ApplicationLocalStorage.setItem(StorageKey.VisitId, visit.id);
           setFetching(false);
+          onRequested?.();
         })
         .catch(() => {
           setFetching(false);
