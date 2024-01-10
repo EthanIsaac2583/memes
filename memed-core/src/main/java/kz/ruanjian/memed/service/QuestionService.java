@@ -5,6 +5,7 @@ import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.DataConflictException;
+import kz.ruanjian.memed.service.exception.ForbiddenException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.grader.GraderContext;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class QuestionService {
@@ -49,6 +51,10 @@ public class QuestionService {
 
     if (questionPage.isEmpty()) {
       throw new NotFoundException(QUESTION_NOT_FOUND);
+    }
+
+    if (!questionPage.getContent().get(0).getVisit().equals(visit)) {
+      throw new ForbiddenException("Forbidden to read question");
     }
 
     return itemMapper.toItem(questionPage);
