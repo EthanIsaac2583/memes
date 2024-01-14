@@ -30,7 +30,7 @@ public class SecurityConfig {
 
     httpSecurity
       .authorizeHttpRequests(request -> request
-        .requestMatchers("/api/v1/test/**").permitAll()
+        .requestMatchers("/api/v1/auth/**").permitAll()
         .anyRequest().authenticated());
 
     httpSecurity
