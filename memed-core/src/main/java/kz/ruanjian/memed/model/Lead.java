@@ -22,7 +22,7 @@ public class Lead {
   private String password;
 
   @OneToOne
-  @JoinColumn(name = "visit_id")
+  @JoinColumn(name = "visit_id", updatable = false, nullable = false)
   private Visit visit;
 
   public Long getId() {
