@@ -14,8 +14,8 @@ create table leads
 create table tokens
 (
   id      bigserial primary key,
-  token   varchar(3000) not null,
-  revoked boolean       not null,
-  expired boolean       not null,
+  token   varchar not null,
+  revoked boolean not null,
+  expired boolean not null,
   lead_id bigint references leads (id)
 );
