@@ -21,10 +21,6 @@ public class Visit {
   private UUID id;
 
   @JsonIgnore
-  @Column(name = "user_agent", updatable = false)
-  private String userAgent;
-
-  @JsonIgnore
   @Column(name = "created_at", updatable = false)
   private ZonedDateTime createdAt;
 
@@ -34,14 +30,6 @@ public class Visit {
 
   public void setId(UUID id) {
     this.id = id;
-  }
-
-  public String getUserAgent() {
-    return userAgent;
-  }
-
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
   }
 
   public ZonedDateTime getCreatedAt() {
