@@ -23,10 +23,10 @@ public class JwtService {
     return getClaim(token, Claims::getSubject);
   }
 
-  public String generateToken(Lead lead) {
+  public String generateToken(UserDetails userDetails) {
     return Jwts
       .builder()
-      .setSubject(lead.getUsername())
+      .setSubject(userDetails.getUsername())
       .setIssuedAt(generateDateFromNow(0L))
       .setExpiration(generateDateFromNow(EXPIRE_AFTER_IN_MILLISECONDS))
       .signWith(getSignInKey(), SignatureAlgorithm.HS256)
