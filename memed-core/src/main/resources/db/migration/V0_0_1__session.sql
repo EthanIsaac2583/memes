@@ -7,15 +7,16 @@ create table visits
 create table leads
 (
   id       bigserial primary key,
-  name     varchar(150),
+  username varchar(256),
+  password varchar(512),
   visit_id uuid references visits (id) not null
 );
 
 create table sessions
 (
   id      bigserial primary key,
-  token   varchar not null,
-  revoked boolean not null,
-  expired boolean not null,
-  lead_id bigint references leads (id)
+  token   varchar                      not null,
+  revoked boolean                      not null,
+  expired boolean                      not null,
+  lead_id bigint references leads (id) not null
 );
