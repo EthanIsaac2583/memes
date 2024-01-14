@@ -11,7 +11,7 @@ create table leads
   visit_id uuid references visits (id) not null
 );
 
-create table tokens
+create table sessions
 (
   id      bigserial primary key,
   token   varchar not null,
