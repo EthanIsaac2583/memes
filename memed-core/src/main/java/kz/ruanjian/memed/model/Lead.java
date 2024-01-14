@@ -7,12 +7,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "leads")
-public class Lead {
+public class Lead implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +38,7 @@ public class Lead {
     this.id = id;
   }
 
+  @Override
   public String getUsername() {
     return username;
   }
@@ -42,6 +47,7 @@ public class Lead {
     this.username = username;
   }
 
+  @Override
   public String getPassword() {
     return password;
   }
@@ -59,15 +65,40 @@ public class Lead {
   }
 
   @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return new ArrayList<>();
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Lead lead = (Lead) o;
-    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username) && Objects.equals(password, lead.password);
+    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password);
+    return Objects.hash(id, username);
   }
 }
