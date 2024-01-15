@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+  private static final String PRIVATE_ROUTE = "/api/v1/private/**";
+
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final AuthenticationProvider authenticationProvider;
 
@@ -30,8 +32,8 @@ public class SecurityConfig {
 
     httpSecurity
       .authorizeHttpRequests(request -> request
-        .requestMatchers("/api/v1/auth/**").permitAll()
-        .anyRequest().authenticated());
+        .requestMatchers(PRIVATE_ROUTE).authenticated()
+        .anyRequest().permitAll());
 
     httpSecurity
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
