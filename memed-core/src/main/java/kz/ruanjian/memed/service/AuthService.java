@@ -98,12 +98,12 @@ public class AuthService {
   private void verifyUsernameIsUnique(Lead lead) {
     Optional<Lead> persistedLead = leadRepository.findByUsername(lead.getUsername());
 
-    if (!isEqualById(lead, persistedLead)) {
+    if (isSameById(lead, persistedLead)) {
       throw new DataConflictException("Username already exists");
     }
   }
 
-  private boolean isEqualById(Lead lead, Optional<Lead> persistedLead) {
+  private boolean isSameById(Lead lead, Optional<Lead> persistedLead) {
       return persistedLead
         .map(value -> value.getId().equals(lead.getId()))
         .orElse(false);
