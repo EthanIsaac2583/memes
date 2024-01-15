@@ -1,6 +1,5 @@
 package kz.ruanjian.memed.security;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -31,37 +30,47 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity
-      .cors(cors -> cors.configurationSource(this::generateCorsConfiguration));
-
-    httpSecurity
-      .csrf(AbstractHttpConfigurer::disable);
-
-    httpSecurity
-      .authorizeHttpRequests(request -> request
-        .requestMatchers(PRIVATE_ROUTE).authenticated()
-        .anyRequest().permitAll());
-
-    httpSecurity
-      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-    httpSecurity
-      .authenticationProvider(authenticationProvider);
-
-    httpSecurity
-      .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    configureCors(httpSecurity);
+    disableCsrf(httpSecurity);
+    configureAuthorization(httpSecurity);
+    makeSessionStateless(httpSecurity);
+    configureAuthentication(httpSecurity);
 
     return httpSecurity.build();
   }
 
-  private CorsConfiguration generateCorsConfiguration(HttpServletRequest request) {
-    CorsConfiguration configuration = new CorsConfiguration();
+  private void configureAuthentication(HttpSecurity httpSecurity) {
+    httpSecurity
+      .authenticationProvider(authenticationProvider)
+      .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+  }
 
-    configuration.setAllowedOriginPatterns(List.of("*"));
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("*"));
-    configuration.setAllowCredentials(true);
+  private void makeSessionStateless(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+  }
 
-    return configuration;
+  private void configureAuthorization(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+      .authorizeHttpRequests(request -> request
+        .requestMatchers(PRIVATE_ROUTE).authenticated()
+        .anyRequest().permitAll());
+  }
+
+  private void disableCsrf(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity.csrf(AbstractHttpConfigurer::disable);
+  }
+
+  private void configureCors(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity.cors(cors -> cors.configurationSource(request -> {
+      CorsConfiguration configuration = new CorsConfiguration();
+
+      configuration.setAllowedOriginPatterns(List.of("*"));
+      configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+      configuration.setAllowedHeaders(List.of("*"));
+      configuration.setAllowCredentials(true);
+
+      return configuration;
+    }));
   }
 }
