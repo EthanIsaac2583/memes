@@ -7,7 +7,7 @@ import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
 import kz.ruanjian.memed.respository.VisitRepository;
-import kz.ruanjian.memed.security.JwtService;
+import kz.ruanjian.memed.security.JwtManager;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,18 +23,18 @@ public class AuthService {
   private final LeadRepository leadRepository;
   private final VisitRepository visitRepository;
   private final PasswordEncoder passwordEncoder;
-  private final JwtService jwtService;
+  private final JwtManager jwtManager;
   private final AuthenticationManager authenticationManager;
 
   public AuthService(LeadRepository leadRepository,
                      VisitRepository visitRepository,
                      PasswordEncoder passwordEncoder,
-                     JwtService jwtService,
+                     JwtManager jwtManager,
                      AuthenticationManager authenticationManager) {
     this.leadRepository = leadRepository;
     this.visitRepository = visitRepository;
     this.passwordEncoder = passwordEncoder;
-    this.jwtService = jwtService;
+    this.jwtManager = jwtManager;
     this.authenticationManager = authenticationManager;
   }
 
@@ -44,7 +44,7 @@ public class AuthService {
     Lead lead = generateLead(registerDto, visit);
     leadRepository.save(lead);
 
-    String token = jwtService.generateToken(lead);
+    String token = jwtManager.generateToken(lead);
 
     AuthDto authDto = new AuthDto();
     authDto.setToken(token);
@@ -56,7 +56,7 @@ public class AuthService {
   public AuthDto login(LoginDto loginDto) {
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
     Lead lead = findLeadByUsername(loginDto.getUsername());
-    String token = jwtService.generateToken(lead);
+    String token = jwtManager.generateToken(lead);
 
     AuthDto authDto = new AuthDto();
     authDto.setToken(token);

@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import kz.ruanjian.memed.model.Lead;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Component
-public class JwtService {
+public class JwtManager {
 
   private static final String SECRET = "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0";
   private static final Long EXPIRE_AFTER_IN_MILLISECONDS = 60_000L;
