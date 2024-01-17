@@ -7,40 +7,66 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "memed")
 public class MemedProperties {
 
-  private Integer gradeMin;
-  private Integer gradeMax;
-  private Long securityExpirationInMs;
-  private String securitySecret;
+  private ApplicationProperties application;
+  private SecurityProperties security;
 
-  public Integer getGradeMin() {
-    return gradeMin;
+  public ApplicationProperties getApplication() {
+    return application;
   }
 
-  public void setGradeMin(Integer gradeMin) {
-    this.gradeMin = gradeMin;
+  public void setApplication(ApplicationProperties application) {
+    this.application = application;
   }
 
-  public Integer getGradeMax() {
-    return gradeMax;
+  public SecurityProperties getSecurity() {
+    return security;
   }
 
-  public void setGradeMax(Integer gradeMax) {
-    this.gradeMax = gradeMax;
+  public void setSecurity(SecurityProperties security) {
+    this.security = security;
   }
 
-  public Long getSecurityExpirationInMs() {
-    return securityExpirationInMs;
+  public static class ApplicationProperties {
+
+    private Integer gradeMin;
+    private Integer gradeMax;
+
+    public Integer getGradeMin() {
+      return gradeMin;
+    }
+
+    public void setGradeMin(Integer gradeMin) {
+      this.gradeMin = gradeMin;
+    }
+
+    public Integer getGradeMax() {
+      return gradeMax;
+    }
+
+    public void setGradeMax(Integer gradeMax) {
+      this.gradeMax = gradeMax;
+    }
   }
 
-  public void setSecurityExpirationInMs(Long securityExpirationInMs) {
-    this.securityExpirationInMs = securityExpirationInMs;
-  }
+  public static class SecurityProperties {
 
-  public String getSecuritySecret() {
-    return securitySecret;
-  }
+    private String secret;
+    private Long expirationInMs;
 
-  public void setSecuritySecret(String securitySecret) {
-    this.securitySecret = securitySecret;
+    public String getSecret() {
+      return secret;
+    }
+
+    public void setSecret(String secret) {
+      this.secret = secret;
+    }
+
+    public Long getExpirationInMs() {
+      return expirationInMs;
+    }
+
+    public void setExpirationInMs(Long expirationInMs) {
+      this.expirationInMs = expirationInMs;
+    }
   }
 }

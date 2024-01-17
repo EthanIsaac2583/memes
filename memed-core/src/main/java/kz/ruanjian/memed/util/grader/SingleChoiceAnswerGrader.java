@@ -17,10 +17,10 @@ public class SingleChoiceAnswerGrader implements Grader {
   @Override
   public int grade(Question question) {
     if (isCorrect(question)) {
-      return memedProperties.getGradeMax();
+      return memedProperties.getApplication().getGradeMax();
     }
 
-    return memedProperties.getGradeMin();
+    return memedProperties.getApplication().getGradeMin();
   }
 
   private boolean isCorrect(Question question) {

@@ -31,7 +31,7 @@ public class SecurityManager {
       .builder()
       .setSubject(userDetails.getUsername())
       .setIssuedAt(generateDateFromNow(0L))
-      .setExpiration(generateDateFromNow(memedProperties.getSecurityExpirationInMs()))
+      .setExpiration(generateDateFromNow(memedProperties.getSecurity().getExpirationInMs()))
       .signWith(getSignInKey(), SignatureAlgorithm.HS256)
       .compact();
   }
@@ -64,7 +64,7 @@ public class SecurityManager {
   }
 
   private Key getSignInKey() {
-    byte[] decoded = Decoders.BASE64.decode(memedProperties.getSecuritySecret());
+    byte[] decoded = Decoders.BASE64.decode(memedProperties.getSecurity().getSecret());
     return Keys.hmacShaKeyFor(decoded);
   }
 
