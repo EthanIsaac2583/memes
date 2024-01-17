@@ -17,16 +17,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class SecurityFilter extends OncePerRequestFilter {
 
   private static final String FORBIDDEN_MESSAGE = "Forbidden";
 
-  private final JwtManager jwtManager;
+  private final SecurityManager securityManager;
   private final UserDetailsService userDetailsService;
 
-  public JwtAuthenticationFilter(JwtManager jwtManager,
-                                 UserDetailsService userDetailsService) {
-    this.jwtManager = jwtManager;
+  public SecurityFilter(SecurityManager securityManager,
+                        UserDetailsService userDetailsService) {
+    this.securityManager = securityManager;
     this.userDetailsService = userDetailsService;
   }
 
@@ -41,12 +41,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       }
 
       String token = authorizationHeader.substring(7);
-      String username = jwtManager.getUsername(token);
+      String username = securityManager.getUsername(token);
 
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        if (jwtManager.isValidToken(token, userDetails)) {
+        if (securityManager.isValidToken(token, userDetails)) {
           UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
           authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authenticationToken);

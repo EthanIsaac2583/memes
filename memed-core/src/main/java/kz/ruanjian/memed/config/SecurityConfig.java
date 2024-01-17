@@ -1,5 +1,6 @@
-package kz.ruanjian.memed.security;
+package kz.ruanjian.memed.config;
 
+import kz.ruanjian.memed.security.SecurityFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,12 +20,12 @@ public class SecurityConfig {
 
   private static final String PRIVATE_ROUTE = "/api/v1/private/**";
 
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private final SecurityFilter securityFilter;
   private final AuthenticationProvider authenticationProvider;
 
-  public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
+  public SecurityConfig(SecurityFilter securityFilter,
                         AuthenticationProvider authenticationProvider) {
-    this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    this.securityFilter = securityFilter;
     this.authenticationProvider = authenticationProvider;
   }
 
@@ -42,7 +43,7 @@ public class SecurityConfig {
   private void configureAuthentication(HttpSecurity httpSecurity) {
     httpSecurity
       .authenticationProvider(authenticationProvider)
-      .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+      .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   private void makeSessionStateless(HttpSecurity httpSecurity) throws Exception {

@@ -13,7 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class ApplicationConfig {
+public class AuthenticationConfig {
+
+  private static final String USER_NOT_FOUND = "User not found";
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -29,7 +31,7 @@ public class ApplicationConfig {
   public UserDetailsService userDetailsService(LeadRepository leadRepository) {
     return username -> leadRepository
       .findByUsername(username)
-      .orElseThrow(() -> new UsernameNotFoundException("Lead not found"));
+      .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
   }
 
   @Bean

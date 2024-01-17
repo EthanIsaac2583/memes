@@ -7,7 +7,7 @@ import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
 import kz.ruanjian.memed.respository.VisitRepository;
-import kz.ruanjian.memed.security.JwtManager;
+import kz.ruanjian.memed.security.SecurityManager;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,18 +27,18 @@ public class AuthService {
   private final LeadRepository leadRepository;
   private final VisitRepository visitRepository;
   private final PasswordEncoder passwordEncoder;
-  private final JwtManager jwtManager;
+  private final SecurityManager securityManager;
   private final AuthenticationManager authenticationManager;
 
   public AuthService(LeadRepository leadRepository,
                      VisitRepository visitRepository,
                      PasswordEncoder passwordEncoder,
-                     JwtManager jwtManager,
+                     SecurityManager securityManager,
                      AuthenticationManager authenticationManager) {
     this.leadRepository = leadRepository;
     this.visitRepository = visitRepository;
     this.passwordEncoder = passwordEncoder;
-    this.jwtManager = jwtManager;
+    this.securityManager = securityManager;
     this.authenticationManager = authenticationManager;
   }
 
@@ -74,7 +74,7 @@ public class AuthService {
   }
 
   private AuthDto generateAuthDto(Lead lead) {
-    String token = jwtManager.generateToken(lead);
+    String token = securityManager.generateToken(lead);
     AuthDto authDto = new AuthDto();
     authDto.setToken(token);
 
