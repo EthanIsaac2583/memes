@@ -9,23 +9,38 @@ public class MemedProperties {
 
   private Integer gradeMin;
   private Integer gradeMax;
+  private Long securityExpirationInMs;
+  private String securitySecret;
 
-  public MemedProperties() {
-  }
-
-  public int getGradeMin() {
+  public Integer getGradeMin() {
     return gradeMin;
   }
 
-  public void setGradeMin(int gradeMin) {
+  public void setGradeMin(Integer gradeMin) {
     this.gradeMin = gradeMin;
   }
 
-  public int getGradeMax() {
+  public Integer getGradeMax() {
     return gradeMax;
   }
 
-  public void setGradeMax(int gradeMax) {
+  public void setGradeMax(Integer gradeMax) {
     this.gradeMax = gradeMax;
+  }
+
+  public Long getSecurityExpirationInMs() {
+    return securityExpirationInMs;
+  }
+
+  public void setSecurityExpirationInMs(Long securityExpirationInMs) {
+    this.securityExpirationInMs = securityExpirationInMs;
+  }
+
+  public String getSecuritySecret() {
+    return securitySecret;
+  }
+
+  public void setSecuritySecret(String securitySecret) {
+    this.securitySecret = securitySecret;
   }
 }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import kz.ruanjian.memed.config.MemedProperties;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,11 @@ import java.util.function.Function;
 @Component
 public class SecurityManager {
 
-  private static final String SECRET = "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0";
-  private static final Long EXPIRE_AFTER_IN_MILLISECONDS = 60_000L;
+  private final MemedProperties memedProperties;
+
+  public SecurityManager(MemedProperties memedProperties) {
+    this.memedProperties = memedProperties;
+  }
 
   public String getUsername(String token) {
     return getClaim(token, Claims::getSubject);
@@ -27,7 +31,7 @@ public class SecurityManager {
       .builder()
       .setSubject(userDetails.getUsername())
       .setIssuedAt(generateDateFromNow(0L))
-      .setExpiration(generateDateFromNow(EXPIRE_AFTER_IN_MILLISECONDS))
+      .setExpiration(generateDateFromNow(memedProperties.getSecurityExpirationInMs()))
       .signWith(getSignInKey(), SignatureAlgorithm.HS256)
       .compact();
   }
@@ -60,7 +64,8 @@ public class SecurityManager {
   }
 
   private Key getSignInKey() {
-    return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
+    byte[] decoded = Decoders.BASE64.decode(memedProperties.getSecuritySecret());
+    return Keys.hmacShaKeyFor(decoded);
   }
 
   private Date generateDateFromNow(long additionMilliseconds) {
