@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,12 +23,14 @@ public class Lead implements UserDetails {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(unique = true, nullable = false)
   private String username;
 
+  @Column(nullable = false)
   private String password;
 
   @OneToOne
-  @JoinColumn(name = "visit_id", updatable = false, nullable = false)
+  @JoinColumn(name = "visit_id", updatable = false, nullable = false, unique = true)
   private Visit visit;
 
   public Long getId() {
