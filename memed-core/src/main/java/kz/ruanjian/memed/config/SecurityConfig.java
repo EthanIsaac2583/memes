@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.config;
 
+import kz.ruanjian.memed.security.SecurityAuthenticationEntryPoint;
 import kz.ruanjian.memed.security.SecurityFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +21,14 @@ public class SecurityConfig {
 
   private static final String PRIVATE_ROUTE = "/api/v1/private/**";
 
+  private final SecurityAuthenticationEntryPoint authenticationEntryPoint;
   private final SecurityFilter securityFilter;
   private final AuthenticationProvider authenticationProvider;
 
-  public SecurityConfig(SecurityFilter securityFilter,
+  public SecurityConfig(SecurityAuthenticationEntryPoint authenticationEntryPoint,
+                        SecurityFilter securityFilter,
                         AuthenticationProvider authenticationProvider) {
+    this.authenticationEntryPoint = authenticationEntryPoint;
     this.securityFilter = securityFilter;
     this.authenticationProvider = authenticationProvider;
   }
@@ -36,6 +40,8 @@ public class SecurityConfig {
     configureAuthorization(httpSecurity);
     makeSessionStateless(httpSecurity);
     configureAuthentication(httpSecurity);
+
+    httpSecurity.exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(authenticationEntryPoint));
 
     return httpSecurity.build();
   }
