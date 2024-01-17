@@ -23,11 +23,11 @@ public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoin
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
     ErrorResponse errorResponse = ErrorResponse.builder()
-      .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
+      .statusCode(HttpServletResponse.SC_FORBIDDEN)
       .message(authException.getMessage())
       .build();
 
-    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     response.setHeader("Content-Type", "application/json");
     response.getOutputStream().write(objectMapper.writeValueAsBytes(errorResponse));
   }

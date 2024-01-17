@@ -1,11 +1,12 @@
 package kz.ruanjian.memed.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
+import kz.ruanjian.memed.controller.error.ErrorResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,15 +20,16 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-  private static final String FORBIDDEN_MESSAGE = "Forbidden";
-
   private final SecurityManager securityManager;
   private final UserDetailsService userDetailsService;
+  private final ObjectMapper objectMapper;
 
   public SecurityFilter(SecurityManager securityManager,
-                        UserDetailsService userDetailsService) {
+                        UserDetailsService userDetailsService,
+                        ObjectMapper objectMapper) {
     this.securityManager = securityManager;
     this.userDetailsService = userDetailsService;
+    this.objectMapper = objectMapper;
   }
 
   @Override
@@ -55,7 +57,14 @@ public class SecurityFilter extends OncePerRequestFilter {
 
       filterChain.doFilter(request, response);
     } catch (JwtException exception) {
-      response.sendError(HttpStatus.FORBIDDEN.value(), FORBIDDEN_MESSAGE);
+      ErrorResponse errorResponse = ErrorResponse.builder()
+        .statusCode(HttpServletResponse.SC_FORBIDDEN)
+        .message(exception.getMessage())
+        .build();
+
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      response.setHeader("Content-Type", "application/json");
+      response.getOutputStream().write(objectMapper.writeValueAsBytes(errorResponse));
     }
   }
 }
