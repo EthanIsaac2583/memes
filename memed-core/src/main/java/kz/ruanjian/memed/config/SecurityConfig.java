@@ -40,10 +40,13 @@ public class SecurityConfig {
     configureAuthorization(httpSecurity);
     makeSessionStateless(httpSecurity);
     configureAuthentication(httpSecurity);
-
-    httpSecurity.exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(authenticationEntryPoint));
+    configureAuthenticationEntryPoint(httpSecurity);
 
     return httpSecurity.build();
+  }
+
+  private void configureAuthenticationEntryPoint(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity.exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(authenticationEntryPoint));
   }
 
   private void configureAuthentication(HttpSecurity httpSecurity) {
