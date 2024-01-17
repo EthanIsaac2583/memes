@@ -22,7 +22,7 @@ public class VisitController {
     this.visitService = visitService;
   }
 
-  @GetMapping("/${id}")
+  @GetMapping("/{id}")
   public Visit findById(@PathVariable UUID id) {
     return visitService.findById(id);
   }
