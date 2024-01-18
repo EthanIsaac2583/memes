@@ -7,9 +7,16 @@ import {Link} from "react-router-dom";
 import {authContext} from "../auth";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import {ApplicationLocalStorage, StorageKey} from "../../util/application-local-storage";
 
 export const BaseLayout: FC<PropsWithChildren> = (props) => {
   const authManager = useContext(authContext);
+
+  const handleLogout = () => {
+    authManager.setLead(null);
+    ApplicationLocalStorage.removeItem(StorageKey.Token);
+  };
 
   return (
     <>
@@ -22,7 +29,11 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
             <Nav.Link as={Link} to="/" className="mx-2">Quizzes</Nav.Link>
             <Nav.Link as={Link} to="/about" className="mx-2">About</Nav.Link>
           </Nav>
-          {!authManager.lead && (
+          {authManager.lead ? (
+            <Nav className="flex-row">
+              <Button onClick={handleLogout} variant="outline-secondary">Logout</Button>
+            </Nav>
+            ) : (
             <Nav className="flex-row">
               <Nav.Link as={Link} to="/auth/login" className="mx-2">Login</Nav.Link>
               <Nav.Link as={Link} to="/auth/register" className="mx-2">Register</Nav.Link>
