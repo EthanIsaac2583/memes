@@ -9,6 +9,8 @@ import {ErrorResponse} from "../../model/error-response";
 import {useNavigate} from "react-router-dom";
 import {ApplicationLocalStorage, StorageKey} from "../../util/application-local-storage";
 import {authContext} from "../../components/auth";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const HistoryPage = () => {
   const [quizPage, setQuizPage] = useState<Page<Quiz> | null>(null);
@@ -34,19 +36,21 @@ export const HistoryPage = () => {
       <Container>
         {quizPage?.content.map(quiz => {
           return (
-            <Card
-              key={quiz.id}
-              bg="secondary"
-              text="light"
-              className="mb-2"
-            >
-              <Card.Header>Status: {quiz.status}</Card.Header>
-              <Card.Body>
-                <Card.Title>{quiz.template.name}</Card.Title>
-                <Card.Text>{quiz.template.description}</Card.Text>
-              </Card.Body>
-              <Card.Footer>Grade: {quiz.grade}</Card.Footer>
-            </Card>
+            <Row key={quiz.id} className="mb-2">
+              <Col>
+                <Card
+                  bg="secondary"
+                  text="light"
+                >
+                  <Card.Header>Status: {quiz.status}</Card.Header>
+                  <Card.Body>
+                    <Card.Title>{quiz.template.name}</Card.Title>
+                    <Card.Text>{quiz.template.description}</Card.Text>
+                  </Card.Body>
+                  <Card.Footer>Grade: {quiz.grade}</Card.Footer>
+                </Card>
+              </Col>
+            </Row>
           )
         })}
       </Container>
