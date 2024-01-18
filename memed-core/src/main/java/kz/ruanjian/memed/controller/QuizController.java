@@ -37,7 +37,7 @@ public class QuizController {
   @GetMapping("/quizzes")
   public Page<Quiz> findAll(@RequestHeader("x-visit-id") UUID visitId,
                             Pageable pageable) {
-    return quizService.findAll(pageable);
+    return quizService.findAll(pageable, visitId);
   }
 
   @GetMapping("/templates/{templateId}/quizzes/request")

@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class QuizService {
 
@@ -35,8 +37,8 @@ public class QuizService {
       .orElseThrow(() -> new NotFoundException("Quiz not found"));
   }
 
-  public Page<Quiz> findAll(Pageable pageable) {
-    return quizRepository.findAll(pageable);
+  public Page<Quiz> findAll(Pageable pageable, UUID visitId) {
+    return quizRepository.findAll(quizRepository.visitIdEquals(visitId), pageable);
   }
 
   @Transactional
