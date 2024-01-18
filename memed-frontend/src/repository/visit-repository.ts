@@ -12,7 +12,7 @@ export class VisitRepository {
 
   public async findById(id: string) {
     return axios({
-      method: 'POST',
+      method: 'GET',
       baseURL: this.baseUrl,
       url: `/api/v1/visits/${id}`
     })
