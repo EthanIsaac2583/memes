@@ -3,6 +3,7 @@ import axios, {AxiosError, AxiosResponse} from "axios";
 import {ErrorResponse} from "../model/error-response";
 import {ApplicationLocalStorage, StorageKey} from "../util/application-local-storage";
 import {ApplicationHeader} from "./application-header";
+import {Page} from "../model/page";
 
 export class QuizRepository {
 
@@ -27,6 +28,23 @@ export class QuizRepository {
       .catch((error: AxiosError<ErrorResponse>) => {
         throw error?.response?.data;
       });
+  }
+
+  public async findAll(): Promise<Page<Quiz>> {
+    return axios({
+      method: 'GET',
+      baseURL: this.baseUrl,
+      url: '/api/v1/quizzes',
+      headers: {
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
+      }
+    })
+      .then((response: AxiosResponse<Page<Quiz>>) => {
+        return response.data;
+      })
+      .catch((errorResponse: AxiosError<ErrorResponse>) => {
+        throw errorResponse?.response?.data;
+      })
   }
 
   public async requestByTemplateId(templateId: number) {
