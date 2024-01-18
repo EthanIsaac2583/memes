@@ -65,7 +65,7 @@ export class QuizRepository {
       });
   }
 
-  public async finalizeById(id: number): Promise<Quiz> {
+  public async finalizeById(id: string): Promise<Quiz> {
     return axios({
       method: 'PUT',
       baseURL: this.baseUrl,

@@ -3,7 +3,6 @@ import {BaseLayout} from "../../components/base-layout";
 import {useRepositories} from "../../repository/repositories-context";
 import {useEffect, useMemo, useState} from "react";
 import {Quiz} from "../../model/quiz";
-import {QuizStatus} from "../../model/quiz-status";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Alert} from "react-bootstrap";
@@ -36,24 +35,16 @@ export const FinalizeQuizById = () => {
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
 
-  const handleFinalizeQuiz = () => {
-    if (quiz) {
+  useEffect(() => {
+    if (quizId) {
       repositories?.quizRepository
-        .finalizeById(quiz.id)
+        .finalizeById(quizId)
         .then(setQuiz)
         .catch((errorResponse: ErrorResponse) => {
           if (errorResponse.statusCode === 409) {
             navigate(`/quizzes/${quizId}/questions/item`)
           }
         });
-    }
-  };
-
-  useEffect(() => {
-    if (quizId) {
-      repositories?.quizRepository
-        .findById(parseInt(quizId, 10))
-        .then(setQuiz);
     }
   }, []);
 
@@ -77,39 +68,21 @@ export const FinalizeQuizById = () => {
 
   return (
     <BaseLayout>
-      {quiz.status === QuizStatus.IN_PROGRESS ? (
-        <Container>
-          <Row>
-            <Col>
-              <Alert variant="success">
-                <Alert.Heading>Congratulations! <span className="h2">🎉🎉🎉</span></Alert.Heading>
-                You've completed our awesome quiz. Let's find out how many points you've got
-              </Alert>
-            </Col>
-          </Row>
-          <Row className="justify-content-center mt-5">
-            <Col md={4} className="d-grid">
-              <Button onClick={handleFinalizeQuiz} size="lg" type="button">Get grade</Button>
-            </Col>
-          </Row>
-        </Container>
-      ) : (
-        <Container>
-          <Row>
-            <Col>
-              <Alert variant="info">
-                <Alert.Heading>{GRADE_RATE_TITLE_MAP[gradeRate]}. Earned grade is {quiz.grade}</Alert.Heading>
-                {GRADE_RATE_HINT_MAP[gradeRate]}
-              </Alert>
-            </Col>
-          </Row>
-          <Row className="justify-content-center mt-5">
-            <Col md={4} className="d-grid">
-              <Button href="/" size="lg">Main page</Button>
-            </Col>
-          </Row>
-        </Container>
-      )}
+      <Container>
+        <Row>
+          <Col>
+            <Alert variant="info">
+              <Alert.Heading>{GRADE_RATE_TITLE_MAP[gradeRate]}. Earned grade is {quiz.grade}</Alert.Heading>
+              {GRADE_RATE_HINT_MAP[gradeRate]}
+            </Alert>
+          </Col>
+        </Row>
+        <Row className="justify-content-center mt-5">
+          <Col md={4} className="d-grid">
+            <Button href="/" size="lg">Main page</Button>
+          </Col>
+        </Row>
+      </Container>
     </BaseLayout>
   );
 };
