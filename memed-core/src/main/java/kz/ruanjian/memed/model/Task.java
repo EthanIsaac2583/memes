@@ -37,7 +37,6 @@ public class Task {
   @Convert(converter = BlankConverter.class)
   private Blank blank;
 
-  @JsonIgnore
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
 

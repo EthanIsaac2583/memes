@@ -44,6 +44,7 @@ public class Question {
   @Convert(converter = AnswerConverter.class)
   private Answer answer;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "visit_id", updatable = false)
   private Visit visit;

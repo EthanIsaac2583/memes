@@ -30,8 +30,7 @@ public class Quiz {
   @JoinColumn(name = "visit_id")
   private Visit visit;
 
-  @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "template_id")
   private Template template;
 
