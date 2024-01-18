@@ -27,7 +27,7 @@ export function AuthLoginPage() {
       .then((authResponse) => {
         authManager.setLead(authResponse.lead);
         ApplicationLocalStorage.setItem(StorageKey.Token, authResponse.token);
-        ApplicationLocalStorage.setItem(StorageKey.VisitId, authResponse.lead.id);
+        ApplicationLocalStorage.setItem(StorageKey.VisitId, authResponse.lead.visit.id);
         navigate("/");
       })
       .catch(setErrorResponse);
