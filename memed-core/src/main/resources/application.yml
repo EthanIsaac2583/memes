@@ -19,7 +19,7 @@ spring:
 memed:
   security:
     secret: A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0
-    expiration-in-ms: 60000
+    expiration-in-ms: 600000
   application:
     grade-min: 0
     grade-max: 100
