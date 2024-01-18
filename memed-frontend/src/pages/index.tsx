@@ -7,6 +7,7 @@ import {ProcessQuestionItemByQuizId} from "./process-quiz-question-by-item";
 import {VisitGuard} from "../components/visit-guard";
 import {VisitRequester} from "../components/visit-requester";
 import {AuthLoginPage} from "./login";
+import {AuthRegisterPage} from "./register";
 
 export const router = createBrowserRouter([
   { path: '/about', element: <AboutPage /> },
@@ -38,8 +39,6 @@ export const router = createBrowserRouter([
     path: '/auth/login', element: <AuthLoginPage />
   },
   {
-    path: '/auth/register', element: (
-      <div>register</div>
-    )
+    path: '/auth/register', element: <AuthRegisterPage />
   }
 ]);
