@@ -6,7 +6,7 @@ import {FinalizeQuizById} from "./finalize-quiz-by-id";
 import {ProcessQuestionItemByQuizId} from "./process-quiz-question-by-item";
 import {VisitGuard} from "../components/visit-guard";
 import {VisitRequester} from "../components/visit-requester";
-import {AuthLogin} from "../components/auth/login";
+import {AuthLoginPage} from "./login";
 
 export const router = createBrowserRouter([
   { path: '/about', element: <AboutPage /> },
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
     )
   },
   {
-    path: '/auth/login', element: <AuthLogin />
+    path: '/auth/login', element: <AuthLoginPage />
   },
   {
     path: '/auth/register', element: (
