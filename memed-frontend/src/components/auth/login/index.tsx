@@ -7,15 +7,26 @@ import Card from "react-bootstrap/Card";
 import {useForm} from "react-hook-form";
 import {AuthDto} from "../../../dto/auth-dto";
 import {useRepositories} from "../../../repository/repositories-context";
+import {useContext} from "react";
+import {authContext} from "../index";
+import {ApplicationLocalStorage, StorageKey} from "../../../util/application-local-storage";
+import {ErrorResponse} from "../../../model/error-response";
 
 export function AuthLogin() {
-  const loginMethods = useForm<AuthDto>();
-
   const repositories = useRepositories();
+  const authManager = useContext(authContext);
+  const loginMethods = useForm<AuthDto>();
 
   const onSubmit = (data: AuthDto) => {
     repositories?.authRepository
       .login(data)
+      .then((authResponse) => {
+        authManager.setLead(authResponse.lead);
+        ApplicationLocalStorage.setItem(StorageKey.Token, authResponse.token);
+      })
+      .catch((errorResponse: ErrorResponse) => {
+        console.log('--------> errorResponse', errorResponse);
+      });
   };
 
   return (

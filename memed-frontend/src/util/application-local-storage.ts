@@ -23,5 +23,6 @@ export class ApplicationLocalStorage {
 }
 
 export enum StorageKey {
-  VisitId = 'visit_id'
+  VisitId = 'visit_id',
+  Token = 'token'
 }
