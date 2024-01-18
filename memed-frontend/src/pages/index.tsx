@@ -5,7 +5,6 @@ import {ProcessQuizByTemplateId} from "./process-quiz-by-template-id";
 import {FinalizeQuizById} from "./finalize-quiz-by-id";
 import {ProcessQuestionItemByQuizId} from "./process-quiz-question-by-item";
 import {VisitGuard} from "../components/visit-guard";
-import {VisitRequester} from "../components/visit-requester";
 import {AuthLoginPage} from "./login";
 import {AuthRegisterPage} from "./register";
 import {HistoryPage} from "./history";
@@ -14,9 +13,9 @@ import {PropertyGuard} from "../components/property-guard";
 export const router = createBrowserRouter([
   { path: '/about', element: <AboutPage /> },
   { path: '/', element: (
-      <VisitRequester>
+      <VisitGuard>
         <RootPage />
-      </VisitRequester>
+      </VisitGuard>
     )
   },
   { path: '/templates/:templateId/process-quiz', element: (
@@ -46,7 +45,9 @@ export const router = createBrowserRouter([
   {
     path: '/history', element: (
       <PropertyGuard>
-        <HistoryPage />
+        <VisitGuard>
+          <HistoryPage />
+        </VisitGuard>
       </PropertyGuard>
     )
   }
