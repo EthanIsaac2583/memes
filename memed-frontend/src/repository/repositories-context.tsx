@@ -3,12 +3,14 @@ import {QuestionRepository} from "./question-repository";
 import {QuizRepository} from "./quiz-repository";
 import {TemplateRepository} from "./template-repository";
 import {VisitRepository} from "./visit-repository";
+import {AuthRepository} from "./auth-repository";
 
 interface RepositoryContext {
   questionRepository: QuestionRepository;
   quizRepository: QuizRepository;
   templateRepository: TemplateRepository;
   visitRepository: VisitRepository;
+  authRepository: AuthRepository;
 }
 
 const repositoriesContext = createContext<RepositoryContext | null>(null);
@@ -26,6 +28,7 @@ export const RepositoriesProvider: FC<PropsWithChildren<IProps>> = (props) => {
       quizRepository: new QuizRepository(baseUrl),
       templateRepository: new TemplateRepository(baseUrl),
       visitRepository: new VisitRepository(baseUrl),
+      authRepository: new AuthRepository(baseUrl),
     }
   }, [baseUrl]);
 
