@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.svg";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {authContext} from "../auth";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,10 +12,12 @@ import {ApplicationLocalStorage, StorageKey} from "../../util/application-local-
 
 export const BaseLayout: FC<PropsWithChildren> = (props) => {
   const authManager = useContext(authContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     authManager.setLead(null);
     ApplicationLocalStorage.removeItem(StorageKey.Token);
+    navigate("/");
   };
 
   return (
