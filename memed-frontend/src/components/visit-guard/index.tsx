@@ -14,7 +14,7 @@ export const VisitGuard: FC<PropsWithChildren> = (props) => {
   };
 
   useEffect(() => {
-    const handler = async () => {
+    const remoteVerifier = async () => {
       if (repositories) {
         const visitId = ApplicationLocalStorage.getItem(StorageKey.VisitId);
 
@@ -27,14 +27,14 @@ export const VisitGuard: FC<PropsWithChildren> = (props) => {
           }
         }
 
-        if (!visitId) {
+        if (!ApplicationLocalStorage.getItem(StorageKey.VisitId)) {
           const visit = await repositories.visitRepository.create();
           ApplicationLocalStorage.setItem(StorageKey.VisitId, visit.id);
         }
       }
     };
 
-    handler().then(() => {
+    remoteVerifier().then(() => {
       setVerifying(false);
       handleNavigateToRoot();
     });
