@@ -28,8 +28,8 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
             <img src={Logo} alt="logo" />
           </Navbar.Brand>
           <Nav className="me-auto flex-row">
-            <Nav.Link as={Link} to="/" className="mx-2">Quizzes</Nav.Link>
             <Nav.Link as={Link} to="/about" className="mx-2">About</Nav.Link>
+            <Nav.Link as={Link} to="/" className="mx-2">Quizzes</Nav.Link>
             {authManager.lead && (
               <Nav.Link as={Link} to="/history" className="mx-2">History</Nav.Link>
             )}
