@@ -19,7 +19,7 @@ public class LeadController {
   }
 
   @GetMapping("/me")
-  public Lead findByUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
+  public Lead findMe(@AuthenticationPrincipal UserDetails userDetails) {
     return leadService.findByUsername(userDetails.getUsername());
   }
 }

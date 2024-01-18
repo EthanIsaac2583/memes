@@ -25,10 +25,16 @@ export const AuthProvider: FC<PropsWithChildren> = (props) => {
   const manager = useMemo(() => ({ lead, setLead }), [lead, setLead]);
 
   useEffect(() => {
-    const token = ApplicationLocalStorage.getItem(StorageKey.Token);
-    if (token) {
-
-    }
+    repositories?.leadRepository
+      .findMe()
+      .then((leadResponse) => {
+        setLead(leadResponse);
+        ApplicationLocalStorage.setItem(StorageKey.VisitId, leadResponse.visit.id);
+      })
+      .catch(() => {
+        setLead(null);
+        ApplicationLocalStorage.removeItem(StorageKey.Token);
+      });
   }, []);
 
   return <authContext.Provider value={manager}>{children}</authContext.Provider>;
