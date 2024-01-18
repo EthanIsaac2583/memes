@@ -8,6 +8,8 @@ import {VisitGuard} from "../components/visit-guard";
 import {VisitRequester} from "../components/visit-requester";
 import {AuthLoginPage} from "./login";
 import {AuthRegisterPage} from "./register";
+import {HistoryPage} from "./history";
+import {PropertyGuard} from "../components/property-guard";
 
 export const router = createBrowserRouter([
   { path: '/about', element: <AboutPage /> },
@@ -42,6 +44,10 @@ export const router = createBrowserRouter([
     path: '/auth/register', element: <AuthRegisterPage />
   },
   {
-    path: '/history', element: <div>History</div>
+    path: '/history', element: (
+      <PropertyGuard>
+        <HistoryPage />
+      </PropertyGuard>
+    )
   }
 ]);
