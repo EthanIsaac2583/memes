@@ -7,15 +7,18 @@ import Card from "react-bootstrap/Card";
 import {useForm} from "react-hook-form";
 import {AuthDto} from "../../../dto/auth-dto";
 import {useRepositories} from "../../../repository/repositories-context";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {authContext} from "../index";
 import {ApplicationLocalStorage, StorageKey} from "../../../util/application-local-storage";
 import {ErrorResponse} from "../../../model/error-response";
+import {useNavigate} from "react-router-dom";
 
 export function AuthLogin() {
+  const navigate = useNavigate()
   const repositories = useRepositories();
   const authManager = useContext(authContext);
   const loginMethods = useForm<AuthDto>();
+  const [errorResponse, setErrorResponse] = useState<ErrorResponse | null>(null);
 
   const onSubmit = (data: AuthDto) => {
     repositories?.authRepository
@@ -23,10 +26,9 @@ export function AuthLogin() {
       .then((authResponse) => {
         authManager.setLead(authResponse.lead);
         ApplicationLocalStorage.setItem(StorageKey.Token, authResponse.token);
+        navigate("/");
       })
-      .catch((errorResponse: ErrorResponse) => {
-        console.log('--------> errorResponse', errorResponse);
-      });
+      .catch(setErrorResponse);
   };
 
   return (
@@ -47,6 +49,9 @@ export function AuthLogin() {
                   <Form.Text className="text-danger">
                     {loginMethods.formState.errors.username?.message}
                   </Form.Text>
+                  <Form.Text className="text-danger">
+                    {errorResponse?.fieldErrors.username}
+                  </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -59,10 +64,16 @@ export function AuthLogin() {
                   <Form.Text className="text-danger">
                     {loginMethods.formState.errors.password?.message}
                   </Form.Text>
+                  <Form.Text className="text-danger">
+                    {errorResponse?.fieldErrors.password}
+                  </Form.Text>
                 </Form.Group>
                 <Form.Group className="d-grid">
                   <Form.Text className="text-danger">
                     {loginMethods.formState.errors.root?.message}
+                  </Form.Text>
+                  <Form.Text className="text-danger">
+                    {errorResponse?.message}
                   </Form.Text>
                   <Button variant="dark" type="submit">
                     Submit
