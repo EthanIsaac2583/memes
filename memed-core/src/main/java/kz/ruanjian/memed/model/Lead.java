@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +51,7 @@ public class Lead implements UserDetails {
     this.username = username;
   }
 
+  @JsonIgnore
   @Override
   public String getPassword() {
     return password;
@@ -67,26 +69,31 @@ public class Lead implements UserDetails {
     this.visit = visit;
   }
 
+  @JsonIgnore
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return new ArrayList<>();
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isEnabled() {
     return true;

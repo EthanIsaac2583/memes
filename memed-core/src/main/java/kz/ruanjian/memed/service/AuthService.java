@@ -77,6 +77,7 @@ public class AuthService {
     String token = securityManager.generateToken(lead);
     AuthDto authDto = new AuthDto();
     authDto.setToken(token);
+    authDto.setLead(lead);
 
     return authDto;
   }
