@@ -44,6 +44,7 @@ export const RootPage = () => {
                       <Card.Header>Quiz</Card.Header>
                       <Card.Body>
                         <Card.Title>{template.name}</Card.Title>
+                        <Card.Text>{template.description}</Card.Text>
                         <Button variant="dark" onClick={createTemplateProcessingNavigation(template.id)}>Process</Button>
                       </Card.Body>
                     </Card>
