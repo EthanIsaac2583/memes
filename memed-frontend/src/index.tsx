@@ -5,13 +5,16 @@ import {router} from "./pages";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import {RepositoriesProvider} from "./repository/repositories-context";
+import {AuthProvider} from "./components/auth";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <RepositoriesProvider baseUrl="http://localhost:8080">
-    <RouterProvider router={router} />
-  </RepositoriesProvider>
+  <AuthProvider>
+    <RepositoriesProvider baseUrl="http://localhost:8080">
+        <RouterProvider router={router} />
+    </RepositoriesProvider>
+  </AuthProvider>
 );
