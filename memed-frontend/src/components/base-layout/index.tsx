@@ -34,7 +34,7 @@ export const BaseLayout: FC<PropsWithChildren> = (props) => {
         <Container>
           <Row className="mt-3">
             <Col>
-              <div>{`Good day, ${authManager.lead.username}!`}</div>
+              <div>{`☀️☀️☀️ Good day, ${authManager.lead.username}!`}</div>
             </Col>
           </Row>
         </Container>
