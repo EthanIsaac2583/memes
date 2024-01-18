@@ -12,8 +12,8 @@ export const AboutPage = () => {
           <Col>
             <div>
               <h2>Hi!</h2>
-              <p className="about--paragraph">I am Yerassyl Aitkazy, a web developer based in Kazakhstan. Currently serving as a Frontend Developer at KIVORK. All the way actively developed B2B and C2B system solutions.</p>
-              <p className="about--paragraph">At the moment, I am deeply inspired by backend development and am aligning my future career growth with it. My previous career focus was on frontend development (React/JS/TS).</p>
+              <p className="about--paragraph">I'm Yerassyl Aitkazy, a web developer. Currently, I work as a frontend developer at KIVORK. Throughout this time, I have been actively working on B2B and C2B solutions.</p>
+              <p className="about--paragraph">At the moment, I am inspired by backend development, and I see my future growth with it.</p>
               <p className="about--paragraph mb-0">Project sources</p>
               <div className="about--paragraph">
                 <a href="https://github.com/EthanIsaac2583/memes" target="_blank">Github</a>
