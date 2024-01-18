@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <AuthProvider>
-    <RepositoriesProvider baseUrl="http://localhost:8080">
-        <RouterProvider router={router} />
-    </RepositoriesProvider>
-  </AuthProvider>
+  <RepositoriesProvider baseUrl="http://localhost:8080">
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </RepositoriesProvider>
 );
