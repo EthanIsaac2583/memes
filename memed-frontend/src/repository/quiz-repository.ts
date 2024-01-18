@@ -34,9 +34,10 @@ export class QuizRepository {
     return axios({
       method: 'GET',
       baseURL: this.baseUrl,
-      url: '/api/v1/quizzes',
+      url: '/api/v1/private/quizzes',
       headers: {
-        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId)
+        [ApplicationHeader.VisitId]: ApplicationLocalStorage.getItem(StorageKey.VisitId),
+        [ApplicationHeader.Authorization]: `Bearer ${ApplicationLocalStorage.getItem(StorageKey.Token)}`
       }
     })
       .then((response: AxiosResponse<Page<Quiz>>) => {

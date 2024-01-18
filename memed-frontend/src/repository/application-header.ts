@@ -1,3 +1,4 @@
 export enum ApplicationHeader {
-  VisitId = 'x-visit-id'
+  VisitId = 'x-visit-id',
+  Authorization = 'Authorization'
 }
