@@ -40,5 +40,8 @@ export const router = createBrowserRouter([
   },
   {
     path: '/auth/register', element: <AuthRegisterPage />
+  },
+  {
+    path: '/history', element: <div>History</div>
   }
 ]);
