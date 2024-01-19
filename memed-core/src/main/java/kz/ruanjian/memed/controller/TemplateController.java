@@ -5,6 +5,8 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.service.TemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/templates")
 public class TemplateController {
 
-  private Logger log = LoggerFactory.getLogger(TemplateController.class);
+  private static Logger log = LoggerFactory.getLogger(TemplateController.class);
+  private static Marker appInteralMarker = MarkerFactory.getMarker("APP_INTERNAL");
 
   private final TemplateService templateService;
 
@@ -33,8 +36,8 @@ public class TemplateController {
 
   @GetMapping
   public Page<Template> findAll(Pageable pageable) {
-    if (log.isDebugEnabled()) {
-      log.debug("-------> You are logging your app!!!");
+    if (log.isInfoEnabled()) {
+      log.info(appInteralMarker, "requested templates");
     }
     return templateService.findAll(pageable);
   }
