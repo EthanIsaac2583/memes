@@ -4,7 +4,7 @@
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
     <file>./logs/application.log</file>
     <encoder>
-      <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
     </encoder>
     <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
       <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
@@ -16,7 +16,7 @@
   </appender>
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>${FILE_LOG_PATTERN}</pattern>
+      <pattern>${CONSOLE_LOG_PATTERN}</pattern>
     </encoder>
   </appender>
 
