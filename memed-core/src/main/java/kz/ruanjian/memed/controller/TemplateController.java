@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/templates")
@@ -36,10 +39,12 @@ public class TemplateController {
   }
 
   @GetMapping
-  public Page<Template> findAll(Pageable pageable) {
+  public Page<Template> findAll(@RequestHeader Map<String, String> headers,
+                                Pageable pageable) {
     if (log.isInfoEnabled()) {
-      log.info(appInteralMarker, "requested templates");
+      log.info(appInteralMarker, "[GET] /api/v1/templates. {}", headers);
     }
+
     return templateService.findAll(pageable);
   }
 
