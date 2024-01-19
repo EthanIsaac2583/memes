@@ -25,7 +25,7 @@ import java.util.Map;
 public class TemplateController {
 
   private static Logger log = LoggerFactory.getLogger(TemplateController.class);
-  private static Marker appInteralMarker = MarkerFactory.getMarker(LogbackMarker.Internal.label);
+  private static Marker internalMarker = MarkerFactory.getMarker(LogbackMarker.Internal.label);
 
   private final TemplateService templateService;
 
@@ -42,7 +42,7 @@ public class TemplateController {
   public Page<Template> findAll(@RequestHeader Map<String, String> headers,
                                 Pageable pageable) {
     if (log.isInfoEnabled()) {
-      log.info(appInteralMarker, "[GET] /api/v1/templates. {}", headers);
+      log.info(internalMarker, "[GET] /api/v1/templates. {}", headers);
     }
 
     return templateService.findAll(pageable);
