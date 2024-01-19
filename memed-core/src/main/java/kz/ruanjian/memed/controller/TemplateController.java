@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kz.ruanjian.memed.dto.TemplateDto;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.service.TemplateService;
@@ -40,9 +41,10 @@ public class TemplateController {
 
   @GetMapping
   public Page<Template> findAll(@RequestHeader Map<String, String> headers,
+                                HttpServletRequest request,
                                 Pageable pageable) {
     if (log.isInfoEnabled()) {
-      log.info(internalMarker, "[GET] /api/v1/templates. {}", headers);
+      log.info(internalMarker, "[GET] /api/v1/templates Header:{} Ip:{}", headers, request.getRemoteAddr());
     }
 
     return templateService.findAll(pageable);
