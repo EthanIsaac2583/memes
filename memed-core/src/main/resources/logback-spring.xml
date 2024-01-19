@@ -2,9 +2,10 @@
   <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>./logs/application.log</file>
+    <file>/logs/application.log</file>
     <encoder>
       <pattern>${FILE_LOG_PATTERN}</pattern>
+      <charset>UTF-8</charset>
     </encoder>
     <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
       <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
@@ -17,6 +18,7 @@
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+      <charset>UTF-8</charset>
     </encoder>
   </appender>
 
