@@ -3,16 +3,13 @@ package kz.ruanjian.memed.util.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.ruanjian.memed.pojo.BlankType;
-import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
+import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.util.Arrays;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +24,23 @@ class JsonUtilTest {
   JsonUtil jsonUtil;
 
   @Test
-  void stringify() {
+  void stringify_shouldReturnNull_whenNullPassed() {
+    Object actual = jsonUtil.stringify(null);
+
+    assertNull(actual);
+  }
+
+  @Test
+  void stringify_shouldReturnValidString_whenSingleChoiceAnswerPassed() throws JsonProcessingException {
+    SingleChoiceAnswer answer = SingleChoiceAnswer.builder()
+      .type(BlankType.SINGLE_CHOICE)
+      .key("Two")
+      .build();
+
+    String expected = asString(answer);
+    String actual = jsonUtil.stringify(answer);
+
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -44,13 +57,13 @@ class JsonUtilTest {
   }
 
   @Test
-  void parse_shouldReturnMultipleChoiceAnswer_whenValidStringPassed() throws JsonProcessingException {
-    MultipleChoiceAnswer expected = MultipleChoiceAnswer.builder()
-      .type(BlankType.MULTIPLE_CHOICE)
-      .keys(new HashSet<>(Arrays.asList("One", "Two")))
+  void parse_shouldReturnSingleChoiceAnswer_whenValidStringPassed() throws JsonProcessingException {
+    SingleChoiceAnswer expected = SingleChoiceAnswer.builder()
+      .type(BlankType.SINGLE_CHOICE)
+      .key("One")
       .build();
 
-    MultipleChoiceAnswer actual = jsonUtil.parse(asString(expected), MultipleChoiceAnswer.class);
+    SingleChoiceAnswer actual = jsonUtil.parse(asString(expected), SingleChoiceAnswer.class);
 
     assertEquals(expected, actual);
   }

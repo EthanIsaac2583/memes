@@ -48,6 +48,10 @@ public class SingleChoiceAnswer extends Answer {
       '}';
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   public static final class Builder {
 
     private BlankType type;
