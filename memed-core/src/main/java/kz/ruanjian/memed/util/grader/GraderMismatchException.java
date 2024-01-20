@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.util.grader;
 
-public class GraderMismatchException extends RuntimeException {
+public class GraderMismatchException extends GraderException {
 
   public GraderMismatchException() {
   }

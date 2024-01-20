@@ -2,7 +2,6 @@ package kz.ruanjian.memed.util.grader;
 
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.pojo.BlankType;
-import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +26,6 @@ public class GraderContext implements Grader {
       return multipleChoiceAnswerGrader.grade(question);
     }
 
-    throw new AnswerGradeException("There is not answer grader");
+    throw new GraderException("There is not answer grader");
   }
 }

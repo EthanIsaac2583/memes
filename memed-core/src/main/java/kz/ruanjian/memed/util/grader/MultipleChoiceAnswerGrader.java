@@ -36,7 +36,7 @@ public class MultipleChoiceAnswerGrader implements Grader {
       return correctAnswer;
     }
 
-    throw new AnswerGradeException("Incorrect answer type");
+    throw new GraderException("Incorrect answer type");
   }
 
   public MultipleChoiceAnswer resolveUserAnswer(Question question) {
@@ -44,6 +44,6 @@ public class MultipleChoiceAnswerGrader implements Grader {
       return userAnswer;
     }
 
-    throw new AnswerGradeException("Incorrect answer type");
+    throw new GraderException("Incorrect answer type");
   }
 }
