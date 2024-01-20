@@ -21,7 +21,7 @@ public class JsonUtil {
     try {
       return objectMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
-      throw new JsonProcessException(e);
+      throw new JsonUtilProcessingException(e);
     }
   }
 
@@ -33,7 +33,7 @@ public class JsonUtil {
     try {
       return objectMapper.readValue(value, valueType);
     } catch (JsonProcessingException e) {
-      throw new JsonProcessException(e);
+      throw new JsonUtilProcessingException(e);
     }
   }
 }
