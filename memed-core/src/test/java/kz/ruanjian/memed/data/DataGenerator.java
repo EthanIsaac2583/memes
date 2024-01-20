@@ -8,6 +8,7 @@ import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.ImageBody;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
+import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,6 +44,14 @@ public class DataGenerator {
       .type(BodyType.IMAGE)
       .text(generateSentence(4))
       .url(generateUrl())
+      .build();
+  }
+
+  public YoutubeVideoBody generateYoutubeVideoBody() {
+    return YoutubeVideoBody.builder()
+      .type(BodyType.YOUTUBE_VIDEO)
+      .text(generateSentence(5))
+      .markup(generateSentence(100))
       .build();
   }
 

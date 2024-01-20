@@ -185,7 +185,8 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody_should_when2() {
+  void parseBody_shouldReturnYoutubeVideoBody_whenValidBodyStringPassed() {
+    Body expected = dataGenerator.generateYoutubeVideoBody();
   }
 
   private String asString(Object value) throws JsonProcessingException {
