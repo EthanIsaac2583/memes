@@ -7,6 +7,7 @@ import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
+import kz.ruanjian.memed.pojo.body.Body;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,7 +130,14 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody() {
+  void parseBody_shouldReturnNull_whenNullBodyPassed() throws JsonProcessingException {
+    String bodyString = asString(null);
+    doReturn(null).when(jsonUtil).parse(bodyString, Body.class);
+
+    Body actual = pojoJson.parseBody(bodyString);
+
+    assertNull(actual);
+    verify(jsonUtil).parse(bodyString, Body.class);
   }
 
   private String asString(Object value) throws JsonProcessingException {
