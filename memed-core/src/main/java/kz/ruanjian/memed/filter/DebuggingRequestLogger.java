@@ -19,7 +19,7 @@ import java.util.Map;
 public class DebuggingRequestLogger extends OncePerRequestFilter {
 
   private static Logger log = LoggerFactory.getLogger(DebuggingRequestLogger.class);
-  private static Marker internalMarker = MarkerFactory.getMarker(LogbackMarker.Internal.label);
+  private static Marker internalMarker = MarkerFactory.getMarker(LogbackMarker.INTERNAL.label);
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -2,7 +2,7 @@ package kz.ruanjian.memed.util;
 
 public enum LogbackMarker {
 
-  Internal("APP_INTERNAL");
+  INTERNAL("APP_INTERNAL");
 
   public final String label;
 
