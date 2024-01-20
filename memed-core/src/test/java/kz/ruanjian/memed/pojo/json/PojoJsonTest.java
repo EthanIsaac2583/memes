@@ -6,6 +6,7 @@ import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
+import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -97,6 +98,25 @@ class PojoJsonTest {
 
     assertNull(actual);
     verify(jsonUtil).parse(blankString, Blank.class);
+  }
+
+  @Test
+  void parseBlank_shouldThrownPojoProcessException_whenUnknownBlankStringPassed() throws JsonProcessingException {
+    Blank expected = dataGenerator.generateSingleChoiceBlank();
+    String blankString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(blankString, Blank.class);
+    doReturn(expected).when(jsonUtil).parse(blankString, SingleChoiceBlank.class);
+
+    Blank actual = pojoJson.parseBlank(blankString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(blankString, Blank.class);
+    verify(jsonUtil).parse(blankString, SingleChoiceBlank.class);
+  }
+
+  @Test
+  void parseBlank_should_when3() {
+
   }
 
   @Test
