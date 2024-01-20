@@ -36,6 +36,17 @@ public class Template {
     inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
   private Set<Task> tasks;
 
+  public Template() {
+  }
+
+  private Template(Builder builder) {
+    id = builder.id;
+    name = builder.name;
+    description = builder.description;
+    limit = builder.limit;
+    tasks = builder.tasks;
+  }
+
   public Long getId() {
     return id;
   }
@@ -97,5 +108,43 @@ public class Template {
       ", description='" + description + '\'' +
       ", limit=" + limit +
       '}';
+  }
+
+  public static final class Builder {
+
+    private Long id;
+    private String name;
+    private String description;
+    private int limit;
+    private Set<Task> tasks;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    public Builder limit(int limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    public Builder tasks(Set<Task> tasks) {
+      this.tasks = tasks;
+      return this;
+    }
+
+    public Template build() {
+      return new Template(this);
+    }
   }
 }
