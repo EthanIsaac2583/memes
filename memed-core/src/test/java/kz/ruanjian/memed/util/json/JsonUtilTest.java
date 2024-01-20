@@ -30,7 +30,7 @@ class JsonUtilTest {
 
   @BeforeEach
   void setUp() {
-    dataGenerator = new DataGenerator(new Faker());
+    dataGenerator = new DataGenerator();
   }
 
   @Test

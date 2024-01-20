@@ -10,11 +10,7 @@ import java.util.HashSet;
 
 public class DataGenerator {
 
-  private final Faker faker;
-
-  public DataGenerator(Faker faker) {
-    this.faker = faker;
-  }
+  private final Faker faker = new Faker();
 
   public SingleChoiceAnswer generateSingleChoiceAnswer() {
     return SingleChoiceAnswer.builder()

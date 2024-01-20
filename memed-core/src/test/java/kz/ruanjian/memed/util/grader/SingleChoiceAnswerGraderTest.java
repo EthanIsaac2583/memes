@@ -1,10 +1,8 @@
 package kz.ruanjian.memed.util.grader;
 
-import com.github.javafaker.Faker;
 import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Task;
-import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.util.data.DataGenerator;
@@ -14,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +33,7 @@ class SingleChoiceAnswerGraderTest {
     applicationProperties.setGradeMin(0);
     memedProperties.setApplication(applicationProperties);
 
-    dataGenerator = new DataGenerator(new Faker());
+    dataGenerator = new DataGenerator();
   }
 
   @Test
@@ -45,7 +42,9 @@ class SingleChoiceAnswerGraderTest {
     MultipleChoiceAnswer answer = dataGenerator.generateMultipleChoiceAnswer();
     question.setAnswer(answer);
 
-    assertThrows(GraderMismatchException.class, () -> singleChoiceAnswerGrader.grade(question));
+    String expectedMessage = "Single choice answer required";
+    GraderMismatchException thrown = assertThrows(GraderMismatchException.class, () -> singleChoiceAnswerGrader.grade(question));
+    assertEquals(expectedMessage, thrown.getMessage());
   }
 
   @Test
