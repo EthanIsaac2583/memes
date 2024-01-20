@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
+import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,14 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBlank() {
+  void parseBlank_shouldReturnNull_whenNullBlankPassed() throws JsonProcessingException {
+    String blankString = asString(null);
+    doReturn(null).when(jsonUtil).parse(blankString, Blank.class);
+
+    Blank actual = pojoJson.parseBlank(blankString);
+
+    assertNull(actual);
+    verify(jsonUtil).parse(blankString, Blank.class);
   }
 
   @Test
