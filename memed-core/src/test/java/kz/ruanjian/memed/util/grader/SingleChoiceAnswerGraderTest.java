@@ -29,7 +29,7 @@ class SingleChoiceAnswerGraderTest {
   }
 
   @Test
-  void grade_shouldThrow_whenAnotherQuestionPassed() {
+  void grade_shouldThrowGraderTypeMismatch_whenAnotherQuestionPassed() {
   }
 
   @Test
