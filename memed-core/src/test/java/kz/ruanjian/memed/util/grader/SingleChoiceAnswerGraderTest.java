@@ -1,6 +1,9 @@
 package kz.ruanjian.memed.util.grader;
 
 import kz.ruanjian.memed.config.MemedProperties;
+import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.pojo.BlankType;
+import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +32,12 @@ class SingleChoiceAnswerGraderTest {
   }
 
   @Test
-  void grade_shouldThrowGraderTypeMismatch_whenAnotherQuestionPassed() {
+  void grade_shouldThrowGraderTypeMismatchException_whenAnotherQuestionPassed() {
+    Question question = new Question();
+    SingleChoiceAnswer answer = SingleChoiceAnswer.builder()
+      .type(BlankType.SINGLE_CHOICE)
+      .key("One")
+      .build();
   }
 
   @Test
