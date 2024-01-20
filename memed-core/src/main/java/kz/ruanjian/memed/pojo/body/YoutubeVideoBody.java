@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.pojo.body;
 
 import jakarta.validation.constraints.NotEmpty;
+import kz.ruanjian.memed.pojo.BodyType;
 
 import java.util.Objects;
 
@@ -10,6 +11,12 @@ public class YoutubeVideoBody extends Body {
   private String markup;
 
   public YoutubeVideoBody() {
+  }
+
+  private YoutubeVideoBody(Builder builder) {
+    type = builder.type;
+    text = builder.text;
+    markup = builder.markup;
   }
 
   public String getMarkup() {
@@ -41,5 +48,35 @@ public class YoutubeVideoBody extends Body {
             ", type=" + type +
             ", text='" + text + '\'' +
             '}';
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private BodyType type;
+    private String text;
+    private String markup;
+
+    public Builder type(BodyType type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    public Builder markup(String markup) {
+      this.markup = markup;
+      return this;
+    }
+
+    public YoutubeVideoBody build() {
+      return new YoutubeVideoBody(this);
+    }
   }
 }
