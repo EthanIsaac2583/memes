@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GraderContext implements Grader {
 
+  private static final String NO_GRADER = "There is no grader to handle question";
+
   private final SingleChoiceAnswerGrader singleChoiceAnswerGrader;
   private final MultipleChoiceAnswerGrader multipleChoiceAnswerGrader;
 
@@ -26,6 +28,6 @@ public class GraderContext implements Grader {
       return multipleChoiceAnswerGrader.grade(question);
     }
 
-    throw new GraderException("There is not answer grader");
+    throw new GraderException(NO_GRADER);
   }
 }
