@@ -38,9 +38,9 @@ class SingleChoiceAnswerGraderTest {
 
   @Test
   void grade_shouldThrowGraderTypeMismatchException_whenAnotherQuestionPassed() {
-    Question question = new Question();
-    MultipleChoiceAnswer answer = dataGenerator.generateMultipleChoiceAnswer();
-    question.setAnswer(answer);
+    Question question = Question.builder()
+      .answer(dataGenerator.generateMultipleChoiceAnswer())
+      .build();
 
     String expectedMessage = "Single choice answer required";
     GraderMismatchException thrown = assertThrows(GraderMismatchException.class, () -> singleChoiceAnswerGrader.grade(question));
@@ -52,7 +52,9 @@ class SingleChoiceAnswerGraderTest {
     SingleChoiceAnswer answer = dataGenerator.generateSingleChoiceAnswer();
     Task task = new Task();
     task.setAnswer(answer);
-    Question question = new Question();
+    Question question = Question.builder()
+      .answer(answer)
+      .build();
     question.setAnswer(answer);
     question.setTask(task);
 

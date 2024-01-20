@@ -46,6 +46,15 @@ public class Task {
   public Task() {
   }
 
+  private Task(Builder builder) {
+    id = builder.id;
+    name = builder.name;
+    body = builder.body;
+    blank = builder.blank;
+    answer = builder.answer;
+    isDeleted = builder.isDeleted;
+  }
+
   public Long getId() {
     return id;
   }
@@ -118,5 +127,53 @@ public class Task {
       ", answer=" + answer +
       ", isDeleted=" + isDeleted +
       '}';
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private Long id;
+    private String name;
+    private Body body;
+    private Blank blank;
+    private Answer answer;
+    private boolean isDeleted;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder body(Body body) {
+      this.body = body;
+      return this;
+    }
+
+    public Builder blank(Blank blank) {
+      this.blank = blank;
+      return this;
+    }
+
+    public Builder answer(Answer answer) {
+      this.answer = answer;
+      return this;
+    }
+
+    public Builder isDeleted(boolean isDeleted) {
+      this.isDeleted = isDeleted;
+      return this;
+    }
+
+    public Task build() {
+      return new Task(this);
+    }
   }
 }

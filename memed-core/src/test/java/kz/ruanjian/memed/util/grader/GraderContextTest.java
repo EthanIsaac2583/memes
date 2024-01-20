@@ -33,9 +33,9 @@ class GraderContextTest {
 
   @Test
   void grade_shouldThrowGraderException_whenNoMatchingGrader() {
-    Question question = new Question();
-    MultipleChoiceAnswer answer = dataGenerator.generateMultipleChoiceAnswer();
-    question.setAnswer(answer);
+    Question question = Question.builder()
+      .answer(dataGenerator.generateMultipleChoiceAnswer())
+      .build();
 
     GraderException thrown = assertThrows(GraderException.class, () -> graderContext.grade(question));
 
@@ -45,9 +45,9 @@ class GraderContextTest {
 
   @Test
   void grade_shouldDoAppropriateOperations_whenQuestionWithSingleChoiceAnswerPassed() {
-    Question question = new Question();
-    SingleChoiceAnswer answer = dataGenerator.generateSingleChoiceAnswer();
-    question.setAnswer(answer);
+    Question question = Question.builder()
+      .answer(dataGenerator.generateSingleChoiceAnswer())
+      .build();
 
     int expected = 100;
     doReturn(expected).when(singleChoiceAnswerGrader).grade(question);

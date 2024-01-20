@@ -194,5 +194,9 @@ public class Question {
       this.visit = visit;
       return this;
     }
+
+    public Question build() {
+      return new Question(this);
+    }
   }
 }
