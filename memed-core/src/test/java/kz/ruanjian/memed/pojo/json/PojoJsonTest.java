@@ -60,7 +60,17 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseAnswer() throws JsonProcessingException {
+  void parseAnswer_shouldReturnSingleChoiceAnswer_whenValidAnswerStringPassed() throws JsonProcessingException {
+    Answer expected = dataGenerator.generateSingleChoiceAnswer();
+    String answerString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(answerString, Answer.class);
+    doReturn(expected).when(jsonUtil).parse(answerString, SingleChoiceAnswer.class);
+
+    Answer actual = pojoJson.parseAnswer(answerString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(answerString, Answer.class);
+    verify(jsonUtil).parse(answerString, SingleChoiceAnswer.class);
   }
 
   @Test
