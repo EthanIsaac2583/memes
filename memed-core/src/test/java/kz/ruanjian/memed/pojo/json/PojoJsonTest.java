@@ -10,6 +10,7 @@ import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.Body;
 import kz.ruanjian.memed.pojo.body.ImageBody;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
+import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -185,8 +186,17 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody_shouldReturnYoutubeVideoBody_whenValidBodyStringPassed() {
+  void parseBody_shouldReturnYoutubeVideoBody_whenValidBodyStringPassed() throws JsonProcessingException {
     Body expected = dataGenerator.generateYoutubeVideoBody();
+    String bodyString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(bodyString, Body.class);
+    doReturn(expected).when(jsonUtil).parse(bodyString, YoutubeVideoBody.class);
+
+    Body actual = pojoJson.parseBody(bodyString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(bodyString, Body.class);
+    verify(jsonUtil).parse(bodyString, YoutubeVideoBody.class);
   }
 
   private String asString(Object value) throws JsonProcessingException {
