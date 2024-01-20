@@ -6,6 +6,7 @@ import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.Option;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
+import kz.ruanjian.memed.pojo.body.ImageBody;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 
 import java.util.Set;
@@ -37,6 +38,14 @@ public class DataGenerator {
       .build();
   }
 
+  public ImageBody generateImageBody() {
+    return ImageBody.builder()
+      .type(BodyType.IMAGE)
+      .text(generateSentence(4))
+      .url(generateUrl())
+      .build();
+  }
+
   private String generateWord(int size) {
     return faker.lorem()
       .fixedString(size)
@@ -61,5 +70,10 @@ public class DataGenerator {
     return Stream.generate(this::generateOption)
       .limit(size)
       .collect(Collectors.toSet());
+  }
+
+  private String generateUrl() {
+    return faker.internet()
+      .url();
   }
 }

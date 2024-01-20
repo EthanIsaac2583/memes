@@ -41,6 +41,10 @@ public class ImageBody extends Body {
     return Objects.hash(super.hashCode(), url);
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   public static final class Builder {
 
     private BodyType type;
