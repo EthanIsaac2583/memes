@@ -169,6 +169,14 @@ class PojoJsonTest {
     verify(jsonUtil).parse(bodyString, PlainTextBody.class);
   }
 
+  @Test
+  void parseBody_shouldReturn_when1() {
+  }
+
+  @Test
+  void parseBody_should_when2() {
+  }
+
   private String asString(Object value) throws JsonProcessingException {
     return objectMapper.writeValueAsString(value);
   }
