@@ -103,20 +103,6 @@ class PojoJsonTest {
 
   @Test
   void parseBlank_shouldThrowPojoProcessException_whenUnknownBlankStringPassed() throws JsonProcessingException {
-    Blank expected = dataGenerator.generateSingleChoiceBlank();
-    String blankString = asString(expected);
-    doReturn(expected).when(jsonUtil).parse(blankString, Blank.class);
-    doReturn(expected).when(jsonUtil).parse(blankString, SingleChoiceBlank.class);
-
-    Blank actual = pojoJson.parseBlank(blankString);
-
-    assertEquals(expected, actual);
-    verify(jsonUtil).parse(blankString, Blank.class);
-    verify(jsonUtil).parse(blankString, SingleChoiceBlank.class);
-  }
-
-  @Test
-  void parseBlank_should_when() throws JsonProcessingException {
     Blank blank = new Blank();
     String blankString = asString(blank);
     doReturn(blank).when(jsonUtil).parse(blankString, Blank.class);
@@ -127,6 +113,20 @@ class PojoJsonTest {
     assertEquals(expectedMessage, thrown.getMessage());
 
     verify(jsonUtil).parse(blankString, Blank.class);
+  }
+
+  @Test
+  void parseBlank_shouldReturnSingleChoiceBlank_whenValidBlankStringPassed() throws JsonProcessingException {
+    Blank expected = dataGenerator.generateSingleChoiceBlank();
+    String blankString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(blankString, Blank.class);
+    doReturn(expected).when(jsonUtil).parse(blankString, SingleChoiceBlank.class);
+
+    Blank actual = pojoJson.parseBlank(blankString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(blankString, Blank.class);
+    verify(jsonUtil).parse(blankString, SingleChoiceBlank.class);
   }
 
   @Test
