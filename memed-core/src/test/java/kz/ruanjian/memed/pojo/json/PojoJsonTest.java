@@ -129,11 +129,6 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBlank_should_when3() {
-
-  }
-
-  @Test
   void parseBody() {
   }
 
