@@ -8,6 +8,7 @@ import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.Body;
+import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -155,8 +156,17 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody_shouldReturnPlainTextBody_whenValidBodyStringPassed() {
+  void parseBody_shouldReturnPlainTextBody_whenValidBodyStringPassed() throws JsonProcessingException {
+    Body expected = dataGenerator.generatePlainTextBody();
+    String bodyString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(bodyString, Body.class);
+    doReturn(expected).when(jsonUtil).parse(bodyString, PlainTextBody.class);
 
+    Body actual = pojoJson.parseBody(bodyString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(bodyString, Body.class);
+    verify(jsonUtil).parse(bodyString, PlainTextBody.class);
   }
 
   private String asString(Object value) throws JsonProcessingException {
