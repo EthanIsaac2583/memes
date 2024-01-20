@@ -24,6 +24,14 @@ public class Visit {
   @Column(name = "created_at", updatable = false)
   private ZonedDateTime createdAt;
 
+  public Visit() {
+  }
+
+  private Visit(Builder builder) {
+    id = builder.id;
+    createdAt = builder.createdAt;
+  }
+
   public UUID getId() {
     return id;
   }
@@ -51,5 +59,29 @@ public class Visit {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private UUID id;
+    private ZonedDateTime createdAt;
+
+    public Builder id(UUID id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder createdAt(ZonedDateTime createdAt) {
+      this.createdAt = createdAt;
+      return this;
+    }
+
+    public Visit build() {
+      return new Visit(this);
+    }
   }
 }
