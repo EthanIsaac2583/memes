@@ -49,6 +49,20 @@ public class Question {
   @JoinColumn(name = "visit_id", updatable = false)
   private Visit visit;
 
+  public Question() {
+  }
+
+  private Question(Builder builder) {
+    id = builder.id;
+    number = builder.number;
+    quiz = builder.quiz;
+    task = builder.task;
+    assessed = builder.assessed;
+    grade = builder.grade;
+    answer = builder.answer;
+    visit = builder.visit;
+  }
+
   public Long getId() {
     return id;
   }
@@ -124,5 +138,61 @@ public class Question {
   @Override
   public int hashCode() {
     return Objects.hash(id, number, quiz, task, assessed, grade, answer, visit);
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+
+    private Long id;
+    private Integer number;
+    private Quiz quiz;
+    private Task task;
+    private boolean assessed;
+    private int grade;
+    private Answer answer;
+    private Visit visit;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder number(Integer number) {
+      this.number = number;
+      return this;
+    }
+
+    public Builder quiz(Quiz quiz) {
+      this.quiz = quiz;
+      return this;
+    }
+
+    public Builder task(Task task) {
+      this.task = task;
+      return this;
+    }
+
+    public Builder assessed(boolean assessed) {
+      this.assessed = assessed;
+      return this;
+    }
+
+    public Builder grade(int grade) {
+      this.grade = grade;
+      return this;
+    }
+
+    public Builder answer(Answer answer) {
+      this.answer = answer;
+      return this;
+    }
+
+    public Builder visit(Visit visit) {
+      this.visit = visit;
+      return this;
+    }
   }
 }
