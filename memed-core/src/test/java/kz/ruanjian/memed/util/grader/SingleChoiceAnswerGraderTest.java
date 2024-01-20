@@ -3,7 +3,6 @@ package kz.ruanjian.memed.util.grader;
 import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Task;
-import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.util.data.DataGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,13 +49,12 @@ class SingleChoiceAnswerGraderTest {
   @Test
   void grade_shouldReturnGradeMin_whenWrongAnswerPassed() {
     SingleChoiceAnswer answer = dataGenerator.generateSingleChoiceAnswer();
-    Task task = new Task();
-    task.setAnswer(answer);
     Question question = Question.builder()
       .answer(answer)
+      .task(Task.builder()
+        .answer(answer)
+        .build())
       .build();
-    question.setAnswer(answer);
-    question.setTask(task);
 
     int expected = memedProperties.getApplication().getGradeMax();
     int actual = singleChoiceAnswerGrader.grade(question);
@@ -66,11 +64,12 @@ class SingleChoiceAnswerGraderTest {
 
   @Test
   void grade_shouldReturnGradeMax_whenCorrectAnswerPassed() {
-    Task task = new Task();
-    task.setAnswer(dataGenerator.generateSingleChoiceAnswer());
-    Question question = new Question();
-    question.setAnswer(dataGenerator.generateSingleChoiceAnswer());
-    question.setTask(task);
+    Question question = Question.builder()
+      .answer(dataGenerator.generateSingleChoiceAnswer())
+      .task(Task.builder()
+        .answer(dataGenerator.generateSingleChoiceAnswer())
+        .build())
+      .build();
 
     int expected = memedProperties.getApplication().getGradeMin();
     int actual = singleChoiceAnswerGrader.grade(question);
