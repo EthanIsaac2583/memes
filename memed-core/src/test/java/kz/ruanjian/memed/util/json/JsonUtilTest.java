@@ -2,8 +2,11 @@ package kz.ruanjian.memed.util.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
+import kz.ruanjian.memed.util.data.DataGenerator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +26,13 @@ class JsonUtilTest {
   @InjectMocks
   JsonUtil jsonUtil;
 
+  DataGenerator dataGenerator;
+
+  @BeforeEach
+  void setUp() {
+    dataGenerator = new DataGenerator(new Faker());
+  }
+
   @Test
   void stringify_shouldReturnNull_whenNullPassed() {
     Object actual = jsonUtil.stringify(null);
@@ -32,10 +42,7 @@ class JsonUtilTest {
 
   @Test
   void stringify_shouldReturnValidString_whenSingleChoiceAnswerPassed() throws JsonProcessingException {
-    SingleChoiceAnswer answer = SingleChoiceAnswer.builder()
-      .type(BlankType.SINGLE_CHOICE)
-      .key("Two")
-      .build();
+    SingleChoiceAnswer answer = dataGenerator.generateSingleChoiceAnswer();
 
     String expected = asString(answer);
     String actual = jsonUtil.stringify(answer);
@@ -58,10 +65,7 @@ class JsonUtilTest {
 
   @Test
   void parse_shouldReturnSingleChoiceAnswer_whenValidStringPassed() throws JsonProcessingException {
-    SingleChoiceAnswer expected = SingleChoiceAnswer.builder()
-      .type(BlankType.SINGLE_CHOICE)
-      .key("One")
-      .build();
+    SingleChoiceAnswer expected = dataGenerator.generateSingleChoiceAnswer();
 
     SingleChoiceAnswer actual = jsonUtil.parse(asString(expected), SingleChoiceAnswer.class);
 
