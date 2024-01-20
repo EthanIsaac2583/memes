@@ -8,6 +8,7 @@ import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.Blank;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
 import kz.ruanjian.memed.pojo.body.Body;
+import kz.ruanjian.memed.pojo.body.ImageBody;
 import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -170,7 +171,17 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody_shouldReturn_when1() {
+  void parseBody_shouldReturnImageBody_whenValidBodyStringPassed() throws JsonProcessingException {
+    Body expected = dataGenerator.generateImageBody();
+    String bodyString = asString(expected);
+    doReturn(expected).when(jsonUtil).parse(bodyString, Body.class);
+    doReturn(expected).when(jsonUtil).parse(bodyString, ImageBody.class);
+
+    Body actual = pojoJson.parseBody(bodyString);
+
+    assertEquals(expected, actual);
+    verify(jsonUtil).parse(bodyString, Body.class);
+    verify(jsonUtil).parse(bodyString, ImageBody.class);
   }
 
   @Test
