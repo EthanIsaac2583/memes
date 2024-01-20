@@ -2,6 +2,7 @@ package kz.ruanjian.memed.util.grader;
 
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.data.DataGenerator;
+import kz.ruanjian.memed.pojo.answer.Answer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,9 +31,9 @@ class GraderContextTest {
   }
 
   @Test
-  void grade_shouldThrowGraderException_whenNoMatchingGrader() {
+  void grade_shouldThrowGraderException_whenNoMatchingGraderFound() {
     Question question = Question.builder()
-      .answer(dataGenerator.generateMultipleChoiceAnswer())
+      .answer(new Answer())
       .build();
 
     GraderException thrown = assertThrows(GraderException.class, () -> graderContext.grade(question));

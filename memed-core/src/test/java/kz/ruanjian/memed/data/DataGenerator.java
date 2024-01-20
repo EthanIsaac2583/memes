@@ -24,13 +24,6 @@ public class DataGenerator {
       .build();
   }
 
-  public MultipleChoiceAnswer generateMultipleChoiceAnswer() {
-    return MultipleChoiceAnswer.builder()
-      .type(BlankType.MULTIPLE_CHOICE)
-      .keys(new HashSet<>(Arrays.asList(generateWord(3), generateWord(3))))
-      .build();
-  }
-
   public SingleChoiceBlank generateSingleChoiceBlank() {
     return SingleChoiceBlank.builder()
       .type(BlankType.SINGLE_CHOICE)

@@ -3,6 +3,7 @@ package kz.ruanjian.memed.util.grader;
 import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Task;
+import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.data.DataGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +37,9 @@ class SingleChoiceAnswerGraderTest {
   }
 
   @Test
-  void grade_shouldThrowGraderTypeMismatchException_whenAnotherQuestionPassed() {
+  void grade_shouldThrowGraderTypeMismatchException_whenUnknownQuestionAnswerPassed() {
     Question question = Question.builder()
-      .answer(dataGenerator.generateMultipleChoiceAnswer())
+      .answer(new Answer())
       .build();
 
     String expectedMessage = "Single choice answer required";

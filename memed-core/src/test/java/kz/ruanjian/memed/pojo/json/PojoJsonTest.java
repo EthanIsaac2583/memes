@@ -155,7 +155,8 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseBody_shouldReturnPlainTextBody_when() {
+  void parseBody_shouldReturnPlainTextBody_whenValidBodyStringPassed() {
+
   }
 
   private String asString(Object value) throws JsonProcessingException {
