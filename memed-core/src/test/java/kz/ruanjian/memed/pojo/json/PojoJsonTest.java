@@ -101,6 +101,20 @@ class PojoJsonTest {
   }
 
   @Test
+  void parseBlank_should_when() throws JsonProcessingException {
+    Blank blank = new Blank();
+    String blankString = asString(blank);
+    doReturn(blank).when(jsonUtil).parse(blankString, Blank.class);
+
+    PojoProcessException thrown = assertThrows(PojoProcessException.class, () -> pojoJson.parseBlank(blankString));
+
+    String expectedMessage = "Unknown blank to parse";
+    assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(jsonUtil).parse(blankString, Blank.class);
+  }
+
+  @Test
   void parseBlank_shouldThrownPojoProcessException_whenUnknownBlankStringPassed() throws JsonProcessingException {
     Blank expected = dataGenerator.generateSingleChoiceBlank();
     String blankString = asString(expected);

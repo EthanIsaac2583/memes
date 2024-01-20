@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class PojoJson {
 
   private static final String UNKNOWN_ANSWER = "Unknown answer to parse";
+  private static final String UNKNOWN_BLANK = "Unknown blank to parse";
 
   private final JsonUtil jsonUtil;
 
@@ -53,7 +54,7 @@ public class PojoJson {
       return jsonUtil.parse(stringedBlank, SingleChoiceBlank.class);
     }
 
-    throw new PojoProcessException("Can not process blank");
+    throw new PojoProcessException(UNKNOWN_BLANK);
   }
 
   public Body parseBody(String stringedBody) {
