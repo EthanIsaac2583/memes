@@ -140,6 +140,19 @@ class PojoJsonTest {
     verify(jsonUtil).parse(bodyString, Body.class);
   }
 
+  @Test
+  void parseBody_shouldThrowPojoProcessException_whenUnknownBodyStringPassed() throws JsonProcessingException {
+    Body body = new Body();
+    String bodyString = asString(body);
+    doReturn(body).when(jsonUtil).parse(bodyString, Body.class);
+
+    PojoProcessException thrown = assertThrows(PojoProcessException.class, () -> pojoJson.parseBody(bodyString));
+
+    String expectedMessage = "Unknown body to parse";
+    assertEquals(expectedMessage, thrown.getMessage());
+    verify(jsonUtil).parse(bodyString, Body.class);
+  }
+
   private String asString(Object value) throws JsonProcessingException {
     return objectMapper.writeValueAsString(value);
   }
