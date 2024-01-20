@@ -60,6 +60,20 @@ class PojoJsonTest {
   }
 
   @Test
+  void parseAnswer_shouldThrowPojoProcessException_whenUnknownAnswerStringPassed() throws JsonProcessingException {
+    Answer answer = new Answer();
+    String answerString = asString(answer);
+    doReturn(answer).when(jsonUtil).parse(answerString, Answer.class);
+
+    PojoProcessException thrown = assertThrows(PojoProcessException.class, () -> pojoJson.parseAnswer(answerString));
+
+    String exceptionMessage = "Unknown answer to parse";
+    assertEquals(exceptionMessage, thrown.getMessage());
+
+    verify(jsonUtil).parse(answerString, Answer.class);
+  }
+
+  @Test
   void parseAnswer_shouldReturnSingleChoiceAnswer_whenValidAnswerStringPassed() throws JsonProcessingException {
     Answer expected = dataGenerator.generateSingleChoiceAnswer();
     String answerString = asString(expected);
