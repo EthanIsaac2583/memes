@@ -2,6 +2,7 @@ package kz.ruanjian.memed.pojo.blank;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.Option;
 
 import java.util.Objects;
@@ -14,6 +15,11 @@ public class SingleChoiceBlank extends Blank {
   private Set<Option> options;
 
   public SingleChoiceBlank() {
+  }
+
+  private SingleChoiceBlank(Builder builder) {
+    type = builder.type;
+    options = builder.options;
   }
 
   public Set<Option> getOptions() {
@@ -44,5 +50,29 @@ public class SingleChoiceBlank extends Blank {
       "options=" + options +
       ", type=" + type +
       '}';
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private BlankType type;
+    private Set<Option> options;
+
+    public Builder type(BlankType type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder options(Set<Option> options) {
+      this.options = options;
+      return this;
+    }
+
+    public SingleChoiceBlank build() {
+      return new SingleChoiceBlank(this);
+    }
   }
 }
