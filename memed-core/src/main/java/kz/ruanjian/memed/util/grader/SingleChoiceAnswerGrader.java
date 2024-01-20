@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SingleChoiceAnswerGrader implements Grader {
 
+  private static final String ANSWER_MISMATCH = "Single choice answer required";
+
   private final MemedProperties memedProperties;
 
   public SingleChoiceAnswerGrader(MemedProperties memedProperties) {
@@ -19,14 +21,14 @@ public class SingleChoiceAnswerGrader implements Grader {
   public int grade(Question question) {
     verifyAnswerClass(question);
 
-    if (isCorrect(question)) {
+    if (isCorrectAnswer(question)) {
       return memedProperties.getApplication().getGradeMax();
     }
 
     return memedProperties.getApplication().getGradeMin();
   }
 
-  private boolean isCorrect(Question question) {
+  private boolean isCorrectAnswer(Question question) {
     Answer correctAnswer = question.getTask().getAnswer();
     Answer userAnswer = question.getAnswer();
 
@@ -35,7 +37,7 @@ public class SingleChoiceAnswerGrader implements Grader {
 
   private void verifyAnswerClass(Question question) {
     if (question.getAnswer().getClass() != SingleChoiceAnswer.class) {
-      throw new GraderMismatchException("Single choice answer required");
+      throw new GraderMismatchException(ANSWER_MISMATCH);
     }
   }
 }
