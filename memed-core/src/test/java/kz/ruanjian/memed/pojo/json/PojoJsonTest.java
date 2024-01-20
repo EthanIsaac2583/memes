@@ -3,6 +3,7 @@ package kz.ruanjian.memed.pojo.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.ruanjian.memed.data.DataGenerator;
+import kz.ruanjian.memed.pojo.answer.Answer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.util.json.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,6 @@ class PojoJsonTest {
   @Test
   void stringify_shouldDoAppropriateOperations_whenInvoked() throws JsonProcessingException {
     SingleChoiceAnswer answer = dataGenerator.generateSingleChoiceAnswer();
-
     String expected = asString(answer);
     doReturn(expected).when(jsonUtil).stringify(answer);
 
@@ -49,7 +49,18 @@ class PojoJsonTest {
   }
 
   @Test
-  void parseAnswer() {
+  void parseAnswer_shouldReturnNull_whenNullAnswerPassed() throws JsonProcessingException {
+    String answerString = asString(null);
+    doReturn(null).when(jsonUtil).parse(answerString, Answer.class);
+
+    Answer actual = pojoJson.parseAnswer(answerString);
+
+    assertNull(actual);
+    verify(jsonUtil).parse(answerString, Answer.class);
+  }
+
+  @Test
+  void parseAnswer() throws JsonProcessingException {
   }
 
   @Test
