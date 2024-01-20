@@ -2,13 +2,12 @@ package kz.ruanjian.memed.data;
 
 import com.github.javafaker.Faker;
 import kz.ruanjian.memed.pojo.BlankType;
+import kz.ruanjian.memed.pojo.BodyType;
 import kz.ruanjian.memed.pojo.Option;
-import kz.ruanjian.memed.pojo.answer.MultipleChoiceAnswer;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
 import kz.ruanjian.memed.pojo.blank.SingleChoiceBlank;
+import kz.ruanjian.memed.pojo.body.PlainTextBody;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,10 +30,22 @@ public class DataGenerator {
       .build();
   }
 
+  public PlainTextBody generatePlainTextBody() {
+    return PlainTextBody.builder()
+      .type(BodyType.PLAIN_TEXT)
+      .text(generateSentence(3))
+      .build();
+  }
+
   private String generateWord(int size) {
     return faker.lorem()
       .fixedString(size)
       .replaceAll(" ", "_");
+  }
+
+  private String generateSentence(int words) {
+    return faker.lorem()
+      .sentence(words);
   }
 
   private Option generateOption() {
