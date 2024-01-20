@@ -2,10 +2,8 @@ package kz.ruanjian.memed.util.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javafaker.Faker;
-import kz.ruanjian.memed.pojo.BlankType;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
-import kz.ruanjian.memed.util.data.DataGenerator;
+import kz.ruanjian.memed.data.DataGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

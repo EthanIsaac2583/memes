@@ -4,7 +4,7 @@ import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.pojo.answer.SingleChoiceAnswer;
-import kz.ruanjian.memed.util.data.DataGenerator;
+import kz.ruanjian.memed.data.DataGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

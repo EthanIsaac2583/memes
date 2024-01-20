@@ -1,4 +1,4 @@
-package kz.ruanjian.memed.util.data;
+package kz.ruanjian.memed.data;
 
 import com.github.javafaker.Faker;
 import kz.ruanjian.memed.pojo.BlankType;
