@@ -150,6 +150,7 @@ class PojoJsonTest {
 
     String expectedMessage = "Unknown body to parse";
     assertEquals(expectedMessage, thrown.getMessage());
+
     verify(jsonUtil).parse(bodyString, Body.class);
   }
 
