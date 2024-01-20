@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.pojo.answer;
 
 import jakarta.validation.constraints.NotEmpty;
+import kz.ruanjian.memed.pojo.BlankType;
 
 import java.util.Objects;
 import java.util.Set;
@@ -11,6 +12,11 @@ public class MultipleChoiceAnswer extends Answer {
   private Set<String> keys;
 
   public MultipleChoiceAnswer() {
+  }
+
+  private MultipleChoiceAnswer(Builder builder) {
+    type = builder.type;
+    keys = builder.keys;
   }
 
   public Set<String> getKeys() {
@@ -41,5 +47,29 @@ public class MultipleChoiceAnswer extends Answer {
       "keys=" + keys +
       ", type=" + type +
       '}';
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private BlankType type;
+    private Set<String> keys;
+
+    public Builder type(BlankType type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder keys(Set<String> keys) {
+      this.keys = keys;
+      return this;
+    }
+
+    public MultipleChoiceAnswer build() {
+      return new MultipleChoiceAnswer(this);
+    }
   }
 }
