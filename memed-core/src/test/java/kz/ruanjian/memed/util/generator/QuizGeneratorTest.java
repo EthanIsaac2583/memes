@@ -29,7 +29,7 @@ class QuizGeneratorTest {
 
     Quiz actual = quizGenerator.generate(template, visit);
 
-    isVisitEqual(expected.getVisit(), actual.getVisit());
+    assertTrue(isVisitEqual(expected.getVisit(), actual.getVisit()));
   }
 
   private boolean isVisitEqual(Visit expected, Visit actual) {

@@ -53,12 +53,12 @@ public class Visit {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Visit visit = (Visit) o;
-    return Objects.equals(id, visit.id);
+    return Objects.equals(id, visit.id) && Objects.equals(createdAt, visit.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, createdAt);
   }
 
   public static Builder builder() {
