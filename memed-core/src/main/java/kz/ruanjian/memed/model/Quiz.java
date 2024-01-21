@@ -96,11 +96,11 @@ public class Quiz {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Quiz quiz = (Quiz) o;
-    return grade==quiz.grade && Objects.equals(id, quiz.id) && status==quiz.status;
+    return grade==quiz.grade && Objects.equals(id, quiz.id) && Objects.equals(visit, quiz.visit) && Objects.equals(template, quiz.template) && Objects.equals(questions, quiz.questions) && status==quiz.status;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, grade);
+    return Objects.hash(id, visit, template, questions, status, grade);
   }
 }
