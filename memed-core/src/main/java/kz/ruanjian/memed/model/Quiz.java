@@ -103,4 +103,52 @@ public class Quiz {
   public int hashCode() {
     return Objects.hash(id, visit, template, questions, status, grade);
   }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private Long id;
+    private Visit visit;
+    private Template template;
+    private Set<Question> questions;
+    private QuizStatus status;
+    private int grade;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder visit(Visit visit) {
+      this.visit = visit;
+      return this;
+    }
+
+    public Builder template(Template template) {
+      this.template = template;
+      return this;
+    }
+
+    public Builder questions(Set<Question> questions) {
+      this.questions = questions;
+      return this;
+    }
+
+    public Builder status(QuizStatus status) {
+      this.status = status;
+      return this;
+    }
+
+    public Builder grade(int grade) {
+      this.grade = grade;
+      return this;
+    }
+
+    public Quiz build() {
+      return new Quiz(this);
+    }
+  }
 }
