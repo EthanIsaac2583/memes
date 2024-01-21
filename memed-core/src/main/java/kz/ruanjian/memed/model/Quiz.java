@@ -43,6 +43,18 @@ public class Quiz {
 
   private int grade;
 
+  public Quiz() {
+  }
+
+  private Quiz(Builder builder) {
+    id = builder.id;
+    visit = builder.visit;
+    template = builder.template;
+    questions = builder.questions;
+    status = builder.status;
+    grade = builder.grade;
+  }
+
   public Long getId() {
     return id;
   }
