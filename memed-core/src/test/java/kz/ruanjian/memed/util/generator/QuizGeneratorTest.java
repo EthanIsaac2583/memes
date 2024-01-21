@@ -25,18 +25,9 @@ class QuizGeneratorTest {
     Visit visit = dataGenerator.generateVisit();
     Template template = dataGenerator.generateTemplate();
     Quiz expected = new Quiz();
-//    expected.setVisit(visit);
 
     Quiz actual = quizGenerator.generate(template, visit);
 
-    assertTrue(isVisitEqual(expected.getVisit(), actual.getVisit()));
-  }
-
-  private boolean isVisitEqual(Visit expected, Visit actual) {
-    if (expected == null) {
-      return false;
-    }
-
-    return expected.equals(actual);
+    assertEquals(expected, actual);
   }
 }
