@@ -110,6 +110,10 @@ public class Template {
       '}';
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   public static final class Builder {
 
     private Long id;
