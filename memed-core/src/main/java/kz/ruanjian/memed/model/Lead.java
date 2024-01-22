@@ -34,6 +34,16 @@ public class Lead implements UserDetails {
   @JoinColumn(name = "visit_id", updatable = false, nullable = false, unique = true)
   private Visit visit;
 
+  public Lead() {
+  }
+
+  private Lead(Builder builder) {
+    id = builder.id;
+    username = builder.username;
+    password = builder.password;
+    visit = builder.visit;
+  }
+
   public Long getId() {
     return id;
   }
