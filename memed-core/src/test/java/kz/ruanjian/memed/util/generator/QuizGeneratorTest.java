@@ -27,10 +27,9 @@ class QuizGeneratorTest {
   }
 
   @Test
-  void generate_should_when1() {
+  void generate_shouldGenerateQuiz_whenVisitAndTemplatePassed() {
     Visit visit = dataGenerator.generateVisit();
     Template template = dataGenerator.generateTemplate();
-
     Quiz expected = generateQuiz(template, visit);
 
     Quiz actual = quizGenerator.generate(template, visit);
