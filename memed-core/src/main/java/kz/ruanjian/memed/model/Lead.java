@@ -111,4 +111,40 @@ public class Lead implements UserDetails {
   public int hashCode() {
     return Objects.hash(id, username, password, visit);
   }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+
+    private Long id;
+    private String username;
+    private String password;
+    private Visit visit;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder username(String username) {
+      this.username = username;
+      return this;
+    }
+
+    public Builder password(String password) {
+      this.password = password;
+      return this;
+    }
+
+    public Builder visit(Visit visit) {
+      this.visit = visit;
+      return this;
+    }
+
+    public Lead build() {
+      return new Lead(this);
+    }
+  }
 }
