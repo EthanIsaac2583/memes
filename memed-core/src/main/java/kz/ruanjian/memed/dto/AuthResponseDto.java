@@ -2,7 +2,7 @@ package kz.ruanjian.memed.dto;
 
 import kz.ruanjian.memed.model.Lead;
 
-public class AuthDto {
+public class AuthResponseDto {
 
   private String token;
   private Lead lead;

@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.controller;
 
-import kz.ruanjian.memed.dto.AuthDto;
+import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.dto.LoginDto;
 import kz.ruanjian.memed.dto.RegisterDto;
 import kz.ruanjian.memed.service.AuthService;
@@ -20,12 +20,12 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public AuthDto register(@RequestBody RegisterDto registerDto) {
+  public AuthResponseDto register(@RequestBody RegisterDto registerDto) {
     return authService.register(registerDto);
   }
 
   @PostMapping("/login")
-  public AuthDto login(@RequestBody LoginDto loginDto) {
+  public AuthResponseDto login(@RequestBody LoginDto loginDto) {
     return authService.login(loginDto);
   }
 }

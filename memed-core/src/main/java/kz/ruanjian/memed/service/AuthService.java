@@ -1,6 +1,6 @@
 package kz.ruanjian.memed.service;
 
-import kz.ruanjian.memed.dto.AuthDto;
+import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.dto.LoginDto;
 import kz.ruanjian.memed.dto.RegisterDto;
 import kz.ruanjian.memed.model.Lead;
@@ -49,21 +49,21 @@ public class AuthService {
   }
 
   @Transactional
-  public AuthDto register(RegisterDto registerDto) {
+  public AuthResponseDto register(RegisterDto registerDto) {
     Visit visit = createVisit();
     Lead lead = generateLead(registerDto, visit);
     verify(lead);
     leadRepository.save(lead);
 
-    return generateAuthDto(lead);
+    return generateAuthResponse(lead);
   }
 
   @Transactional
-  public AuthDto login(LoginDto loginDto) {
+  public AuthResponseDto login(LoginDto loginDto) {
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
     Lead lead = findLeadByUsername(loginDto.getUsername());
 
-    return generateAuthDto(lead);
+    return generateAuthResponse(lead);
   }
 
   private Visit createVisit() {
@@ -73,13 +73,13 @@ public class AuthService {
     return visitRepository.save(visit);
   }
 
-  private AuthDto generateAuthDto(Lead lead) {
+  private AuthResponseDto generateAuthResponse(Lead lead) {
     String token = securityManager.generateToken(lead);
-    AuthDto authDto = new AuthDto();
-    authDto.setToken(token);
-    authDto.setLead(lead);
+    AuthResponseDto authResponseDto = new AuthResponseDto();
+    authResponseDto.setToken(token);
+    authResponseDto.setLead(lead);
 
-    return authDto;
+    return authResponseDto;
   }
 
   private Lead generateLead(RegisterDto registerDto, Visit visit) {
