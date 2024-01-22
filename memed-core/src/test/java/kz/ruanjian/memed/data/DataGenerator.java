@@ -34,6 +34,17 @@ public class DataGenerator {
     return faker.number().numberBetween(ID_MIN, ID_MAX);
   }
 
+  public String generateWord(int size) {
+    return faker.lorem()
+      .fixedString(size)
+      .replaceAll(" ", "_");
+  }
+
+  public String generateSentence(int words) {
+    return faker.lorem()
+      .sentence(words);
+  }
+
   public SingleChoiceAnswer generateSingleChoiceAnswer() {
     return SingleChoiceAnswer.builder()
       .type(BlankType.SINGLE_CHOICE)
@@ -97,17 +108,6 @@ public class DataGenerator {
       .limit(1)
       .tasks(generateTasks(2))
       .build();
-  }
-
-  private String generateWord(int size) {
-    return faker.lorem()
-      .fixedString(size)
-      .replaceAll(" ", "_");
-  }
-
-  private String generateSentence(int words) {
-    return faker.lorem()
-      .sentence(words);
   }
 
   private Option generateOption() {
