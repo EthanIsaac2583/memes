@@ -132,12 +132,12 @@ public class Question {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Question question = (Question) o;
-    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(number, question.number) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer) && Objects.equals(visit, question.visit);
+    return assessed==question.assessed && grade==question.grade && Objects.equals(id, question.id) && Objects.equals(task, question.task) && Objects.equals(answer, question.answer) && Objects.equals(visit, question.visit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, number, task, assessed, grade, answer, visit);
+    return Objects.hash(id, task, assessed, grade, answer, visit);
   }
 
   public static Builder builder() {
