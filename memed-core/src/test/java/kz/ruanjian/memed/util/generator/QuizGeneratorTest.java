@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class QuizGeneratorTest {
 
@@ -35,6 +36,7 @@ class QuizGeneratorTest {
     Quiz actual = quizGenerator.generate(template, visit);
 
     assertEquals(expected, actual);
+    assertTrue(isAllQuestionNumbersPresent(actual));
   }
 
   private Quiz generateQuiz(Template template, Visit visit) {
@@ -60,5 +62,10 @@ class QuizGeneratorTest {
       .grade(0)
       .visit(visit)
       .build();
+  }
+
+  private boolean isAllQuestionNumbersPresent(Quiz quiz) {
+    return quiz.getQuestions().stream()
+      .allMatch(question -> question.getNumber() != null);
   }
 }
