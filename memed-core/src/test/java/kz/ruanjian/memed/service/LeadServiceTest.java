@@ -48,6 +48,13 @@ class LeadServiceTest {
   }
 
   @Test
-  void findByUsername_should_when2() {
+  void findByUsername_shouldReturnLead_whenExistingLeadUsernamePassed() {
+    Lead expected = dataGenerator.generateLead();
+    doReturn(Optional.of(expected)).when(leadRepository).findByUsername(expected.getUsername());
+
+    Lead actual = leadService.findByUsername(expected.getUsername());
+
+    assertEquals(expected, actual);
+    verify(leadRepository).findByUsername(expected.getUsername());
   }
 }
