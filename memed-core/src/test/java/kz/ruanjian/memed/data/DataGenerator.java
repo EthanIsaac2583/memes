@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.data;
 
 import com.github.javafaker.Faker;
+import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
@@ -107,6 +108,15 @@ public class DataGenerator {
       .description(generateSentence(10))
       .limit(1)
       .tasks(generateTasks(2))
+      .build();
+  }
+
+  public Lead generateLead() {
+    return Lead.builder()
+      .id(generateLongId())
+      .username(faker.name().username())
+      .password(faker.internet().password())
+      .visit(generateVisit())
       .build();
   }
 
