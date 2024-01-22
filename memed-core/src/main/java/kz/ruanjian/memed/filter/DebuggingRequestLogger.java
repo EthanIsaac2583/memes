@@ -24,12 +24,25 @@ public class DebuggingRequestLogger extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     if (log.isInfoEnabled()) {
-      log.info(internalMarker, "[GET] /api/v1/templates Headers:{} Ip:{}", getAllHeaders(request), getRemoteIp(request));
+      log.info(internalMarker,
+        "[{}] {} Headers:{} Ip:{}",
+        getMethod(request),
+        getURI(request),
+        getAllHeaders(request),
+        getRemoteIp(request));
     }
     filterChain.doFilter(request, response);
   }
 
-  public static Map<String, String> getAllHeaders(HttpServletRequest request) {
+  private String getMethod(HttpServletRequest request) {
+    return request.getMethod();
+  }
+
+  private String getURI(HttpServletRequest request) {
+    return request.getRequestURI();
+  }
+
+  private Map<String, String> getAllHeaders(HttpServletRequest request) {
     Enumeration<String> headerNames = request.getHeaderNames();
     Map<String, String> headers = new HashMap<>();
 
