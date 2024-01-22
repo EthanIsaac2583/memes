@@ -104,11 +104,11 @@ public class Lead implements UserDetails {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Lead lead = (Lead) o;
-    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username);
+    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username) && Objects.equals(password, lead.password) && Objects.equals(visit, lead.visit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username);
+    return Objects.hash(id, username, password, visit);
   }
 }
