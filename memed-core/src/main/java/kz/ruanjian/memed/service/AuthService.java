@@ -22,8 +22,7 @@ import java.util.Optional;
 public class AuthService {
 
   private static final String USERNAME_EXISTS = "Username already exists";
-
-  private static final String NOT_FOUND = "Lead not found";
+  private static final String NOT_FOUND = "User not found";
 
   private final LeadRepository leadRepository;
   private final VisitRepository visitRepository;
