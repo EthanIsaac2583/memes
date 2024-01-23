@@ -5,7 +5,6 @@ import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
-import kz.ruanjian.memed.respository.LeadRepository;
 import kz.ruanjian.memed.security.SecurityManager;
 import kz.ruanjian.memed.service.exception.AuthenticationFailedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -30,7 +27,7 @@ import static org.mockito.Mockito.doThrow;
 class AuthServiceTest {
 
   @Mock
-  LeadRepository leadRepository;
+  LeadService leadService;
 
   @Mock
   VisitService visitService;
@@ -67,7 +64,7 @@ class AuthServiceTest {
   void login_shouldReturnAuthResponse_whenSuccessfullyLoggedIn() {
     Lead lead = dataGenerator.generateLead();
     AuthDto authDto = dataGenerator.generateAuthDto(lead);
-    doReturn(Optional.of(lead)).when(leadRepository).findByUsername(authDto.getUsername());
+    doReturn(lead).when(leadService).findByUsername(authDto.getUsername());
 
     String token = dataGenerator.generateWord(100);
     doReturn(token).when(securityManager).generateToken(lead);
