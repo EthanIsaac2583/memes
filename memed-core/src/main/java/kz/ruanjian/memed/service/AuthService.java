@@ -1,7 +1,7 @@
 package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.AuthResponseDto;
-import kz.ruanjian.memed.dto.LoginDto;
+import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.dto.RegisterDto;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
@@ -58,10 +58,9 @@ public class AuthService {
     return generateAuthResponse(lead);
   }
 
-  @Transactional
-  public AuthResponseDto login(LoginDto loginDto) {
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
-    Lead lead = findLeadByUsername(loginDto.getUsername());
+  public AuthResponseDto login(AuthDto authDto) {
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
+    Lead lead = findLeadByUsername(authDto.getUsername());
 
     return generateAuthResponse(lead);
   }

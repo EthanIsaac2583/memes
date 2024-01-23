@@ -1,8 +1,13 @@
 package kz.ruanjian.memed.dto;
 
-public class LoginDto {
+import jakarta.validation.constraints.NotEmpty;
 
+public class AuthDto {
+
+  @NotEmpty
   private String username;
+
+  @NotEmpty
   private String password;
 
   public String getUsername() {
