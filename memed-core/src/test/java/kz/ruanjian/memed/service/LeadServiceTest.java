@@ -85,6 +85,18 @@ class LeadServiceTest {
     verify(leadRepository).save(expected);
   }
 
+  @Test
+  void save_shouldCreateLead_whenValidCredentialsPassed() {
+    Lead expected = dataGenerator.generateLead(null);
+    doReturn(Optional.empty()).when(leadRepository).findByUsername(expected.getUsername());
+    doReturn(expected).when(leadRepository).save(expected);
+
+    Lead actual = leadService.save(expected);
+
+    assertEquals(expected, actual);
+    verify(leadRepository).save(expected);
+  }
+
   private Lead generateLeadWithUsername(Lead existingLead) {
     Lead lead = dataGenerator.generateLead(null);
     lead.setUsername(existingLead.getUsername());
