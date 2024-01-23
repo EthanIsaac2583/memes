@@ -121,10 +121,6 @@ public class DataGenerator {
       .build();
   }
 
-  public AuthDto generateAuthDto() {
-    return
-  }
-
   private Option generateOption() {
     Option option = new Option();
 

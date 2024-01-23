@@ -1,10 +1,12 @@
 package kz.ruanjian.memed.service;
 
+import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.respository.LeadRepository;
 import kz.ruanjian.memed.respository.VisitRepository;
 import kz.ruanjian.memed.security.SecurityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,29 +38,22 @@ class AuthServiceTest {
   @InjectMocks
   AuthService authService;
 
+  DataGenerator dataGenerator;
+
+  @BeforeEach
+  void setUp() {
+    dataGenerator = new DataGenerator();
+  }
+
   @Test
   void findLeadByUsername() {
   }
 
   @Test
   void login() {
-    AuthDto authDto = generateAuthDto();
-
-    AuthResponseDto actual = authService.login(authDto);
-
-    System.out.println("-----> " + actual);
   }
 
   @Test
   void register() {
-  }
-
-  private AuthDto generateAuthDto() {
-    AuthDto authDto = new AuthDto();
-
-    authDto.setUsername("username");
-    authDto.setPassword("password");
-
-    return authDto;
   }
 }
