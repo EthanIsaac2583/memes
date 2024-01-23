@@ -7,10 +7,12 @@ import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
 import kz.ruanjian.memed.respository.VisitRepository;
 import kz.ruanjian.memed.security.SecurityManager;
+import kz.ruanjian.memed.service.exception.AuthenticationFailedException;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +51,7 @@ public class AuthService {
   }
 
   public AuthResponseDto login(AuthDto authDto) {
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
+    authenticate(authDto);
     Lead lead = findLeadByUsername(authDto.getUsername());
 
     return generateAuthResponse(lead);
@@ -63,6 +65,15 @@ public class AuthService {
     leadRepository.save(lead);
 
     return generateAuthResponse(lead);
+  }
+
+  private void authenticate(AuthDto authDto) {
+    try {
+      UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword());
+      authenticationManager.authenticate(token);
+    } catch (AuthenticationException authenticationException) {
+      throw new AuthenticationFailedException(authenticationException);
+    }
   }
 
   private Visit createVisit() {
