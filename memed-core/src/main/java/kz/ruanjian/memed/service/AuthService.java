@@ -53,7 +53,7 @@ public class AuthService {
 
   @Transactional
   public AuthResponseDto register(AuthDto authDto) {
-    Visit visit = createVisit();
+    Visit visit = visitService.create();
     Lead lead = generateLead(authDto, visit);
     verifyUsernameIsUnique(lead);
     leadRepository.save(lead);
@@ -74,13 +74,6 @@ public class AuthService {
     return leadRepository
       .findByUsername(username)
       .orElseThrow(() -> new NotFoundException(NOT_FOUND));
-  }
-
-  private Visit createVisit() {
-    Visit visit = new Visit();
-    visit.setCreatedAt(ZonedDateTime.now());
-
-    return visitService.save(visit);
   }
 
   private AuthResponseDto generateAuthResponse(Lead lead) {
