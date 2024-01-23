@@ -1,12 +1,10 @@
 package kz.ruanjian.memed.controller;
 
-import kz.ruanjian.memed.dto.VisitDto;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.service.VisitService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +26,7 @@ public class VisitController {
   }
 
   @PostMapping
-  public Visit create(@RequestBody VisitDto visit) {
-    return visitService.create(visit);
+  public Visit create() {
+    return visitService.create();
   }
 }
