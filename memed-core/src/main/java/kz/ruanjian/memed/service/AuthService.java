@@ -44,12 +44,6 @@ public class AuthService {
     this.authenticationManager = authenticationManager;
   }
 
-  public Lead findLeadByUsername(String username) {
-    return leadRepository
-      .findByUsername(username)
-      .orElseThrow(() -> new NotFoundException(NOT_FOUND));
-  }
-
   public AuthResponseDto login(AuthDto authDto) {
     authenticate(authDto);
     Lead lead = findLeadByUsername(authDto.getUsername());
@@ -74,6 +68,12 @@ public class AuthService {
     } catch (AuthenticationException authenticationException) {
       throw new AuthenticationFailedException(authenticationException);
     }
+  }
+
+  private Lead findLeadByUsername(String username) {
+    return leadRepository
+      .findByUsername(username)
+      .orElseThrow(() -> new NotFoundException(NOT_FOUND));
   }
 
   private Visit createVisit() {

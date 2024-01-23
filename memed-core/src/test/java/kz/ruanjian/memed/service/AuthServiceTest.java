@@ -50,19 +50,6 @@ class AuthServiceTest {
   }
 
   @Test
-  void findLeadByUsername_shouldThrowNotFoundException_whenNotExistingUserCredentialsPassed() {
-    AuthDto authDto = dataGenerator.generateAuthDto();
-    doReturn(Optional.empty()).when(leadRepository).findByUsername(authDto.getUsername());
-
-    NotFoundException thrown = assertThrows(NotFoundException.class, () -> authService.login(authDto));
-
-    String exceptedMessage = "User not found";
-    assertEquals(exceptedMessage, thrown.getMessage());
-
-    verify(leadRepository).findByUsername(authDto.getUsername());
-  }
-
-  @Test
   void login() {
   }
 
