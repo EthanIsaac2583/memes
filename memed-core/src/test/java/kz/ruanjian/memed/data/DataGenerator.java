@@ -1,6 +1,7 @@
 package kz.ruanjian.memed.data;
 
 import com.github.javafaker.Faker;
+import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
@@ -118,6 +119,10 @@ public class DataGenerator {
       .password(faker.internet().password())
       .visit(generateVisit())
       .build();
+  }
+
+  public AuthDto generateAuthDto() {
+    return
   }
 
   private Option generateOption() {
