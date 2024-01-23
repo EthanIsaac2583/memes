@@ -73,6 +73,18 @@ class LeadServiceTest {
     verify(leadRepository).findByUsername(expected.getUsername());
   }
 
+  @Test
+  void save_shouldAllowUpdate_whenSameLeadPassed() {
+    Lead expected = dataGenerator.generateLead();
+    doReturn(Optional.of(expected)).when(leadRepository).findByUsername(expected.getUsername());
+    doReturn(expected).when(leadRepository).save(expected);
+
+    Lead actual = leadService.save(expected);
+
+    assertEquals(expected, actual);
+    verify(leadRepository).save(expected);
+  }
+
   private Lead generateLeadWithUsername(Lead existingLead) {
     Lead lead = dataGenerator.generateLead(null);
     lead.setUsername(existingLead.getUsername());
