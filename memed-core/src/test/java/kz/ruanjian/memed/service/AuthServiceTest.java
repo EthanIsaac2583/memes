@@ -4,8 +4,8 @@ import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.model.Lead;
+import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
-import kz.ruanjian.memed.respository.VisitRepository;
 import kz.ruanjian.memed.security.SecurityManager;
 import kz.ruanjian.memed.service.exception.AuthenticationFailedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ class AuthServiceTest {
   LeadRepository leadRepository;
 
   @Mock
-  VisitRepository visitRepository;
+  VisitService visitService;
 
   @Mock
   PasswordEncoder passwordEncoder;
@@ -83,8 +83,31 @@ class AuthServiceTest {
   }
 
   @Test
-  void register_should_when1() {
+  void register_shouldRegisterUser_whenValidCredentialsPassed() {
+    AuthDto authDto = dataGenerator.generateAuthDto();
+    Visit visit = dataGenerator.generateVisit();
+    doReturn(visit).when(visitService).create();
 
+    String encodedPassword = dataGenerator.generateWord(40);
+    doReturn(encodedPassword).when(passwordEncoder).encode(authDto.getPassword());
+
+    Lead lead = Lead.builder()
+      .visit(visit)
+      .username(authDto.getUsername())
+      .password(encodedPassword)
+      .build();
+
+    String token = dataGenerator.generateWord(150);
+    doReturn(token).when(securityManager).generateToken(lead);
+
+    AuthResponseDto expected = AuthResponseDto.builder()
+      .lead(lead)
+      .token(token)
+      .build();
+
+    AuthResponseDto actual = authService.register(authDto);
+
+    assertEquals(expected, actual);
   }
 
   private Authentication generateAuthentication(AuthDto authDto) {
