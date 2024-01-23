@@ -3,6 +3,7 @@ package kz.ruanjian.memed.service;
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.respository.LeadRepository;
+import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,23 @@ class LeadServiceTest {
   }
 
   @Test
-  void save_should_when1() {
+  void save_shouldThrowDataConflictException_whenLeadAlreadyExists() {
+    Lead existingLead = dataGenerator.generateLead();
+    Lead expected = generateLeadWithUsername(existingLead);
+    doReturn(Optional.of(existingLead)).when(leadRepository).findByUsername(expected.getUsername());
+
+    DataConflictException thrown = assertThrows(DataConflictException.class, () -> leadService.save(expected));
+
+    String expectedMessage = "Lead already exists";
+    assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(leadRepository).findByUsername(expected.getUsername());
+  }
+
+  private Lead generateLeadWithUsername(Lead existingLead) {
     Lead lead = dataGenerator.generateLead(null);
+    lead.setUsername(existingLead.getUsername());
+
+    return lead;
   }
 }
