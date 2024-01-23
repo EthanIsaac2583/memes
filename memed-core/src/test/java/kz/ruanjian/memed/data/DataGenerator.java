@@ -121,6 +121,20 @@ public class DataGenerator {
       .build();
   }
 
+  public AuthDto generateAuthDto() {
+    return AuthDto.builder()
+      .username(faker.name().username())
+      .password(faker.internet().password())
+      .build();
+  }
+
+  public AuthDto generateAuthDto(Lead lead) {
+    return AuthDto.builder()
+      .username(lead.getUsername())
+      .password(lead.getPassword())
+      .build();
+  }
+
   private Option generateOption() {
     Option option = new Option();
 
