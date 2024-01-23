@@ -83,7 +83,8 @@ class AuthServiceTest {
   }
 
   @Test
-  void register() {
+  void register_should_when1() {
+
   }
 
   private Authentication generateAuthentication(AuthDto authDto) {

@@ -38,4 +38,12 @@ public class VisitService {
 
     return visit;
   }
+
+  public Visit create() {
+    Visit visit = Visit.builder()
+      .createdAt(ZonedDateTime.now())
+      .build();
+
+    return visitRepository.save(visit);
+  }
 }

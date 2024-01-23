@@ -27,18 +27,18 @@ public class AuthService {
   private static final String NOT_FOUND = "User not found";
 
   private final LeadRepository leadRepository;
-  private final VisitRepository visitRepository;
+  private final VisitService visitService;
   private final PasswordEncoder passwordEncoder;
   private final SecurityManager securityManager;
   private final AuthenticationManager authenticationManager;
 
   public AuthService(LeadRepository leadRepository,
-                     VisitRepository visitRepository,
+                     VisitService visitService,
                      PasswordEncoder passwordEncoder,
                      SecurityManager securityManager,
                      AuthenticationManager authenticationManager) {
     this.leadRepository = leadRepository;
-    this.visitRepository = visitRepository;
+    this.visitService = visitService;
     this.passwordEncoder = passwordEncoder;
     this.securityManager = securityManager;
     this.authenticationManager = authenticationManager;
@@ -80,7 +80,7 @@ public class AuthService {
     Visit visit = new Visit();
     visit.setCreatedAt(ZonedDateTime.now());
 
-    return visitRepository.save(visit);
+    return visitService.save(visit);
   }
 
   private AuthResponseDto generateAuthResponse(Lead lead) {
