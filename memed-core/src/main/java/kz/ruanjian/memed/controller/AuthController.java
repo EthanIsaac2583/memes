@@ -3,7 +3,6 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.dto.AuthDto;
-import kz.ruanjian.memed.dto.RegisterDto;
 import kz.ruanjian.memed.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +20,8 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public AuthResponseDto register(@RequestBody @Valid RegisterDto registerDto) {
-    return authService.register(registerDto);
+  public AuthResponseDto register(@RequestBody @Valid AuthDto authDto) {
+    return authService.register(authDto);
   }
 
   @PostMapping("/login")

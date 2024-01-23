@@ -2,7 +2,6 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.dto.AuthResponseDto;
 import kz.ruanjian.memed.dto.AuthDto;
-import kz.ruanjian.memed.dto.RegisterDto;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
@@ -49,9 +48,9 @@ public class AuthService {
   }
 
   @Transactional
-  public AuthResponseDto register(RegisterDto registerDto) {
+  public AuthResponseDto register(AuthDto authDto) {
     Visit visit = createVisit();
-    Lead lead = generateLead(registerDto, visit);
+    Lead lead = generateLead(authDto, visit);
     verify(lead);
     leadRepository.save(lead);
 
@@ -81,11 +80,11 @@ public class AuthService {
     return authResponseDto;
   }
 
-  private Lead generateLead(RegisterDto registerDto, Visit visit) {
+  private Lead generateLead(AuthDto authDto, Visit visit) {
     Lead lead = new Lead();
 
-    lead.setUsername(registerDto.getUsername());
-    lead.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+    lead.setUsername(authDto.getUsername());
+    lead.setPassword(passwordEncoder.encode(authDto.getPassword()));
     lead.setVisit(visit);
 
     return lead;
