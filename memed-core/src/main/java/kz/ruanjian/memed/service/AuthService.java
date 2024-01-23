@@ -16,9 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuthService {
 
-  private static final String USERNAME_EXISTS = "Username already exists";
-  private static final String NOT_FOUND = "User not found";
-
   private final LeadService leadService;
   private final VisitService visitService;
   private final PasswordEncoder passwordEncoder;
@@ -58,7 +55,7 @@ public class AuthService {
       UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword());
       authenticationManager.authenticate(token);
     } catch (AuthenticationException authenticationException) {
-      throw new AuthenticationFailedException(authenticationException);
+      throw new AuthenticationFailedException(authenticationException.getMessage());
     }
   }
 
