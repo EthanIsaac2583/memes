@@ -21,6 +21,8 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
+  private static final String USERNAME_EXISTS = "Username already exists";
+
   private static final String NOT_FOUND = "Lead not found";
 
   private final LeadRepository leadRepository;
@@ -47,19 +49,19 @@ public class AuthService {
       .orElseThrow(() -> new NotFoundException(NOT_FOUND));
   }
 
-  @Transactional
-  public AuthResponseDto register(AuthDto authDto) {
-    Visit visit = createVisit();
-    Lead lead = generateLead(authDto, visit);
-    verify(lead);
-    leadRepository.save(lead);
+  public AuthResponseDto login(AuthDto authDto) {
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
+    Lead lead = findLeadByUsername(authDto.getUsername());
 
     return generateAuthResponse(lead);
   }
 
-  public AuthResponseDto login(AuthDto authDto) {
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
-    Lead lead = findLeadByUsername(authDto.getUsername());
+  @Transactional
+  public AuthResponseDto register(AuthDto authDto) {
+    Visit visit = createVisit();
+    Lead lead = generateLead(authDto, visit);
+    verifyUsernameIsUnique(lead);
+    leadRepository.save(lead);
 
     return generateAuthResponse(lead);
   }
@@ -81,24 +83,18 @@ public class AuthService {
   }
 
   private Lead generateLead(AuthDto authDto, Visit visit) {
-    Lead lead = new Lead();
-
-    lead.setUsername(authDto.getUsername());
-    lead.setPassword(passwordEncoder.encode(authDto.getPassword()));
-    lead.setVisit(visit);
-
-    return lead;
-  }
-
-  private void verify(Lead lead) {
-    verifyUsernameIsUnique(lead);
+    return Lead.builder()
+      .visit(visit)
+      .username(authDto.getUsername())
+      .password(passwordEncoder.encode(authDto.getPassword()))
+      .build();
   }
 
   private void verifyUsernameIsUnique(Lead lead) {
     Optional<Lead> persistedLead = leadRepository.findByUsername(lead.getUsername());
 
     if (persistedLead.isPresent()) {
-      throw new DataConflictException("Username already exists");
+      throw new DataConflictException(USERNAME_EXISTS);
     }
   }
 }
