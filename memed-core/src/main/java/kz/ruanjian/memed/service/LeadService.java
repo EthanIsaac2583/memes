@@ -39,10 +39,15 @@ public class LeadService {
   }
 
   private void verifyUsernameIsUnique(Lead lead) {
-    Optional<Lead> persistedLead = leadRepository.findByUsername(lead.getUsername());
+    leadRepository
+      .findByUsername(lead.getUsername())
+      .filter(persistedLead -> !isEqualById(lead, persistedLead))
+      .ifPresent(persistedLead -> {
+        throw new DataConflictException(LEAD_EXISTS);
+      });
+  }
 
-    if (persistedLead.isPresent()) {
-      throw new DataConflictException(LEAD_EXISTS);
-    }
+  private boolean isEqualById(Lead lead, Lead persistedLead) {
+    return persistedLead.getId().equals(lead.getId());
   }
 }
