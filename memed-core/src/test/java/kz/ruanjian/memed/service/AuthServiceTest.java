@@ -69,24 +69,17 @@ class AuthServiceTest {
     AuthDto authDto = dataGenerator.generateAuthDto(lead);
     doReturn(Optional.of(lead)).when(leadRepository).findByUsername(authDto.getUsername());
 
-    String expectedToken = dataGenerator.generateWord(100);
-    doReturn(expectedToken).when(securityManager).generateToken(lead);
+    String token = dataGenerator.generateWord(100);
+    doReturn(token).when(securityManager).generateToken(lead);
 
-    AuthResponseDto expected = new AuthResponseDto();
-    expected.setLead(lead);
-    expected.setToken(expectedToken);
+    AuthResponseDto expected = AuthResponseDto.builder()
+      .token(token)
+      .lead(lead)
+      .build();
 
     AuthResponseDto actual = authService.login(authDto);
 
     assertEquals(expected, actual);
-  }
-
-  @Test
-  void login_should_when2() {
-  }
-
-  @Test
-  void login_should_when3() {
   }
 
   @Test
