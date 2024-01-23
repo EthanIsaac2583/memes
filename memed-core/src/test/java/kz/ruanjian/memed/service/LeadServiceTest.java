@@ -57,4 +57,9 @@ class LeadServiceTest {
     assertEquals(expected, actual);
     verify(leadRepository).findByUsername(expected.getUsername());
   }
+
+  @Test
+  void save_should_when1() {
+    Lead lead = dataGenerator.generateLead(null);
+  }
 }

@@ -113,8 +113,12 @@ public class DataGenerator {
   }
 
   public Lead generateLead() {
+    return generateLead(generateLongId());
+  }
+
+  public Lead generateLead(Long id) {
     return Lead.builder()
-      .id(generateLongId())
+      .id(id)
       .username(faker.name().username())
       .password(faker.internet().password())
       .visit(generateVisit())

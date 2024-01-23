@@ -7,8 +7,6 @@ import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class LeadService {
 
