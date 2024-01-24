@@ -7,6 +7,7 @@ import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.ForbiddenException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import kz.ruanjian.memed.specifation.QuestionSpecification;
 import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.grader.GraderContext;
 import org.springframework.data.domain.Page;
@@ -47,12 +48,12 @@ public class QuestionService {
   }
 
   public Item<Question> findItem(UUID visitId, Long quizId, Optional<Integer> number) {
-    Visit visit = visitService.findById(visitId);
     int questionNumber = identifyQuestionNumber(quizId, number);
     Pageable pageable = generateSingleQuestionPageable(questionNumber);
-    Specification<Question> specification = questionRepository.quizIdEquals(quizId);
+    Specification<Question> specification = generateSpecification(visitId, quizId);
+
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
-    verifyItem(questionPage, visit);
+    verifyItemIsPresent(questionPage);
 
     return itemMapper.toItem(questionPage);
   }
@@ -93,20 +94,9 @@ public class QuestionService {
     }
   }
 
-  private void verifyItem(Page<Question> questionPage, Visit visit) {
-    verifyItemIsPresent(questionPage);
-    verifyItemCanBeRead(questionPage, visit);
-  }
-
   private void verifyItemIsPresent(Page<Question> questionPage) {
     if (questionPage.isEmpty()) {
       throw new NotFoundException(QUESTION_NOT_FOUND);
-    }
-  }
-
-  private void verifyItemCanBeRead(Page<Question> questionPage, Visit visit) {
-    if (!questionPage.getContent().get(0).getVisit().equals(visit)) {
-      throw new ForbiddenException("Forbidden to read question");
     }
   }
 
@@ -115,5 +105,12 @@ public class QuestionService {
     Sort sort = Sort.by(Sort.Order.asc("number"));
 
     return PageRequest.of(number, size, sort);
+  }
+
+  private Specification<Question> generateSpecification(UUID visitId, Long quizId) {
+    return QuestionSpecification.builder()
+      .visitId(visitId)
+      .quizId(quizId)
+      .build();
   }
 }
