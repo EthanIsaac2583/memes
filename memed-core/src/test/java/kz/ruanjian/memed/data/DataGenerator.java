@@ -16,6 +16,7 @@ import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -103,13 +104,19 @@ public class DataGenerator {
       .build();
   }
 
+  public List<Task> generateTasks(int size) {
+    return Stream.generate(this::generateTask)
+      .limit(size)
+      .collect(Collectors.toList());
+  }
+
   public Template generateTemplate() {
     return Template.builder()
       .id(generateLongId())
       .name(generateSentence(3))
       .description(generateSentence(10))
       .limit(1)
-      .tasks(generateTasks(2))
+      .tasks(new HashSet<>(generateTasks(2)))
       .build();
   }
 
@@ -164,11 +171,5 @@ public class DataGenerator {
   private String generateUrl() {
     return faker.internet()
       .url();
-  }
-
-  private Set<Task> generateTasks(int size) {
-    return Stream.generate(this::generateTask)
-      .limit(size)
-      .collect(Collectors.toSet());
   }
 }
