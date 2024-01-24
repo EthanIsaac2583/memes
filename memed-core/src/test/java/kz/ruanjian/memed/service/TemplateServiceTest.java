@@ -13,7 +13,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,7 +73,27 @@ class TemplateServiceTest {
   }
 
   @Test
-  void findAll() {
+  void findAll_shouldReturnEmptyPage_when1() {
+    Pageable pageable = PageRequest.of(1000, 10);
+    Page<Template> expected = new PageImpl<>(new ArrayList<>(), pageable, 400);
+    doReturn(expected).when(templateRepository).findAll(pageable);
+
+    Page<Template> actual = templateService.findAll(pageable);
+
+    assertEquals(expected, actual);
+    verify(templateRepository).findAll(pageable);
+  }
+
+  @Test
+  void findAll_shouldReturnPage_when2() {
+    Pageable pageable = PageRequest.of(1, 20);
+    Page<Template> expected = new PageImpl<>(dataGenerator.generateTemplates(20), pageable, 300);
+    doReturn(expected).when(templateRepository).findAll(pageable);
+
+    Page<Template> actual = templateService.findAll(pageable);
+
+    assertEquals(expected, actual);
+    verify(templateRepository).findAll(pageable);
   }
 
   @Test

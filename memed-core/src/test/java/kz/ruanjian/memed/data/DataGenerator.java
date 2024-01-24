@@ -16,6 +16,7 @@ import kz.ruanjian.memed.pojo.body.PlainTextBody;
 import kz.ruanjian.memed.pojo.body.YoutubeVideoBody;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -110,6 +111,12 @@ public class DataGenerator {
       .limit(1)
       .tasks(generateTasks(2))
       .build();
+  }
+
+  public List<Template> generateTemplates(int size) {
+    return Stream.generate(this::generateTemplate)
+      .limit(size)
+      .collect(Collectors.toList());
   }
 
   public Lead generateLead() {
