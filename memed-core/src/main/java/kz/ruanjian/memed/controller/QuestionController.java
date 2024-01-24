@@ -7,8 +7,6 @@ import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.service.QuestionService;
 import kz.ruanjian.memed.service.VisitService;
 import kz.ruanjian.memed.util.Item;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,11 +30,6 @@ public class QuestionController {
                             VisitService visitService) {
     this.questionService = questionService;
     this.visitService = visitService;
-  }
-
-  @GetMapping("/questions")
-  public Page<Question> findAll(Pageable pageable) {
-    return questionService.findAll(pageable);
   }
 
   @GetMapping("/quizzes/{quizId}/questions/item")

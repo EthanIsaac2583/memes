@@ -52,10 +52,6 @@ public class QuestionService {
     return itemMapper.toItem(questionPage);
   }
 
-  public Page<Question> findAll(Pageable pageable) {
-    return questionRepository.findAll(pageable);
-  }
-
   @Transactional
   public Question provideAnswer(Visit visit, Question question) {
     question.setGrade(graderContext.grade(question));
