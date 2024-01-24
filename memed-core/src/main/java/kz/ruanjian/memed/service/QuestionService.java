@@ -1,5 +1,6 @@
 package kz.ruanjian.memed.service;
 
+import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.mapper.ItemMapper;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Visit;
@@ -29,22 +30,13 @@ public class QuestionService {
   private final QuestionRepository questionRepository;
   private final GraderContext graderContext;
   private final ItemMapper itemMapper;
-  private final VisitService visitService;
 
   public QuestionService(QuestionRepository questionRepository,
                          GraderContext graderContext,
-                         ItemMapper itemMapper,
-                         VisitService visitService) {
+                         ItemMapper itemMapper) {
     this.questionRepository = questionRepository;
     this.graderContext = graderContext;
     this.itemMapper = itemMapper;
-    this.visitService = visitService;
-  }
-
-  public Question findByIdAndQuizIdAndVisit(Long id, Long quizId, Visit visit) {
-    return questionRepository
-      .findByIdAndQuizIdAndVisit(id, quizId, visit)
-      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
   public Item<Question> findItem(UUID visitId, Long quizId, Optional<Integer> number) {
@@ -59,13 +51,22 @@ public class QuestionService {
   }
 
   @Transactional
-  public Question provideAnswer(Visit visit, Question question) {
+  public Question provideAnswer(UUID visitId,
+                                Long quizId,
+                                Long questionId,
+                                AnswerDto answerDto) {
+    Question question = findByIdAndQuizIdAndVisit(visitId, quizId, questionId);
+    question.setAnswer(answerDto.getAnswer());
     question.setGrade(graderContext.grade(question));
     question.setAssessed(true);
 
-    verify(visit, question);
-
     return questionRepository.save(question);
+  }
+
+  private Question findByIdAndQuizIdAndVisit(UUID visitId, Long quizId, Long questionId) {
+    return questionRepository
+      .findByIdAndQuizIdAndVisitId(questionId, quizId, visitId)
+      .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
   private int identifyQuestionNumber(Long quizId, Optional<Integer> number) {
@@ -82,16 +83,6 @@ public class QuestionService {
       .findFirstAssessableQuestionNumber(id)
       .map(Long::intValue)
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
-  }
-
-  private void verify(Visit visit, Question question) {
-    verifySameVisit(visit, question);
-  }
-
-  private void verifySameVisit(Visit visit, Question question) {
-    if (!question.getQuiz().getVisit().equals(visit)) {
-      throw new DataConflictException("Different visit");
-    }
   }
 
   private void verifyItemIsPresent(Page<Question> questionPage) {

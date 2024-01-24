@@ -3,9 +3,7 @@ package kz.ruanjian.memed.controller;
 import jakarta.validation.Valid;
 import kz.ruanjian.memed.dto.AnswerDto;
 import kz.ruanjian.memed.model.Question;
-import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.service.QuestionService;
-import kz.ruanjian.memed.service.VisitService;
 import kz.ruanjian.memed.util.Item;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +22,9 @@ import java.util.UUID;
 public class QuestionController {
 
   private final QuestionService questionService;
-  private final VisitService visitService;
 
-  public QuestionController(QuestionService questionService,
-                            VisitService visitService) {
+  public QuestionController(QuestionService questionService) {
     this.questionService = questionService;
-    this.visitService = visitService;
   }
 
   @GetMapping("/quizzes/{quizId}/questions/item")
@@ -44,10 +39,6 @@ public class QuestionController {
                                 @PathVariable Long quizId,
                                 @PathVariable Long id,
                                 @RequestBody @Valid AnswerDto answerDto) {
-    Visit visit = visitService.findById(visitId);
-    Question question = questionService.findByIdAndQuizIdAndVisit(id, quizId, visit);
-    question.setAnswer(answerDto.getAnswer());
-
-    return questionService.provideAnswer(visit, question);
+    return questionService.provideAnswer(visitId, quizId, id, answerDto);
   }
 }
