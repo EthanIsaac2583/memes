@@ -59,7 +59,7 @@ public class QuestionSpecification implements Specification<Question> {
     List<Predicate> predicates = new ArrayList<>();
 
     if (quizId != null) {
-      predicates.add(criteriaBuilder.equal(root.get("quiz").get("id"), query));
+      predicates.add(criteriaBuilder.equal(root.get("quiz").get("id"), quizId));
     }
 
     if (visitId != null) {
