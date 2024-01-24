@@ -10,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class TaskService {
 
@@ -26,6 +29,10 @@ public class TaskService {
   public Task findById(Long id) {
     return taskRepository.findById(id)
       .orElseThrow(() -> new NotFoundException(NOT_FOUND_EXCEPTION));
+  }
+
+  public Set<Task> findAllById(Set<Long> ids) {
+    return new HashSet<>(taskRepository.findAllById(ids));
   }
 
   public Page<Task> findAll(Pageable pageable) {

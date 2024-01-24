@@ -49,11 +49,6 @@ public class TemplateService {
     return template;
   }
 
-  @Transactional
-  public void deleteById(Long id) {
-    templateRepository.deleteById(id);
-  }
-
   private Template mapToTemplate(TemplateDto templateDto) {
     Template template = templateMapper.toTemplate(templateDto);
 
