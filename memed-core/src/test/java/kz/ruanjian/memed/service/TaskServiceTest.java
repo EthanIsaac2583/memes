@@ -1,7 +1,9 @@
 package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.data.DataGenerator;
+import kz.ruanjian.memed.dto.TaskDto;
 import kz.ruanjian.memed.mapper.TaskMapper;
+import kz.ruanjian.memed.mapper.TaskMapperImpl;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.respository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +30,7 @@ class TaskServiceTest {
   TaskRepository taskRepository;
 
   @Spy
-  TaskMapper taskMapper;
+  TaskMapper taskMapper = new TaskMapperImpl();
 
   @InjectMocks
   TaskService taskService;
@@ -55,12 +57,33 @@ class TaskServiceTest {
   }
 
   @Test
-  void save() {
+  void save_shouldSaveTask_whenValidTaskDtoPassed() {
+    Task expected = dataGenerator.generateTask();
+    TaskDto taskDto = generateTaskDto(expected);
+    doReturn(expected).when(taskRepository).save(expected);
+
+    Task actual = taskService.save(taskDto);
+
+    assertEquals(expected, actual);
+    verify(taskMapper).toTask(taskDto);
+    verify(taskRepository).save(expected);
   }
 
   private Set<Long> getTaskIds(List<Task> tasks) {
     return tasks.stream()
       .map(Task::getId)
       .collect(Collectors.toSet());
+  }
+
+  private TaskDto generateTaskDto(Task task) {
+    TaskDto taskDto = new TaskDto();
+
+    taskDto.setId(task.getId());
+    taskDto.setName(task.getName());
+    taskDto.setBody(task.getBody());
+    taskDto.setBlank(task.getBlank());
+    taskDto.setAnswer(task.getAnswer());
+
+    return taskDto;
   }
 }

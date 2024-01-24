@@ -26,9 +26,9 @@ public class TaskService {
   }
 
   @Transactional
-  public void save(TaskDto taskDto) {
+  public Task save(TaskDto taskDto) {
     Task task = taskMapper.toTask(taskDto);
 
-    taskRepository.save(task);
+    return taskRepository.save(task);
   }
 }
