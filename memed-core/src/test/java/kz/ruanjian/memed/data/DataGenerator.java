@@ -5,6 +5,7 @@ import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.model.Quiz;
+import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
@@ -156,7 +157,14 @@ public class DataGenerator {
   }
 
   public Quiz generateQuiz() {
-    return new Quiz();
+    return Quiz.builder()
+      .id(generateLongId())
+      .visit(generateVisit())
+      .template(generateTemplate())
+      .questions(new HashSet<>(generateQuestions(3)))
+      .status(QuizStatus.IN_PROGRESS)
+      .grade(0)
+      .build();
   }
 
   public Question generateQuestion() {
@@ -170,6 +178,12 @@ public class DataGenerator {
       .answer(generateSingleChoiceAnswer())
       .visit(generateVisit())
       .build();
+  }
+
+  private List<Question> generateQuestions(int size) {
+    return Stream.generate(this::generateQuestion)
+      .limit(size)
+      .collect(Collectors.toList());
   }
 
   private Option generateOption() {
