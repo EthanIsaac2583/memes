@@ -3,6 +3,7 @@ package kz.ruanjian.memed.service;
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.mapper.TemplateMapper;
 import kz.ruanjian.memed.mapper.TemplateMapperImpl;
+import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ class TemplateServiceTest {
   }
 
   @Test
-  void findById_should_when1() {
+  void findById_shouldThrowNotFoundException_whenNotExistingTemplateIdPassed() {
     Long id = dataGenerator.generateLongId();
     doReturn(Optional.empty()).when(templateRepository).findById(id);
 
@@ -55,8 +56,14 @@ class TemplateServiceTest {
   }
 
   @Test
-  void findById_should_when2() {
+  void findById_shouldReturnTemplate_whenExistingTemplateIdPassed() {
+    Template expected = dataGenerator.generateTemplate();
+    doReturn(Optional.of(expected)).when(templateRepository).findById(expected.getId());
 
+    Template actual = templateService.findById(expected.getId());
+
+    assertEquals(expected, actual);
+    verify(templateRepository).findById(expected.getId());
   }
 
   @Test
