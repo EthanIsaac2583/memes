@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -59,6 +60,13 @@ class VisitServiceTest {
   }
 
   @Test
-  void create() {
+  void create_shouldCreateVisit_whenRequested() {
+    Visit expected = dataGenerator.generateVisit();
+    doReturn(expected).when(visitRepository).save(any(Visit.class));
+
+    Visit actual = visitService.create();
+
+    assertEquals(expected, actual);
+    verify(visitRepository).save(any(Visit.class));
   }
 }
