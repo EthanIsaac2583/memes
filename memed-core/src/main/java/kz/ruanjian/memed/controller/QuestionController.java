@@ -36,8 +36,7 @@ public class QuestionController {
   public Item<Question> findItem(@RequestHeader("x-visit-id") UUID visitId,
                                  @PathVariable Long quizId,
                                  @RequestParam Optional<Integer> number) {
-    Visit visit = visitService.findById(visitId);
-    return questionService.findQuestionsItem(visit, quizId, number);
+    return questionService.findItem(visitId, quizId, number);
   }
 
   @PutMapping("/quizzes/{quizId}/questions/{id}")

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class QuestionService {
@@ -27,13 +28,16 @@ public class QuestionService {
   private final QuestionRepository questionRepository;
   private final GraderContext graderContext;
   private final ItemMapper itemMapper;
+  private final VisitService visitService;
 
   public QuestionService(QuestionRepository questionRepository,
                          GraderContext graderContext,
-                         ItemMapper itemMapper) {
+                         ItemMapper itemMapper,
+                         VisitService visitService) {
     this.questionRepository = questionRepository;
     this.graderContext = graderContext;
     this.itemMapper = itemMapper;
+    this.visitService = visitService;
   }
 
   public Question findByIdAndQuizIdAndVisit(Long id, Long quizId, Visit visit) {
@@ -42,8 +46,9 @@ public class QuestionService {
       .orElseThrow(() -> new NotFoundException(QUESTION_NOT_FOUND));
   }
 
-  public Item<Question> findQuestionsItem(Visit visit, Long quizId, Optional<Integer> number) {
-    int questionNumber = identifyAssessableQuestionNumber(quizId, number);
+  public Item<Question> findItem(UUID visitId, Long quizId, Optional<Integer> number) {
+    Visit visit = visitService.findById(visitId);
+    int questionNumber = identifyQuestionNumber(quizId, number);
     Pageable pageable = generateSingleQuestionPageable(questionNumber);
     Specification<Question> specification = questionRepository.quizIdEquals(quizId);
     Page<Question> questionPage = questionRepository.findAll(specification, pageable);
@@ -62,7 +67,7 @@ public class QuestionService {
     return questionRepository.save(question);
   }
 
-  private int identifyAssessableQuestionNumber(Long quizId, Optional<Integer> number) {
+  private int identifyQuestionNumber(Long quizId, Optional<Integer> number) {
     if (number.isPresent()) {
       return Math.max(number.get() - 1, 0);
     }
