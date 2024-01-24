@@ -3,6 +3,8 @@ package kz.ruanjian.memed.data;
 import com.github.javafaker.Faker;
 import kz.ruanjian.memed.dto.AuthDto;
 import kz.ruanjian.memed.model.Lead;
+import kz.ruanjian.memed.model.Question;
+import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
@@ -150,6 +152,23 @@ public class DataGenerator {
     return AuthDto.builder()
       .username(lead.getUsername())
       .password(lead.getPassword())
+      .build();
+  }
+
+  public Quiz generateQuiz() {
+    return new Quiz();
+  }
+
+  public Question generateQuestion() {
+    return Question.builder()
+      .id(generateLongId())
+      .number(faker.number().numberBetween(1, 1000))
+      .quiz(generateQuiz())
+      .task(generateTask())
+      .assessed(false)
+      .grade(0)
+      .answer(generateSingleChoiceAnswer())
+      .visit(generateVisit())
       .build();
   }
 
