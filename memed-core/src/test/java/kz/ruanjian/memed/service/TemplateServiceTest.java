@@ -1,8 +1,10 @@
 package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.data.DataGenerator;
+import kz.ruanjian.memed.dto.TemplateDto;
 import kz.ruanjian.memed.mapper.TemplateMapper;
 import kz.ruanjian.memed.mapper.TemplateMapperImpl;
+import kz.ruanjian.memed.model.Task;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -19,8 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
@@ -97,6 +100,33 @@ class TemplateServiceTest {
   }
 
   @Test
-  void save() {
+  void save_shouldSaveTemplate_whenValidTemplateDtoPassed() {
+    Template expected = dataGenerator.generateTemplate();
+    TemplateDto templateDto = generateTemplateDto(expected);
+    doReturn(expected.getTasks()).when(taskService).findAllById(templateDto.getTaskIds());
+    doReturn(expected).when(templateRepository).save(expected);
+
+    Template actual = templateService.save(templateDto);
+
+    assertEquals(expected, actual);
+    verify(templateRepository).save(expected);
+  }
+
+  private TemplateDto generateTemplateDto(Template template) {
+    TemplateDto templateDto = new TemplateDto();
+
+    templateDto.setId(template.getId());
+    templateDto.setName(template.getName());
+    templateDto.setDescription(template.getDescription());
+    templateDto.setTaskIds(getTaskIds(template.getTasks()));
+    templateDto.setLimit(template.getLimit());
+
+    return templateDto;
+  }
+
+  private Set<Long> getTaskIds(Set<Task> tasks) {
+    return tasks.stream()
+      .map(Task::getId)
+      .collect(Collectors.toSet());
   }
 }
