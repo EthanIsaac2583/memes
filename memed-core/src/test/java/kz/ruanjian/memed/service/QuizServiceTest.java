@@ -97,6 +97,22 @@ class QuizServiceTest {
   }
 
   @Test
-  void finalizeByIdAndVisitId() {
+  void finalizeByIdAndVisitId_shouldThrowNotFoundException_whenQuizNotExists() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long id = dataGenerator.generateLongId();
+    doReturn(Optional.empty()).when(quizRepository).findByIdAndVisitId(id, visitId);
+
+    NotFoundException thrown = assertThrows(NotFoundException.class, () -> quizService.finalizeByIdAndVisitId(id, visitId));
+
+    String expectedMessage = "Quiz not found";
+    assertEquals(expectedMessage, thrown.getMessage());
+  }
+
+  @Test
+  void finalizeByIdAndVisitId2() {
+  }
+
+  @Test
+  void finalizeByIdAndVisitId3() {
   }
 }
