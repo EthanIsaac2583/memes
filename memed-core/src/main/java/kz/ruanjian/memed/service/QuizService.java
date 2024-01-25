@@ -7,6 +7,7 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.respository.TemplateRepository;
+import kz.ruanjian.memed.service.exception.ForbiddenException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
@@ -51,7 +52,7 @@ public class QuizService {
   @Transactional
   public Quiz finalizeByIdAndVisit(Long id, Visit visit) {
     Quiz quiz = findById(id);
-    verify(quiz, visit);
+    verifyFinalization(quiz, visit);
 
     quiz.setStatus(QuizStatus.DONE);
     quiz.setGrade(gradeQuiz(quiz));
@@ -63,7 +64,7 @@ public class QuizService {
     Template template = findTemplateById(templateId);
     Quiz quiz = quizGenerator.generate(template, visit);
 
-    verifyQuizzesCountNotExceedLimitIfPresent(quiz);
+    verifyLimitIfPresent(quiz);
 
     return quizRepository.save(quiz);
   }
@@ -92,9 +93,9 @@ public class QuizService {
     return quiz.getQuestions().size();
   }
 
-  private void verify(Quiz quiz, Visit visit) {
+  private void verifyFinalization(Quiz quiz, Visit visit) {
     verifyAllQuestionsAreAssessed(quiz);
-    verifyQuizVisitAndCurrentVisitAreEqual(quiz, visit);
+    verifyVisitPermission(quiz, visit);
   }
 
   private void verifyAllQuestionsAreAssessed(Quiz quiz) {
@@ -105,18 +106,18 @@ public class QuizService {
     }
   }
 
-  private void verifyQuizzesCountNotExceedLimitIfPresent(Quiz quiz) {
+  private void verifyLimitIfPresent(Quiz quiz) {
     if (quiz.getTemplate().getLimit() > 0) {
       Long quizzesCount = findQuizzesCountByTemplateAndVisit(quiz.getTemplate(), quiz.getVisit());
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
-        throw new DataConflictException("Reached max limit for quiz");
+        throw new ForbiddenException("Reached limit for quiz");
       }
     }
   }
 
-  private void verifyQuizVisitAndCurrentVisitAreEqual(Quiz quiz, Visit visit) {
+  private void verifyVisitPermission(Quiz quiz, Visit visit) {
     if (!quiz.getVisit().equals(visit)) {
-      throw new DataConflictException("Current visit is not as quiz creation visit");
+      throw new ForbiddenException("Forbidden to proceed write operation");
     }
   }
 }
