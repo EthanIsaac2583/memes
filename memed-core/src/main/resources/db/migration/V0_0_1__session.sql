@@ -1,7 +1,7 @@
 create table visits
 (
   id         uuid primary key,
-  created_at timestamptz not null
+  created_at timestamp with time zone not null
 );
 
 create table leads
