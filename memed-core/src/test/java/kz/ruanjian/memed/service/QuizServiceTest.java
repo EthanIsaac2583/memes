@@ -32,7 +32,7 @@ class QuizServiceTest {
   @Spy
   QuizGenerator quizGenerator = new QuizGenerator();
 
-  @Mock
+  @Spy
   QuizRepository quizRepository;
 
   @Mock
@@ -83,6 +83,7 @@ class QuizServiceTest {
     Pageable pageable = PageRequest.of(2, 10);
     Page<Quiz> expected = new PageImpl<>(quizzes, pageable, 123);
     Specification<Quiz> specification = quizRepository.visitIdEquals(visitId);
+    doReturn(specification).when(quizRepository).visitIdEquals(visitId);
     doReturn(expected).when(quizRepository).findAll(specification, pageable);
 
     Page<Quiz> actual = quizService.findAllByVisitId(pageable, visitId);
