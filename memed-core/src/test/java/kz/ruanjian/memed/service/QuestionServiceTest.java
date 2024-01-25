@@ -46,7 +46,18 @@ class QuestionServiceTest {
   }
 
   @Test
-  void findItem() {
+  void findItem_shouldThrowNotFoundException_whenNumberNotPassedAndCanNotBeDetermined() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long quizId = dataGenerator.generateLongId();
+    Optional<Integer> number = Optional.empty();
+    doReturn(Optional.empty()).when(questionRepository).findFirstAssessableQuestionNumber(quizId);
+
+    NotFoundException thrown = assertThrows(NotFoundException.class, () -> questionService.findItem(visitId, quizId, number));
+
+    String expectedMessage = "Question not found";
+    assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(questionRepository).findFirstAssessableQuestionNumber(quizId);
   }
 
   @Test
