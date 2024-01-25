@@ -8,6 +8,7 @@ import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.specifation.QuestionSpecification;
+import kz.ruanjian.memed.util.Item;
 import kz.ruanjian.memed.util.grader.GraderContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -88,6 +91,24 @@ class QuestionServiceTest {
 
     verify(questionRepository).findFirstAssessableQuestionNumber(quizId);
     verify(questionRepository).findAll(specification, pageable);
+  }
+
+  @Test
+  void findItem_shouldReturnQuestionItem_whenNumberResolvedAndQuestionExists() {
+    Question question = dataGenerator.generateQuestion();
+    UUID visitId = question.getVisit().getId();
+    Long quizId = question.getQuiz().getId();
+    Optional<Integer> number = Optional.of(question.getNumber());
+
+    Pageable pageable = generateItemSearchPageable(number.get() - 1L);
+    Specification<Question> specification = generateQuestionSpecification(visitId, quizId);
+    Page<Question> questionPage = new PageImpl<>(Collections.singletonList(question), pageable, 100);
+    doReturn(questionPage).when(questionRepository).findAll(specification, pageable);
+
+    Item<Question> expected = itemMapper.toItem(questionPage);
+    Item<Question> actual = questionService.findItem(visitId, quizId, number);
+
+    assertEquals(expected, actual);
   }
 
   @Test
