@@ -2,6 +2,8 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.model.Quiz;
+import kz.ruanjian.memed.model.Template;
+import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
@@ -123,6 +125,27 @@ class QuizServiceTest {
   }
 
   @Test
-  void finalizeByIdAndVisitId3() {
+  void finalizeByIdAndVisitId_shouldFinalizeQuiz_whenValidQuizRequested() {
+    Quiz expected = generateValidQuiz();
+    Long quizId = expected.getId();
+    UUID visitId = expected.getVisit().getId();
+    doReturn(Optional.of(expected)).when(quizRepository).findByIdAndVisitId(quizId, visitId);
+    doReturn(expected).when(quizRepository).save(expected);
+
+    Quiz actual = quizService.finalizeByIdAndVisitId(quizId, visitId);
+
+    assertEquals(expected, actual);
+  }
+
+  private Quiz generateValidQuiz() {
+    Template template = dataGenerator.generateTemplate();
+    Visit visit = dataGenerator.generateVisit();
+    Quiz quiz = quizGenerator.generate(template, visit);
+    quiz.getQuestions().forEach(question -> {
+      question.setAssessed(true);
+      question.setGrade(100);
+    });
+
+    return quiz;
   }
 }
