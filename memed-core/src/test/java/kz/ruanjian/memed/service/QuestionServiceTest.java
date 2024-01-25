@@ -7,6 +7,7 @@ import kz.ruanjian.memed.mapper.ItemMapperImpl;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
 import kz.ruanjian.memed.service.exception.NotFoundException;
+import kz.ruanjian.memed.specifation.QuestionSpecification;
 import kz.ruanjian.memed.util.grader.GraderContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -61,6 +69,28 @@ class QuestionServiceTest {
   }
 
   @Test
+  void findItem_shouldThrowNotFoundException_whenNumberResolvedAndQuestionNotExists() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long quizId = dataGenerator.generateLongId();
+    Optional<Integer> number = Optional.empty();
+    long foundQuestionNumber = 2L;
+    doReturn(Optional.of(foundQuestionNumber)).when(questionRepository).findFirstAssessableQuestionNumber(quizId);
+
+    Pageable pageable = generateItemSearchPageable(foundQuestionNumber - 1L);
+    Specification<Question> specification = generateQuestionSpecification(visitId, quizId);
+    Page<Question> questionPage = new PageImpl<>(new ArrayList<>(), pageable, 100);
+    doReturn(questionPage).when(questionRepository).findAll(specification, pageable);
+
+    NotFoundException thrown = assertThrows(NotFoundException.class, () -> questionService.findItem(visitId, quizId, number));
+
+    String expectedMessage = "Question not found";
+    assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(questionRepository).findFirstAssessableQuestionNumber(quizId);
+    verify(questionRepository).findAll(specification, pageable);
+  }
+
+  @Test
   void provideAnswer_shouldThrow_whenNotExistingQuestionRequested() {
     UUID visitId = dataGenerator.generateUUID();
     Long quizId = dataGenerator.generateLongId();
@@ -97,5 +127,19 @@ class QuestionServiceTest {
 
     verify(questionRepository).findByIdAndQuizIdAndVisitId(questionId, quizId, visitId);
     verify(questionRepository).save(expected);
+  }
+
+  private Pageable generateItemSearchPageable(Long number) {
+    int size = 1;
+    Sort sort = Sort.by(Sort.Order.asc("number"));
+
+    return PageRequest.of(number.intValue(), size, sort);
+  }
+
+  private Specification<Question> generateQuestionSpecification(UUID visitId, Long quizId) {
+    return QuestionSpecification.builder()
+      .visitId(visitId)
+      .quizId(quizId)
+      .build();
   }
 }
