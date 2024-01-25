@@ -94,6 +94,25 @@ class QuestionServiceTest {
   }
 
   @Test
+  void findItem_shouldThrowNotFoundException_whenNumberPresentAndQuestionNotExists() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long quizId = dataGenerator.generateLongId();
+    Optional<Integer> number = Optional.of(1);
+
+    Pageable pageable = generateItemSearchPageable(0L);
+    Specification<Question> specification = generateQuestionSpecification(visitId, quizId);
+    Page<Question> questionPage = new PageImpl<>(new ArrayList<>(), pageable, 100);
+    doReturn(questionPage).when(questionRepository).findAll(specification, pageable);
+
+    NotFoundException thrown = assertThrows(NotFoundException.class, () -> questionService.findItem(visitId, quizId, number));
+
+    String expectedMessage = "Question not found";
+    assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(questionRepository).findAll(specification, pageable);
+  }
+
+  @Test
   void findItem_shouldReturnQuestionItem_whenNumberResolvedAndQuestionExists() {
     Question question = dataGenerator.generateQuestion();
     UUID visitId = question.getVisit().getId();
