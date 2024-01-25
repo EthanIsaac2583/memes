@@ -6,6 +6,7 @@ import kz.ruanjian.memed.mapper.ItemMapper;
 import kz.ruanjian.memed.mapper.ItemMapperImpl;
 import kz.ruanjian.memed.model.Question;
 import kz.ruanjian.memed.respository.QuestionRepository;
+import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.grader.GraderContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,23 @@ class QuestionServiceTest {
   }
 
   @Test
+  void provideAnswer_shouldThrow_whenNotExistingQuestionRequested() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long quizId = dataGenerator.generateLongId();
+    Long questionId = dataGenerator.generateLongId();
+    doReturn(Optional.empty()).when(questionRepository).findByIdAndQuizIdAndVisitId(questionId, quizId, visitId);
+
+    AnswerDto answerDto = new AnswerDto();
+    answerDto.setAnswer(dataGenerator.generateSingleChoiceAnswer());
+
+    NotFoundException thrown = assertThrows(NotFoundException.class,
+      () -> questionService.provideAnswer(visitId, quizId, questionId, answerDto));
+
+    String expectedMessage = "Question not found";
+    assertEquals(expectedMessage, thrown.getMessage());
+  }
+
+  @Test
   void provideAnswer_shouldProvideAnswer_whenExistingQuestionRequestedAndValidAnswerPassed() {
     Question expected = dataGenerator.generateQuestion();
     UUID visitId = expected.getVisit().getId();
@@ -66,9 +84,5 @@ class QuestionServiceTest {
 
     verify(questionRepository).findByIdAndQuizIdAndVisitId(questionId, quizId, visitId);
     verify(questionRepository).save(expected);
-  }
-
-  @Test
-  void provideAnswer_should_when2() {
   }
 }
