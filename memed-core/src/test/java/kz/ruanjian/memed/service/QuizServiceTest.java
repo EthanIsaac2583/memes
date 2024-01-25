@@ -12,7 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,7 +77,18 @@ class QuizServiceTest {
   }
 
   @Test
-  void findAllByVisitId() {
+  void findAllByVisitId_shouldReturnQuizPage_whenRequested() {
+    UUID visitId = dataGenerator.generateUUID();
+    List<Quiz> quizzes = dataGenerator.generateQuizzes(10);
+    Pageable pageable = PageRequest.of(2, 10);
+    Page<Quiz> expected = new PageImpl<>(quizzes, pageable, 123);
+    Specification<Quiz> specification = quizRepository.visitIdEquals(visitId);
+    doReturn(expected).when(quizRepository).findAll(specification, pageable);
+
+    Page<Quiz> actual = quizService.findAllByVisitId(pageable, visitId);
+
+    assertEquals(expected, actual);
+    verify(quizRepository).findAll(specification, pageable);
   }
 
   @Test

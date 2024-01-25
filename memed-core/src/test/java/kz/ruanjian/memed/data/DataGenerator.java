@@ -167,6 +167,12 @@ public class DataGenerator {
       .build();
   }
 
+  public List<Quiz> generateQuizzes(int size) {
+    return Stream.generate(this::generateQuiz)
+      .limit(size)
+      .collect(Collectors.toList());
+  }
+
   public Question generateQuestion() {
     return Question.builder()
       .id(generateLongId())
@@ -186,7 +192,7 @@ public class DataGenerator {
       .build();
   }
 
-  private List<Question> generateQuestions(int size) {
+  public List<Question> generateQuestions(int size) {
     return Stream.generate(this::generateQuestion)
       .limit(size)
       .collect(Collectors.toList());
