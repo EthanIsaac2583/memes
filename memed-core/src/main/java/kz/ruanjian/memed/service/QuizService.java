@@ -20,6 +20,10 @@ import java.util.UUID;
 @Service
 public class QuizService {
 
+  private static final String NOT_FOUND = "Quiz not found";
+  private static final String HAS_NOT_ASSESSED_QUESTION = "Quiz has not assessed question";
+  private static final String REACHED_LIMIT = "Reached limit for quiz";
+
   private final QuizGenerator quizGenerator;
   private final QuizRepository quizRepository;
   private final TemplateService templateService;
@@ -37,7 +41,7 @@ public class QuizService {
 
   public Quiz findByIdAndVisitId(Long id, UUID visitId) {
     return quizRepository.findByIdAndVisitId(id, visitId)
-      .orElseThrow(() -> new NotFoundException("Quiz not found"));
+      .orElseThrow(() -> new NotFoundException(NOT_FOUND));
   }
 
   public Page<Quiz> findAllByVisitId(Pageable pageable, UUID visitId) {
@@ -94,7 +98,7 @@ public class QuizService {
     boolean hasUnAssessedQuestion = quiz.getQuestions().stream().anyMatch(question -> !question.isAssessed());
 
     if (hasUnAssessedQuestion) {
-      throw new DataConflictException("Quiz has not assessed question");
+      throw new DataConflictException(HAS_NOT_ASSESSED_QUESTION);
     }
   }
 
@@ -102,7 +106,7 @@ public class QuizService {
     if (quiz.getTemplate().getLimit() > 0) {
       Long quizzesCount = findQuizzesCountByTemplateAndVisit(quiz.getTemplate(), quiz.getVisit());
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
-        throw new ForbiddenException("Reached limit for quiz");
+        throw new ForbiddenException(REACHED_LIMIT);
       }
     }
   }
