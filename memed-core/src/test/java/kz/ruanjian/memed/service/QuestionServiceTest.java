@@ -64,6 +64,8 @@ class QuestionServiceTest {
 
     String expectedMessage = "Question not found";
     assertEquals(expectedMessage, thrown.getMessage());
+
+    verify(questionRepository).findByIdAndQuizIdAndVisitId(questionId, quizId, visitId);
   }
 
   @Test
