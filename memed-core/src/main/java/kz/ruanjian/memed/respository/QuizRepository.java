@@ -15,7 +15,9 @@ import java.util.UUID;
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long>, JpaSpecificationExecutor<Quiz> {
 
-  Optional<Quiz> findTop1ByStatusAndTemplateIdAndVisit(QuizStatus status, Long templateId, Visit visit);
+  Optional<Quiz> findByIdAndVisitId(Long id, UUID visitId);
+
+  Optional<Quiz> findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus status, Long templateId, UUID visitId);
 
   Long countByTemplateAndVisit(Template template, Visit visit);
 

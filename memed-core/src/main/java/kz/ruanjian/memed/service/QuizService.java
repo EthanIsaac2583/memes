@@ -6,7 +6,6 @@ import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
-import kz.ruanjian.memed.respository.TemplateRepository;
 import kz.ruanjian.memed.service.exception.ForbiddenException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.service.exception.DataConflictException;
@@ -23,36 +22,39 @@ public class QuizService {
 
   private final QuizGenerator quizGenerator;
   private final QuizRepository quizRepository;
-  private final TemplateRepository templateRepository;
+  private final TemplateService templateService;
+  private final VisitService visitService;
 
   public QuizService(QuizGenerator quizGenerator,
                      QuizRepository quizRepository,
-                     TemplateRepository templateRepository) {
+                     TemplateService templateService,
+                     VisitService visitService) {
     this.quizGenerator = quizGenerator;
     this.quizRepository = quizRepository;
-    this.templateRepository = templateRepository;
+    this.templateService = templateService;
+    this.visitService = visitService;
   }
 
-  public Quiz findById(Long id) {
-    return quizRepository.findById(id)
+  public Quiz findByIdAndVisitId(Long id, UUID visitId) {
+    return quizRepository.findByIdAndVisitId(id, visitId)
       .orElseThrow(() -> new NotFoundException("Quiz not found"));
   }
 
-  public Page<Quiz> findAll(Pageable pageable, UUID visitId) {
+  public Page<Quiz> findAllByVisitId(Pageable pageable, UUID visitId) {
     return quizRepository.findAll(quizRepository.visitIdEquals(visitId), pageable);
   }
 
   @Transactional
-  public Quiz requestByTemplateIdAndVisit(Long id, Visit visit) {
+  public Quiz requestByTemplateIdAndVisitId(Long id, UUID visitId) {
     return quizRepository
-      .findTop1ByStatusAndTemplateIdAndVisit(QuizStatus.IN_PROGRESS, id, visit)
-      .orElseGet(() -> generateByTemplateId(id, visit));
+      .findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, id, visitId)
+      .orElseGet(() -> generateByTemplateIdAndVisitId(id, visitId));
   }
 
   @Transactional
-  public Quiz finalizeByIdAndVisit(Long id, Visit visit) {
-    Quiz quiz = findById(id);
-    verifyFinalization(quiz, visit);
+  public Quiz finalizeByIdAndVisitId(Long id, UUID visitId) {
+    Quiz quiz = findByIdAndVisitId(id, visitId);
+    verifyAllQuestionsAreAssessed(quiz);
 
     quiz.setStatus(QuizStatus.DONE);
     quiz.setGrade(gradeQuiz(quiz));
@@ -60,19 +62,14 @@ public class QuizService {
     return quizRepository.save(quiz);
   }
 
-  private Quiz generateByTemplateId(Long templateId, Visit visit) {
-    Template template = findTemplateById(templateId);
+  private Quiz generateByTemplateIdAndVisitId(Long templateId, UUID visitId) {
+    Template template = templateService.findById(templateId);
+    Visit visit = visitService.findById(visitId);
     Quiz quiz = quizGenerator.generate(template, visit);
 
     verifyLimitIfPresent(quiz);
 
     return quizRepository.save(quiz);
-  }
-
-  private Template findTemplateById(Long id) {
-    return templateRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("Template not found"));
   }
 
   private Long findQuizzesCountByTemplateAndVisit(Template template, Visit visit) {
@@ -93,11 +90,6 @@ public class QuizService {
     return quiz.getQuestions().size();
   }
 
-  private void verifyFinalization(Quiz quiz, Visit visit) {
-    verifyAllQuestionsAreAssessed(quiz);
-    verifyVisitPermission(quiz, visit);
-  }
-
   private void verifyAllQuestionsAreAssessed(Quiz quiz) {
     boolean hasUnAssessedQuestion = quiz.getQuestions().stream().anyMatch(question -> !question.isAssessed());
 
@@ -112,12 +104,6 @@ public class QuizService {
       if (quizzesCount >= quiz.getTemplate().getLimit()) {
         throw new ForbiddenException("Reached limit for quiz");
       }
-    }
-  }
-
-  private void verifyVisitPermission(Quiz quiz, Visit visit) {
-    if (!quiz.getVisit().equals(visit)) {
-      throw new ForbiddenException("Forbidden to proceed write operation");
     }
   }
 }
