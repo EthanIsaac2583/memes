@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class QuizServiceTest {
@@ -54,6 +55,19 @@ class QuizServiceTest {
 
     String expectedMessage = "Quiz not found";
     assertEquals(expectedMessage, thrown.getMessage());
+  }
+
+  @Test
+  void findByIdAndVisitId_shouldReturnQuiz_whenQuizExists() {
+    Quiz expected = dataGenerator.generateQuiz();
+    Long quizId = expected.getId();
+    UUID visitId = expected.getVisit().getId();
+    doReturn(Optional.of(expected)).when(quizRepository).findByIdAndVisitId(quizId, visitId);
+
+    Quiz actual = quizService.findByIdAndVisitId(quizId, visitId);
+
+    assertEquals(expected, actual);
+    verify(quizRepository).findByIdAndVisitId(quizId, visitId);
   }
 
   @Test
