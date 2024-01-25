@@ -3,6 +3,7 @@ package kz.ruanjian.memed.service;
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.model.Quiz;
 import kz.ruanjian.memed.respository.QuizRepository;
+import kz.ruanjian.memed.service.exception.DataConflictException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,7 +110,16 @@ class QuizServiceTest {
   }
 
   @Test
-  void finalizeByIdAndVisitId2() {
+  void finalizeByIdAndVisitId_shouldThrowDataConflictException_whenQuizHasNotAssessedQuestion() {
+    Quiz expected = dataGenerator.generateQuiz();
+    Long quizId = expected.getId();
+    UUID visitId = expected.getVisit().getId();
+    doReturn(Optional.of(expected)).when(quizRepository).findByIdAndVisitId(quizId, visitId);
+
+    DataConflictException thrown = assertThrows(DataConflictException.class, () -> quizService.finalizeByIdAndVisitId(quizId, visitId));
+
+    String expectedMessage = "Quiz has not assessed question";
+    assertEquals(expectedMessage, thrown.getMessage());
   }
 
   @Test
