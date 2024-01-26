@@ -36,7 +36,8 @@ public abstract class AbstractComponentsTest {
     .withEnv("DB_USERNAME", "test")
     .withEnv("DB_PASSWORD", "test")
     .withEnv("SECURITY_SECRET", "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0")
-    .withNetwork(network);
+    .withNetwork(network)
+    .withFileSystemBind("./logs", "/workspace/logs");
 
   @DynamicPropertySource
   protected static void setupProperties(DynamicPropertyRegistry registry) {
