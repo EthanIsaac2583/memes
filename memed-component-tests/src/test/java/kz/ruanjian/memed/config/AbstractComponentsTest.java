@@ -1,4 +1,4 @@
-package kz.ruanjian.componenttests.config;
+package kz.ruanjian.memed.config;
 
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;

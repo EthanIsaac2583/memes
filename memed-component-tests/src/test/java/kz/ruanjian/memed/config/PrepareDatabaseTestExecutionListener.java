@@ -1,4 +1,4 @@
-package kz.ruanjian.componenttests.config;
+package kz.ruanjian.memed.config;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.core.env.Environment;
