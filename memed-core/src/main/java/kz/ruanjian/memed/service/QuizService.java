@@ -49,10 +49,10 @@ public class QuizService {
   }
 
   @Transactional
-  public Quiz requestByTemplateIdAndVisitId(Long id, UUID visitId) {
+  public Quiz requestByTemplateIdAndVisitId(Long templateId, UUID visitId) {
     return quizRepository
-      .findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, id, visitId)
-      .orElseGet(() -> generateByTemplateIdAndVisitId(id, visitId));
+      .findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, templateId, visitId)
+      .orElseGet(() -> generateByTemplateIdAndVisitId(templateId, visitId));
   }
 
   @Transactional

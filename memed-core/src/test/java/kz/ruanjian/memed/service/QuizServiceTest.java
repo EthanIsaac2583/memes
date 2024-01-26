@@ -2,6 +2,7 @@ package kz.ruanjian.memed.service;
 
 import kz.ruanjian.memed.data.DataGenerator;
 import kz.ruanjian.memed.model.Quiz;
+import kz.ruanjian.memed.model.QuizStatus;
 import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
@@ -97,7 +98,15 @@ class QuizServiceTest {
 
   // TODO write tests
   @Test
-  void requestByTemplateIdAndVisitId() {
+  void requestByTemplateIdAndVisitId_shouldReturnQuiz_whenQuizExists() {
+    Quiz expected = dataGenerator.generateQuiz();
+    UUID visitId = expected.getVisit().getId();
+    Long templateId = expected.getTemplate().getId();
+    doReturn(Optional.of(expected)).when(quizRepository).findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, templateId, visitId);
+
+    Quiz actual = quizService.requestByTemplateIdAndVisitId(templateId, visitId);
+
+    assertEquals(expected, actual);
   }
 
   @Test
