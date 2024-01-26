@@ -40,6 +40,6 @@ class TestClass extends AbstractComponentsTest {
         .build())
       .exchange()
       .expectStatus()
-      .isOk();
+      .isBadRequest();
   }
 }
