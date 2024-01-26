@@ -149,6 +149,22 @@ class QuizServiceTest {
   }
 
   @Test
+  void requestByTemplateIdAndVisitId_shouldGenerateQuiz_whenValidRequestPerformed() {
+    Quiz expected = dataGenerator.generateQuiz();
+    UUID visitId = expected.getVisit().getId();
+    Long templateId = expected.getTemplate().getId();
+    doReturn(Optional.empty()).when(quizRepository).findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, templateId, visitId);
+    doReturn(expected.getVisit()).when(visitService).findById(visitId);
+    doReturn(expected.getTemplate()).when(templateService).findById(templateId);
+    doReturn(expected).when(quizRepository).save(expected);
+    doReturn(expected).when(quizGenerator).generate(expected.getTemplate(), expected.getVisit());
+
+    Quiz actual = quizService.requestByTemplateIdAndVisitId(templateId, visitId);
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
   void finalizeByIdAndVisitId_shouldThrowNotFoundException_whenQuizNotExists() {
     UUID visitId = dataGenerator.generateUUID();
     Long id = dataGenerator.generateLongId();
