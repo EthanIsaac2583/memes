@@ -98,7 +98,6 @@ class QuizServiceTest {
     verify(quizRepository).findAll(specification, pageable);
   }
 
-  // TODO write tests
   @Test
   void requestByTemplateIdAndVisitId_shouldReturnQuiz_whenQuizExists() {
     Quiz expected = dataGenerator.generateQuiz();
