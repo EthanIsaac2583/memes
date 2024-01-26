@@ -24,6 +24,9 @@ public class PrepareDbTestExecutionListener implements TestExecutionListener {
       .cleanDisabled(false)
       .load();
 
+    flyway.clean();
+    flyway.migrate();
+
     TestExecutionListener.super.beforeTestMethod(testContext);
   }
 }
