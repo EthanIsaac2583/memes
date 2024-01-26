@@ -7,6 +7,7 @@ import kz.ruanjian.memed.model.Template;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.QuizRepository;
 import kz.ruanjian.memed.service.exception.DataConflictException;
+import kz.ruanjian.memed.service.exception.ForbiddenException;
 import kz.ruanjian.memed.service.exception.NotFoundException;
 import kz.ruanjian.memed.util.generator.QuizGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -128,6 +129,23 @@ class QuizServiceTest {
     doThrow(NotFoundException.class).when(visitService).findById(visitId);
 
     assertThrows(NotFoundException.class, () -> quizService.requestByTemplateIdAndVisitId(templateId, visitId));
+  }
+
+  @Test
+  void requestByTemplateIdAndVisitId_shouldThrowForbiddenException_whenReachesLimit() {
+    Visit visit = dataGenerator.generateVisit();
+    Template template = dataGenerator.generateTemplate();
+    template.setLimit(10);
+
+    doReturn(visit).when(visitService).findById(visit.getId());
+    doReturn(template).when(templateService).findById(template.getId());
+    doReturn(10L).when(quizRepository).countByTemplateAndVisit(template, visit);
+
+    ForbiddenException thrown = assertThrows(ForbiddenException.class,
+      () -> quizService.requestByTemplateIdAndVisitId(template.getId(), visit.getId()));
+
+    String expectedMessage = "Reached limit for quiz";
+    assertEquals(expectedMessage, thrown.getMessage());
   }
 
   @Test
