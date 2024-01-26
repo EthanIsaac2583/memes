@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -107,6 +108,26 @@ class QuizServiceTest {
     Quiz actual = quizService.requestByTemplateIdAndVisitId(templateId, visitId);
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void requestByTemplateIdAndVisitId_shouldThrowNotFoundException_whenTemplateNotExists() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long templateId = dataGenerator.generateLongId();
+    doReturn(Optional.empty()).when(quizRepository).findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, templateId, visitId);
+    doThrow(NotFoundException.class).when(templateService).findById(templateId);
+
+    assertThrows(NotFoundException.class, () -> quizService.requestByTemplateIdAndVisitId(templateId, visitId));
+  }
+
+  @Test
+  void requestByTemplateIdAndVisitId_shouldThrowNotFoundException_whenVisitNotExists() {
+    UUID visitId = dataGenerator.generateUUID();
+    Long templateId = dataGenerator.generateLongId();
+    doReturn(Optional.empty()).when(quizRepository).findTop1ByStatusAndTemplateIdAndVisitId(QuizStatus.IN_PROGRESS, templateId, visitId);
+    doThrow(NotFoundException.class).when(visitService).findById(visitId);
+
+    assertThrows(NotFoundException.class, () -> quizService.requestByTemplateIdAndVisitId(templateId, visitId));
   }
 
   @Test
