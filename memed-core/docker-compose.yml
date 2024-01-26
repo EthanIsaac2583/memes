@@ -28,6 +28,8 @@ services:
     depends_on:
       app-postgres:
         condition: service_healthy
+    volumes:
+      - /var/folders/memes/logs:/workspace/logs
     restart: always
     ports:
       - "8080:8080"
