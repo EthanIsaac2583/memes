@@ -10,10 +10,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +31,8 @@ public class Lead implements UserDetails {
   @Column(nullable = false)
   private String password;
 
+  private String role;
+
   @OneToOne
   @JoinColumn(name = "visit_id", updatable = false, nullable = false, unique = true)
   private Visit visit;
@@ -41,6 +44,7 @@ public class Lead implements UserDetails {
     id = builder.id;
     username = builder.username;
     password = builder.password;
+    role = builder.role;
     visit = builder.visit;
   }
 
@@ -71,6 +75,15 @@ public class Lead implements UserDetails {
     this.password = password;
   }
 
+  @JsonIgnore
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
   public Visit getVisit() {
     return visit;
   }
@@ -82,7 +95,7 @@ public class Lead implements UserDetails {
   @JsonIgnore
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return new ArrayList<>();
+    return List.of(new SimpleGrantedAuthority(role));
   }
 
   @JsonIgnore
@@ -114,12 +127,12 @@ public class Lead implements UserDetails {
     if (this==o) return true;
     if (o==null || getClass()!=o.getClass()) return false;
     Lead lead = (Lead) o;
-    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username) && Objects.equals(password, lead.password) && Objects.equals(visit, lead.visit);
+    return Objects.equals(id, lead.id) && Objects.equals(username, lead.username) && Objects.equals(password, lead.password) && Objects.equals(role, lead.role) && Objects.equals(visit, lead.visit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, visit);
+    return Objects.hash(id, username, password, role, visit);
   }
 
   public static Builder builder() {
@@ -131,6 +144,7 @@ public class Lead implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String role;
     private Visit visit;
 
     public Builder id(Long id) {
@@ -145,6 +159,11 @@ public class Lead implements UserDetails {
 
     public Builder password(String password) {
       this.password = password;
+      return this;
+    }
+
+    public Builder role(String role) {
+      this.role = role;
       return this;
     }
 
