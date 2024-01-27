@@ -25,12 +25,8 @@ class LeadComponentTest extends AbstractComponentTest {
 
   WebTestClient webTestClient;
 
-  String authToken;
-
   @BeforeEach
   void setUp() {
-    authToken = getAuthToken();
-
     webTestClient = WebTestClient.bindToServer()
       .baseUrl(getServiceUrl(""))
       .build();
@@ -57,6 +53,8 @@ class LeadComponentTest extends AbstractComponentTest {
 
   @Test
   void findMe_shouldReturnLead_whenValidAuthorizationPassed() throws JsonProcessingException {
+    String authToken = getAuthToken();
+
     webTestClient.get()
       .uri(URI)
       .header("Authorization", "Bearer " + authToken)
