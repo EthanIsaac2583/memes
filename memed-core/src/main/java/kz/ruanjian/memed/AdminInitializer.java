@@ -43,6 +43,9 @@ public class AdminInitializer  implements ApplicationListener<ApplicationReadyEv
 
     if (persistedAdmin.isEmpty()) {
       createAdmin();
+      if (log.isInfoEnabled()) {
+        log.info("Default admin created");
+      }
     } else {
       if (log.isInfoEnabled()) {
         log.info("Default admin already exists");
@@ -60,10 +63,6 @@ public class AdminInitializer  implements ApplicationListener<ApplicationReadyEv
       .build();
 
     leadRepository.save(lead);
-
-    if (log.isInfoEnabled()) {
-      log.info("Default admin created");
-    }
 
     return lead;
   }
