@@ -11,6 +11,7 @@
   <description>memed</description>
   <modules>
     <module>memed-core</module>
+    <module>memed-component-tests</module>
   </modules>
 
   <properties>
