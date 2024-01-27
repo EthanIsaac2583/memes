@@ -17,7 +17,7 @@ import org.testcontainers.lifecycle.Startables;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestExecutionListeners(value = {PrepareDatabaseTestExecutionListener.class, DBRiderTestExecutionListener.class}, mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
-public abstract class AbstractComponentsTest {
+public abstract class AbstractComponentTest {
 
   protected static final Network network = Network.newNetwork();
 

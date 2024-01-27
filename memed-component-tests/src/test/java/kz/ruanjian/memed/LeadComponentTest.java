@@ -3,16 +3,15 @@ package kz.ruanjian.memed;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.SeedStrategy;
-import kz.ruanjian.memed.config.AbstractComponentsTest;
-import kz.ruanjian.memed.model.Template;
+import kz.ruanjian.memed.config.AbstractComponentTest;
+import kz.ruanjian.memed.controller.error.ErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @DataSet(value = "dataset/lead/initial.yml", strategy = SeedStrategy.INSERT)
-class TestClass extends AbstractComponentsTest {
+class LeadComponentTest extends AbstractComponentTest {
 
   static final String URL = "api/v1/private/leads/me";
 
@@ -29,11 +28,16 @@ class TestClass extends AbstractComponentsTest {
   }
 
   @Test
-  void test1() {
+  void findMe_shouldReturnErrorResponse_whenAuthorizationNotPassed() {
     webTestClient.get()
       .uri(URL)
       .exchange()
       .expectStatus()
-      .isOk();
+      .isForbidden()
+      .expectBody(ErrorResponse.class)
+      .isEqualTo(ErrorResponse.builder()
+        .statusCode(403)
+        .message("Full authentication is required to access this resource")
+        .build());
   }
 }
