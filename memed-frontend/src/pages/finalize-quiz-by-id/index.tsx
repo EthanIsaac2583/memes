@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {BaseLayout} from "../../components/base-layout";
 import {useRepositories} from "../../repository/repositories-context";
 import {useEffect, useMemo, useState} from "react";
@@ -34,6 +34,10 @@ export const FinalizeQuizById = () => {
   const repositories = useRepositories();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+
+  const handleGotoRoot = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     if (quizId) {
@@ -79,7 +83,7 @@ export const FinalizeQuizById = () => {
         </Row>
         <Row className="justify-content-center mt-5">
           <Col md={4} className="d-grid">
-            <Button href="/" size="lg">Main page</Button>
+            <Button onClick={handleGotoRoot} type="button" size="lg">Main page</Button>
           </Col>
         </Row>
       </Container>
