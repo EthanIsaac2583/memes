@@ -92,6 +92,7 @@ class AuthServiceTest {
       .visit(visit)
       .username(authDto.getUsername())
       .password(encodedPassword)
+      .role("ROLE_USER")
       .build();
 
     String token = dataGenerator.generateWord(150);
