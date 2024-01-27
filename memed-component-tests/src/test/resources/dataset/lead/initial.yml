@@ -8,3 +8,4 @@ leads:
     username: 'user001'
     password: '$2a$10$JWtoCl4HT9QwhvnA3RbgA.LqhWQTXDWXlR6YVJIiZ4PAMT/vER3I.'
     visit_id: 'e21a5e4f-925e-4384-af3f-0050d49f10c9'
+    role: 'ROLE_USER'
