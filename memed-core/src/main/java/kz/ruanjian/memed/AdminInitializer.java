@@ -1,5 +1,6 @@
 package kz.ruanjian.memed;
 
+import kz.ruanjian.memed.config.MemedProperties;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
 import kz.ruanjian.memed.respository.LeadRepository;
@@ -20,26 +21,28 @@ public class AdminInitializer  implements ApplicationListener<ApplicationReadyEv
 
   private static Logger log = LoggerFactory.getLogger(AdminInitializer.class);
 
-  private LeadRepository leadRepository;
-  private VisitService visitService;
-  private PasswordEncoder passwordEncoder;
+  private final LeadRepository leadRepository;
+  private final VisitService visitService;
+  private final PasswordEncoder passwordEncoder;
+  private final MemedProperties memedProperties;
 
   public AdminInitializer(LeadRepository leadRepository,
                           VisitService visitService,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder,
+                          MemedProperties memedProperties) {
     this.leadRepository = leadRepository;
     this.visitService = visitService;
     this.passwordEncoder = passwordEncoder;
+    this.memedProperties = memedProperties;
   }
 
   @Override
   @Transactional
   public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {
-    String adminUsername = "admin";
-    Optional<Lead> persistedAdmin = leadRepository.findByUsername(adminUsername);
+    Optional<Lead> persistedAdmin = leadRepository.findByUsername(memedProperties.getSecurity().getAdminUsername());
 
     if (persistedAdmin.isEmpty()) {
-      createAdmin(adminUsername, "password");
+      createAdmin();
     } else {
       if (log.isInfoEnabled()) {
         log.info("Default admin already exists");
@@ -47,11 +50,11 @@ public class AdminInitializer  implements ApplicationListener<ApplicationReadyEv
     }
   }
 
-  private Lead createAdmin(String username, String password) {
+  private Lead createAdmin() {
     Visit visit = visitService.create();
     Lead lead = Lead.builder()
-      .username(username)
-      .password(passwordEncoder.encode(password))
+      .username(memedProperties.getSecurity().getAdminUsername())
+      .password(passwordEncoder.encode(memedProperties.getSecurity().getAdminPassword()))
       .role("ROLE_ADMIN")
       .visit(visit)
       .build();
