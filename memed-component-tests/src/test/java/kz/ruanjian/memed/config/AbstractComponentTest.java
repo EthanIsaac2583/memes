@@ -38,10 +38,12 @@ public abstract class AbstractComponentTest {
   protected static final GenericContainer<?> app = new GenericContainer<>("memed-core:latest")
     .dependsOn(db)
     .withExposedPorts(8080)
-    .withEnv("DB_URL", "jdbc:postgresql://db/test")
-    .withEnv("DB_USERNAME", "test")
-    .withEnv("DB_PASSWORD", "test")
-    .withEnv("SECURITY_SECRET", "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0")
+    .withEnv("MEMES_DB_URL", "jdbc:postgresql://db/test")
+    .withEnv("MEMES_DB_USERNAME", "test")
+    .withEnv("MEMES_DB_PASSWORD", "test")
+    .withEnv("MEMES_SECURITY_SECRET", "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0")
+    .withEnv("MEMES_SECURITY_ADMIN_USERNAME", "admin")
+    .withEnv("MEMES_SECURITY_ADMIN_PASSWORD", "admin")
     .withNetwork(network)
     .withFileSystemBind("./logs", "/workspace/logs");
 
