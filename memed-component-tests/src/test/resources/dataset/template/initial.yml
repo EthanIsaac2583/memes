@@ -1,7 +1,7 @@
 tasks:
   - id: 1
-    name:
-    body:
-    blank:
-    answer:
+    name: 'Task 1'
+    body: '{"type":"PLAIN_TEXT","text":"Awesome question"}'
+    blank: '{"type":"SINGLE_CHOICE","options":[{"key":"4","value":"Fourth"},{"key":"2","value":"Second"},{"key":"3","value":"Third"},{"key":"1","value":"First"}]}'
+    answer: '{"type":"SINGLE_CHOICE","key":"1"}'
     is_deleted: false
