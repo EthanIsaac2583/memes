@@ -7,7 +7,8 @@ create table visits
 create table leads
 (
   id       bigserial primary key,
-  username varchar(256) unique not null,
-  password varchar(512) not null,
+  username varchar(256) unique                not null,
+  password varchar(512)                       not null,
+  role     varchar(256)                       not null,
   visit_id uuid references visits (id) unique not null
 );
