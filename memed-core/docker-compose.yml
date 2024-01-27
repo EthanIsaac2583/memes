@@ -22,12 +22,12 @@ services:
     container_name: app
     image: memed-core:latest
     environment:
-      DB_URL: jdbc:postgresql://app-postgres:5432/memes
-      DB_USERNAME: admin
-      DB_PASSWORD: admin
-      SECURITY_SECRET: A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0
-      SECURITY_ADMIN_USERNAME: admin
-      SECURITY_ADMIN_PASSWORD: admin
+      MEMES_DB_URL: jdbc:postgresql://app-postgres:5432/memes
+      MEMES_DB_USERNAME: admin
+      MEMES_DB_PASSWORD: admin
+      MEMES_SECURITY_SECRET: A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0
+      MEMES_SECURITY_ADMIN_USERNAME: admin
+      MEMES_SECURITY_ADMIN_PASSWORD: admin
     depends_on:
       app-postgres:
         condition: service_healthy

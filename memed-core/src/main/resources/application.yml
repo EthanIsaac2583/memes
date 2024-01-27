@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${MEMES_DB_URL}
+    username: ${MEMES_DB_USERNAME}
+    password: ${MEMES_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -18,9 +18,9 @@ spring:
 
 memed:
   security:
-    admin-username: ${SECURITY_ADMIN_USERNAME}
-    admin-password: ${SECURITY_ADMIN_PASSWORD}
-    secret: ${SECURITY_SECRET}
+    admin-username: ${MEMES_SECURITY_ADMIN_USERNAME}
+    admin-password: ${MEMES_SECURITY_ADMIN_PASSWORD}
+    secret: ${MEMES_SECURITY_SECRET}
     expiration-in-ms: 600000
   application:
     grade-min: 0
