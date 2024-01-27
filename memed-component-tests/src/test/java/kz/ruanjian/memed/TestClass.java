@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@DataSet(value = "dataset/task/initial.yml", strategy = SeedStrategy.INSERT)
+@DataSet(value = "dataset/lead/initial.yml", strategy = SeedStrategy.INSERT)
 class TestClass extends AbstractComponentsTest {
 
-  static final String URL = "/api/v1/tasks";
+  static final String URL = "api/v1/private/leads/me";
 
   @Autowired
   ObjectMapper objectMapper;
@@ -30,16 +30,10 @@ class TestClass extends AbstractComponentsTest {
 
   @Test
   void test1() {
-    webTestClient.post()
+    webTestClient.get()
       .uri(URL)
-      .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue(Template.builder()
-        .name("Task to save")
-        .description("Long long description")
-        .limit(0)
-        .build())
       .exchange()
       .expectStatus()
-      .isBadRequest();
+      .isOk();
   }
 }
