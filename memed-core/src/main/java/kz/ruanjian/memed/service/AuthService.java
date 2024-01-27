@@ -73,6 +73,7 @@ public class AuthService {
       .visit(visit)
       .username(authDto.getUsername())
       .password(passwordEncoder.encode(authDto.getPassword()))
+      .role("ROLE_USER")
       .build();
   }
 }
