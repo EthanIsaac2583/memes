@@ -35,3 +35,4 @@ build/
 ### custom  ###
 /memed-core/app-postgres/
 logs
+**/.DS_Store
