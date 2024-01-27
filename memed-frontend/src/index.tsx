@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <RepositoriesProvider baseUrl={process.env.REACT_APP_API_URL}>
+  <RepositoriesProvider baseUrl={process.env.REACT_APP_API_URL ?? ''}>
     <VisitGuard>
       <AuthProvider>
         <RouterProvider router={router} />
