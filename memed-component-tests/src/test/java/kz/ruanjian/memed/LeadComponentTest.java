@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.SeedStrategy;
 import kz.ruanjian.memed.config.AbstractComponentTest;
-import kz.ruanjian.memed.controller.error.ErrorResponse;
 import kz.ruanjian.memed.model.Lead;
 import kz.ruanjian.memed.model.Visit;
 import org.junit.jupiter.api.BeforeEach;

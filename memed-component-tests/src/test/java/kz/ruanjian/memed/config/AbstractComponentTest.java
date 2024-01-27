@@ -55,11 +55,11 @@ public abstract class AbstractComponentTest {
     registry.add("spring.datasource.password", db::getPassword);
   }
 
-  protected static String getServiceUrl(String urlSuffix) {
+  protected String getServiceUrl(String urlSuffix) {
     return "http://localhost:" + app.getMappedPort(8080) + urlSuffix;
   }
 
-  protected static String getAuthToken() {
+  protected String getAuthToken() {
     return WebTestClient.bindToServer()
       .baseUrl(getServiceUrl(""))
       .build()
