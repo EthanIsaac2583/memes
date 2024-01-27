@@ -5,3 +5,13 @@ tasks:
     blank: '{"type":"SINGLE_CHOICE","options":[{"key":"4","value":"Fourth"},{"key":"2","value":"Second"},{"key":"3","value":"Third"},{"key":"1","value":"First"}]}'
     answer: '{"type":"SINGLE_CHOICE","key":"1"}'
     is_deleted: false
+
+templates:
+  - id: 1
+    name: 'Unlimited template'
+    description: 'No limit'
+    quiz_limit: 0
+
+templates_tasks:
+  - task_id: 1
+    template_id: 1
