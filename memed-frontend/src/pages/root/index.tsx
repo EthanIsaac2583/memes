@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import {useRepositories} from "../../repository/repositories-context";
 import {useNavigate} from "react-router-dom";
+import {Motivation} from "../../components/motivation";
 
 export const RootPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const RootPage = () => {
 
   return (
     <BaseLayout>
+      <Motivation />
       <Container>
         <Row>
           {templates.map(template => {

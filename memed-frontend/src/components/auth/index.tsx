@@ -8,11 +8,15 @@ type AuthLead = Lead | null;
 type AuthManager = {
   lead: AuthLead;
   setLead: (lead: AuthLead) => void;
+  showMotivation: boolean;
+  setShowMotivation: (showMotivation: boolean) => void;
 };
 
 const DEFAULT_AUTH_MANAGER: AuthManager = {
   lead: null,
-  setLead: () => {}
+  setLead: () => {},
+  showMotivation: false,
+  setShowMotivation: () => {}
 };
 
 export const authContext = createContext<AuthManager>(DEFAULT_AUTH_MANAGER);
@@ -20,9 +24,10 @@ export const authContext = createContext<AuthManager>(DEFAULT_AUTH_MANAGER);
 export const AuthProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const [lead, setLead] = useState<AuthLead>(null);
+  const [showMotivation, setShowMotivation] = useState(false)
   const repositories = useRepositories();
 
-  const manager = useMemo(() => ({ lead, setLead }), [lead, setLead]);
+  const manager = useMemo(() => ({ lead, setLead, showMotivation, setShowMotivation }), [lead, setLead, showMotivation, setShowMotivation]);
 
   useEffect(() => {
     repositories?.leadRepository
@@ -34,6 +39,7 @@ export const AuthProvider: FC<PropsWithChildren> = (props) => {
       .catch(() => {
         setLead(null);
         ApplicationLocalStorage.removeItem(StorageKey.Token);
+        setShowMotivation(true);
       });
   }, []);
 
