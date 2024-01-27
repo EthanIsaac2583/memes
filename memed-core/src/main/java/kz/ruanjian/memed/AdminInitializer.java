@@ -40,6 +40,10 @@ public class AdminInitializer  implements ApplicationListener<ApplicationReadyEv
 
     if (persistedAdmin.isEmpty()) {
       createAdmin(adminUsername, "password");
+    } else {
+      if (log.isInfoEnabled()) {
+        log.info("Default admin already exists");
+      }
     }
   }
 
