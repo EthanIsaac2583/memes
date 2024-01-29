@@ -21,7 +21,7 @@ memed:
     admin-username: ${MEMES_SECURITY_ADMIN_USERNAME}
     admin-password: ${MEMES_SECURITY_ADMIN_PASSWORD}
     secret: ${MEMES_SECURITY_SECRET}
-    expiration-in-ms: 600000
+    expiration-in-ms: 1209600000
   application:
     grade-min: 0
     grade-max: 100
