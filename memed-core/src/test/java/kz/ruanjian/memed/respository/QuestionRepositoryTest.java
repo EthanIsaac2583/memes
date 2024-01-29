@@ -9,14 +9,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Sql(value = "classpath:db/question/initial.sql")
+@Sql(value = "classpath:db/question/initial.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class QuestionRepositoryTest extends AbstractRepositoryTest {
 
   @Autowired
   QuestionRepository questionRepository;
 
   @Test
-  void findFirstAssessableQuestionNumber1() {
+  void findFirstAssessableQuestionNumber_shouldReturnNumber_whenNotAssessedQuestionExists() {
     Optional<Long> expected = Optional.of(1L);
     Optional<Long> actual = questionRepository.findFirstAssessableQuestionNumber(1L);
 
@@ -24,7 +24,7 @@ class QuestionRepositoryTest extends AbstractRepositoryTest {
   }
 
   @Test
-  void findFirstAssessableQuestionNumber2() {
+  void findFirstAssessableQuestionNumber_shouldReturnEmptyOptional_whenNotAssessedQuestionNotExists() {
     Optional<Long> expected = Optional.empty();
     Optional<Long> actual = questionRepository.findFirstAssessableQuestionNumber(2L);
 
